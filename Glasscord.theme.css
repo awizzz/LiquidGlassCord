@@ -1,10 +1,10 @@
 /**
  * @name Glasscord
- * @author Ruben
+ * @author Awizz
  * @version 1.0.0
  * @description Liquid Glass theme for Discord. Put this .theme.css file in your BetterDiscord/Vencord themes folder; it imports Glasscord.css from GitHub.
- * @website https://github.com/rubenpenalvez/Glasscord
- * @source https://github.com/rubenpenalvez/Glasscord/blob/main/Glasscord.css
+ * @website https://github.com/awizzz/LiquidGlassCord
+ * @source https://github.com/awizzz/LiquidGlassCord/blob/main/Glasscord.css
  */
 @import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@main/Glasscord.css");
 
@@ -16,7 +16,7 @@
       Glasscord.css
       Glasscord.theme.css
 
-  If your GitHub username or repository name is different, replace the import URL above.
+  If your GitHub username or repository name is different, replace the import URL above.	
   Example:
     @import url("https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/Glasscord.css");
 
