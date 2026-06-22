@@ -1,132 +1,154 @@
-@import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@e38592d560a24e35cdc17ceacd0d0c6434a4f16c/LiquidGlassCord.css");
+@import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@b47986bba16e76bd75a97590929d5caf5d7541ab/LiquidGlassCord.css");
 
 /**
  * LiquidGlassCord
- * Version: 9.0.0
+ * Version: 10.0.0
  * Author: Awizz
  *
- * Single-file patch layer over the consolidated v8 base.
- * Fixes submenu offset, folder capsule size, and bottom Liquid Glass fades.
+ * Single-file patch layer over v9.
+ * Stronger visible Liquid Glass fades + harder fixes for submenu popouts and folder capsules.
  */
 
 :root,
 .theme-dark,
 .theme-light {
-  --lgc-v9-fade: linear-gradient(
+  --lgc-v10-panel-rgb: 7, 10, 18;
+  --lgc-v10-panel2-rgb: 10, 15, 27;
+  --lgc-v10-fade-strong: linear-gradient(
     to bottom,
-    rgba(7,10,18,0) 0%,
-    rgba(7,10,18,.20) 35%,
-    rgba(7,10,18,.62) 78%,
-    rgba(7,10,18,.86) 100%
+    rgba(var(--lgc-v10-panel-rgb), 0) 0%,
+    rgba(var(--lgc-v10-panel-rgb), .10) 18%,
+    rgba(var(--lgc-v10-panel-rgb), .34) 42%,
+    rgba(var(--lgc-v10-panel-rgb), .72) 76%,
+    rgba(var(--lgc-v10-panel-rgb), .94) 100%
   );
-  --lgc-v9-fade-soft: linear-gradient(
+  --lgc-v10-fade-glass: linear-gradient(
     to bottom,
-    rgba(10,15,27,0) 0%,
-    rgba(10,15,27,.18) 38%,
-    rgba(10,15,27,.58) 78%,
-    rgba(10,15,27,.80) 100%
+    rgba(var(--lgc-v10-panel2-rgb), 0) 0%,
+    rgba(var(--lgc-v10-panel2-rgb), .12) 20%,
+    rgba(var(--lgc-v10-panel2-rgb), .36) 46%,
+    rgba(var(--lgc-v10-panel2-rgb), .70) 78%,
+    rgba(var(--lgc-v10-panel2-rgb), .88) 100%
   );
-  --lgc-border: rgba(255,255,255,.068) !important;
-  --lgc-border-strong: rgba(255,255,255,.105) !important;
-  --lgc-border-soft: rgba(255,255,255,.030) !important;
 }
 
 /* --------------------------------------------------------------------------
-   1) Context-menu submenus: Discord creates a separate popout for submenus.
-   The earlier margin rules hit the inner menu, but not the popout position.
-   This moves only submenu popouts left, so they sit beside the parent menu.
+   Context-menu submenus
+   Discord renders submenus as their own popout. The previous popout selector
+   was not enough on your build, so this also moves the actual submenu surface.
    -------------------------------------------------------------------------- */
-#app-mount [id^="popout_"]:has(.submenu_c1e9c4),
-#app-mount [id^="popout_"]:has([class^="submenu_"]),
-#app-mount [id^="popout_"]:has([class*=" submenu_"]) {
-  translate: -176px 0 !important;
+#app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
+  margin-left: -148px !important;
+  transform: translateX(-148px) !important;
+  translate: -148px 0 !important;
+  overflow: visible !important;
+  contain: none !important;
 }
 
 #app-mount :is(.submenuPaddingContainer_c1e9c4, [class^="submenuPaddingContainer_"], [class*=" submenuPaddingContainer_"]) {
-  padding-left: 4px !important;
-  margin-left: 0 !important;
+  margin-left: -10px !important;
+  padding-left: 0 !important;
+  overflow: visible !important;
+  contain: none !important;
 }
 
-#app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
-  margin-left: 0 !important;
+#app-mount [id^="popout_"]:has([class*="submenu"]),
+#app-mount [id^="popout_"]:has([role="menu"] [aria-haspopup="menu"]) {
+  overflow: visible !important;
+  contain: none !important;
 }
 
-#app-mount :is(.menu_c1e9c4, .submenu_c1e9c4, [role="menu"]) {
-  border-color: rgba(255,255,255,.075) !important;
+#app-mount :is([role="menu"], .menu_c1e9c4, .submenu_c1e9c4) {
+  border-color: rgba(255,255,255,.060) !important;
+  box-shadow: 0 18px 54px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.10) !important;
 }
 
 /* --------------------------------------------------------------------------
-   2) Open folder in server list: reduce the oversized rounded rectangle.
+   Server folders
+   Your dump shows folderGroupBackground__48112 is already 48px wide, but the
+   visible capsule still feels too wide because the 72px folder list/container
+   remains exposed. This keeps the outer hitbox but makes the glass pill 40px.
    -------------------------------------------------------------------------- */
 #app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"]) {
-  width: 48px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.folderGroup__48112.isExpanded__48112, [class*="folderGroup_"][class*="isExpanded_"]) {
+  background: transparent !important;
 }
 
 #app-mount :is(.folderGroupBackground__48112, .expandedFolderBackground_ef3116, [class^="folderGroupBackground_"], [class*=" folderGroupBackground_"], [class^="expandedFolderBackground_"], [class*=" expandedFolderBackground_"]) {
-  left: 12px !important;
+  left: 16px !important;
   right: auto !important;
-  width: 48px !important;
-  min-width: 48px !important;
-  max-width: 48px !important;
-  border-radius: 18px !important;
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  border-radius: 17px !important;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.052), rgba(255,255,255,.014)),
-    rgba(255,255,255,.024) !important;
+    linear-gradient(180deg, rgba(255,255,255,.040), rgba(255,255,255,.010)),
+    rgba(255,255,255,.020) !important;
   border: 0 !important;
   outline: 0 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.055) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
+  opacity: .92 !important;
 }
 
 #app-mount :is(.folderGuildsList__48112, [class^="folderGuildsList_"], [class*=" folderGuildsList_"]) {
-  width: 48px !important;
-  min-width: 48px !important;
-  max-width: 48px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  width: 72px !important;
+  min-width: 72px !important;
+  max-width: 72px !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   background: transparent !important;
-  border-radius: 18px !important;
-}
-
-#app-mount :is(.folderButton__48112, .folderButtonInner__48112, [class^="folderButton_"], [class*=" folderButton_"], [class^="folderButtonInner_"], [class*=" folderButtonInner_"]) {
-  background: transparent !important;
-  box-shadow: none !important;
   border: 0 !important;
+  box-shadow: none !important;
 }
 
-#app-mount :is(.folderButton__48112, .folderButtonInner__48112, .wrapper_cc5dd2, .wrapper__6e9f8) {
-  max-width: 48px !important;
+#app-mount :is(.folderGuildsList__48112, [class^="folderGuildsList_"], [class*=" folderGuildsList_"]) > .listItem__650eb {
+  width: 72px !important;
+}
+
+#app-mount :is(.folderButton__48112, .folderButtonInner__48112, .folderPreviewWrapper__48112, [class^="folderButton_"], [class*=" folderButton_"], [class^="folderButtonInner_"], [class*=" folderButtonInner_"], [class^="folderPreviewWrapper_"], [class*=" folderPreviewWrapper_"]) {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
 /* --------------------------------------------------------------------------
-   3) Bottom cut: add an actual mask on the scrollable content + a visible overlay.
-   The previous ::after alone could sit behind the scroller content in some views.
+   Stronger Liquid Glass bottom fades
+   Previous mask helped a bit, but it was too short and too dark at the end.
+   This adds a stronger long fade on the scrollers and a bridge above panels.
    -------------------------------------------------------------------------- */
+#app-mount .sidebar__5e434 {
+  position: relative !important;
+}
+
+#app-mount .sidebar__5e434::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 90px !important;
+  right: 8px !important;
+  bottom: 0 !important;
+  height: 170px !important;
+  z-index: 14 !important;
+  pointer-events: none !important;
+  border-radius: 0 0 22px 22px !important;
+  background:
+    linear-gradient(to bottom, rgba(7,10,18,0) 0%, rgba(7,10,18,.16) 28%, rgba(7,10,18,.56) 63%, rgba(7,10,18,.88) 100%),
+    radial-gradient(circle at 50% 100%, rgba(var(--lgc-accent-rgb), .10), transparent 62%) !important;
+}
+
+#app-mount .panels__5e434,
+#app-mount .container__37e49 {
+  z-index: 30 !important;
+}
+
 #app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf) {
   position: relative !important;
   isolation: isolate !important;
-}
-
-#app-mount :is(.scroller__99e7c, .scroller__629e4, .members_c8ffbb, .peopleList__5ec2f, .scroller__7d20c) {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 calc(100% - 76px),
-    rgba(0,0,0,.85) calc(100% - 50px),
-    rgba(0,0,0,.28) calc(100% - 18px),
-    transparent 100%
-  ) !important;
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 calc(100% - 76px),
-    rgba(0,0,0,.85) calc(100% - 50px),
-    rgba(0,0,0,.28) calc(100% - 18px),
-    transparent 100%
-  ) !important;
 }
 
 #app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
@@ -135,31 +157,47 @@
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  height: 82px !important;
-  z-index: 50 !important;
+  height: 132px !important;
+  z-index: 60 !important;
   pointer-events: none !important;
-  background: var(--lgc-v9-fade) !important;
-  opacity: .92 !important;
+  background:
+    var(--lgc-v10-fade-glass),
+    radial-gradient(circle at 50% 100%, rgba(var(--lgc-accent-rgb), .08), transparent 70%) !important;
+  opacity: .96 !important;
+  -webkit-backdrop-filter: blur(1.5px) saturate(120%) !important;
+  backdrop-filter: blur(1.5px) saturate(120%) !important;
 }
 
-#app-mount :is(.peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
-  background: var(--lgc-v9-fade-soft) !important;
+#app-mount :is(.scroller__99e7c, .scroller__629e4, .members_c8ffbb, .peopleList__5ec2f, .scroller__7d20c) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 150px),
+    rgba(0,0,0,.92) calc(100% - 118px),
+    rgba(0,0,0,.68) calc(100% - 82px),
+    rgba(0,0,0,.28) calc(100% - 34px),
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 150px),
+    rgba(0,0,0,.92) calc(100% - 118px),
+    rgba(0,0,0,.68) calc(100% - 82px),
+    rgba(0,0,0,.28) calc(100% - 34px),
+    transparent 100%
+  ) !important;
 }
 
-/* The user panel sits just below the DM/channel list: make its top blend softer. */
-#app-mount .panels__5e434::before,
+/* Avoid the overlay making the user panel itself look cloudy. */
 #app-mount .container__37e49::before {
   content: "" !important;
   position: absolute !important;
   left: 0 !important;
   right: 0 !important;
-  top: -34px !important;
-  height: 34px !important;
+  top: -54px !important;
+  height: 54px !important;
+  z-index: -1 !important;
   pointer-events: none !important;
-  background: linear-gradient(to bottom, rgba(7,10,18,0), rgba(7,10,18,.58)) !important;
-}
-
-#app-mount .container__37e49 {
-  position: relative !important;
-  overflow: visible !important;
+  background: linear-gradient(to bottom, rgba(7,10,18,0), rgba(7,10,18,.42) 58%, rgba(7,10,18,.72)) !important;
 }
