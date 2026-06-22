@@ -1,10 +1,10 @@
 /**
  * LiquidGlassCord
- * Version: 13.0.0
+ * Version: 14.0.0
  * Author: Awizz
  *
  * Standalone single-file Apple Dark / Liquid Glass Discord theme.
- * No nested @imports: LiquidGlassCord.theme.css imports only this file.
+ * No nested @imports.
  */
 
 :root,
@@ -12,9 +12,8 @@
 .theme-light {
   color-scheme: dark !important;
 
-  /* Apple Dark: mostly black/white, no blue UI except real status/icons. */
   --lgc-bg: #000000;
-  --lgc-bg-2: #09090b;
+  --lgc-bg-2: #08080a;
   --lgc-bg-3: #111113;
   --lgc-surface-rgb: 28, 28, 30;
   --lgc-surface-2-rgb: 44, 44, 46;
@@ -25,9 +24,9 @@
   --lgc-warning-rgb: 255, 214, 10;
   --lgc-danger-rgb: 255, 69, 58;
 
-  --lgc-text: rgba(255,255,255,.92);
-  --lgc-text-soft: rgba(235,235,245,.72);
-  --lgc-text-muted: rgba(235,235,245,.46);
+  --lgc-text: rgba(255,255,255,.94);
+  --lgc-text-soft: rgba(235,235,245,.76);
+  --lgc-text-muted: rgba(235,235,245,.52);
 
   --lgc-blur: 9px;
   --lgc-popout-blur: 14px;
@@ -44,66 +43,65 @@
   --lgc-transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --lgc-panel:
-    linear-gradient(180deg, rgba(255,255,255,.082), rgba(255,255,255,.026)),
-    rgba(var(--lgc-surface-rgb), .66);
+    linear-gradient(180deg, rgba(255,255,255,.080), rgba(255,255,255,.024)),
+    rgba(var(--lgc-surface-rgb), .68);
   --lgc-panel-solid:
-    linear-gradient(180deg, rgba(255,255,255,.092), rgba(255,255,255,.030)),
-    rgba(var(--lgc-surface-rgb), .88);
+    linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.030)),
+    rgba(var(--lgc-surface-rgb), .92);
   --lgc-panel-top:
-    linear-gradient(180deg, rgba(255,255,255,.110), rgba(255,255,255,.024)),
-    rgba(var(--lgc-surface-rgb), .62);
+    linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.026)),
+    rgba(var(--lgc-surface-rgb), .70);
   --lgc-card:
-    linear-gradient(180deg, rgba(255,255,255,.054), rgba(255,255,255,.016)),
-    rgba(var(--lgc-surface-2-rgb), .36);
+    linear-gradient(180deg, rgba(255,255,255,.060), rgba(255,255,255,.018)),
+    rgba(var(--lgc-surface-2-rgb), .46);
   --lgc-card-hover:
-    linear-gradient(180deg, rgba(255,255,255,.100), rgba(255,255,255,.030)),
-    rgba(var(--lgc-surface-3-rgb), .48);
+    linear-gradient(180deg, rgba(255,255,255,.110), rgba(255,255,255,.034)),
+    rgba(var(--lgc-surface-3-rgb), .58);
   --lgc-input:
-    linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.018)),
-    rgba(18, 18, 20, .60);
+    linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.020)),
+    rgba(18, 18, 20, .68);
   --lgc-selected:
-    linear-gradient(180deg, rgba(255,255,255,.125), rgba(255,255,255,.034)),
-    rgba(255,255,255,.075);
+    linear-gradient(180deg, rgba(255,255,255,.135), rgba(255,255,255,.040)),
+    rgba(255, 255, 255, .095);
   --lgc-selected-strong:
-    linear-gradient(180deg, rgba(255,255,255,.160), rgba(255,255,255,.045)),
-    rgba(255,255,255,.105);
+    linear-gradient(180deg, rgba(255,255,255,.170), rgba(255,255,255,.050)),
+    rgba(255, 255, 255, .135);
 
-  /* Discord tokens */
-  --background-primary: rgba(18,18,20,.50) !important;
-  --background-secondary: rgba(28,28,30,.58) !important;
-  --background-secondary-alt: rgba(18,18,20,.68) !important;
-  --background-tertiary: rgba(10,10,12,.72) !important;
+  --background-primary: rgba(18,18,20,.52) !important;
+  --background-secondary: rgba(28,28,30,.62) !important;
+  --background-secondary-alt: rgba(18,18,20,.72) !important;
+  --background-tertiary: rgba(10,10,12,.76) !important;
   --background-accent: rgba(255,255,255,.10) !important;
-  --background-floating: rgba(28,28,30,.90) !important;
-  --background-nested-floating: rgba(44,44,46,.76) !important;
-  --background-modifier-hover: rgba(255,255,255,.050) !important;
-  --background-modifier-active: rgba(255,255,255,.078) !important;
-  --background-modifier-selected: rgba(255,255,255,.090) !important;
+  --background-floating: rgba(28,28,30,.92) !important;
+  --background-nested-floating: rgba(44,44,46,.78) !important;
+  --background-modifier-hover: rgba(255,255,255,.055) !important;
+  --background-modifier-active: rgba(255,255,255,.080) !important;
+  --background-modifier-selected: rgba(255,255,255,.10) !important;
   --background-modifier-accent: rgba(255,255,255,.050) !important;
-  --background-message-hover: rgba(255,255,255,.034) !important;
-  --channeltextarea-background: rgba(18,18,20,.62) !important;
-  --input-background: rgba(18,18,20,.60) !important;
-  --modal-background: rgba(28,28,30,.90) !important;
-  --modal-footer-background: rgba(18,18,20,.80) !important;
+  --background-message-hover: rgba(255,255,255,.035) !important;
+  --channeltextarea-background: rgba(18,18,20,.68) !important;
+  --input-background: rgba(18,18,20,.68) !important;
+  --modal-background: rgba(28,28,30,.92) !important;
+  --modal-footer-background: rgba(18,18,20,.84) !important;
 
-  --bg-base-primary: rgba(18,18,20,.50) !important;
-  --bg-base-secondary: rgba(28,28,30,.58) !important;
-  --bg-base-tertiary: rgba(10,10,12,.72) !important;
-  --bg-surface-overlay: rgba(28,28,30,.88) !important;
-  --bg-surface-raised: rgba(44,44,46,.52) !important;
-  --background-base-lowest: rgba(0,0,0,.88) !important;
-  --background-base-lower: rgba(10,10,12,.76) !important;
-  --background-base-low: rgba(18,18,20,.58) !important;
-  --background-base-high: rgba(28,28,30,.46) !important;
-  --background-surface-low: rgba(28,28,30,.34) !important;
-  --background-surface-high: rgba(44,44,46,.42) !important;
-  --background-surface-higher: rgba(58,58,60,.48) !important;
-  --background-surface-highest: rgba(72,72,74,.54) !important;
+  --bg-base-primary: rgba(18,18,20,.52) !important;
+  --bg-base-secondary: rgba(28,28,30,.62) !important;
+  --bg-base-tertiary: rgba(10,10,12,.76) !important;
+  --bg-surface-overlay: rgba(28,28,30,.90) !important;
+  --bg-surface-raised: rgba(44,44,46,.56) !important;
+  --background-base-lowest: rgba(0,0,0,.90) !important;
+  --background-base-lower: rgba(10,10,12,.78) !important;
+  --background-base-low: rgba(18,18,20,.62) !important;
+  --background-base-high: rgba(28,28,30,.50) !important;
+  --background-surface-low: rgba(28,28,30,.38) !important;
+  --background-surface-high: rgba(44,44,46,.46) !important;
+  --background-surface-higher: rgba(58,58,60,.52) !important;
+  --background-surface-highest: rgba(72,72,74,.58) !important;
   --chat-background-default: transparent !important;
   --home-background: transparent !important;
   --custom-channel-members-bg: transparent !important;
   --custom-guild-sidebar-background: transparent !important;
-  --custom-app-top-bar-background: rgba(28,28,30,.52) !important;
+  --custom-app-top-bar-background: rgba(28,28,30,.58) !important;
   --border-faint: rgba(255,255,255,.025) !important;
   --border-subtle: rgba(255,255,255,.040) !important;
   --border-normal: rgba(255,255,255,.060) !important;
@@ -114,15 +112,15 @@
   --text-positive: rgb(var(--lgc-positive-rgb)) !important;
   --text-warning: rgb(var(--lgc-warning-rgb)) !important;
   --text-danger: rgb(var(--lgc-danger-rgb)) !important;
-  --text-link: rgba(255,255,255,.86) !important;
-  --header-primary: rgba(255,255,255,.94) !important;
-  --header-secondary: rgba(235,235,245,.66) !important;
-  --interactive-normal: rgba(235,235,245,.68) !important;
-  --interactive-hover: rgba(255,255,255,.92) !important;
+  --text-link: rgba(255,255,255,.88) !important;
+  --header-primary: rgba(255,255,255,.96) !important;
+  --header-secondary: rgba(235,235,245,.72) !important;
+  --interactive-normal: rgba(235,235,245,.74) !important;
+  --interactive-hover: rgba(255,255,255,.95) !important;
   --interactive-active: #fff !important;
-  --interactive-muted: rgba(235,235,245,.34) !important;
-  --channels-default: rgba(235,235,245,.60) !important;
-  --channel-icon: rgba(235,235,245,.56) !important;
+  --interactive-muted: rgba(235,235,245,.42) !important;
+  --channels-default: rgba(235,235,245,.64) !important;
+  --channel-icon: rgba(235,235,245,.60) !important;
 
   --brand-experiment: rgba(255,255,255,.86) !important;
   --brand-500: rgba(255,255,255,.86) !important;
@@ -137,6 +135,9 @@
 
   --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif !important;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif !important;
+
+  /* Tuning */
+  --lgc-submenu-gap-fix: -82px;
 }
 
 html,
@@ -164,9 +165,9 @@ body {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 16% 0%, rgba(255,255,255,.055), transparent 30%),
-    radial-gradient(circle at 85% 0%, rgba(255,255,255,.040), transparent 28%),
-    linear-gradient(135deg, #000 0%, #070709 46%, #111114 100%) !important;
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.050), transparent 30%),
+    radial-gradient(circle at 82% 0%, rgba(255,255,255,.035), transparent 28%),
+    linear-gradient(135deg, #000 0%, #070709 46%, #111113 100%) !important;
 }
 
 #app-mount::after {
@@ -178,7 +179,7 @@ body {
   background:
     linear-gradient(120deg, transparent 0%, rgba(255,255,255,.030) 22%, transparent 44%),
     radial-gradient(circle at 50% -8%, rgba(255,255,255,.050), transparent 36%);
-  opacity: .36;
+  opacity: .28;
   mix-blend-mode: screen;
 }
 
@@ -238,7 +239,7 @@ body {
   background: rgba(255,255,255,.075) !important;
 }
 
-/* Guild rail */
+/* Main glass panels */
 #app-mount .sidebar__5e434 {
   margin: 0 !important;
   background: transparent !important;
@@ -263,8 +264,41 @@ body {
   -webkit-mask: none !important;
 }
 
-#app-mount :is(.tree_ef3116, .itemsContainer_ef3116, .scroller_ef3116, .stack_dbd263) {
+#app-mount .sidebarList__5e434,
+#app-mount .peopleColumn__133bf,
+#app-mount .nowPlayingColumn__133bf,
+#app-mount .membersWrap_c8ffbb {
+  position: relative !important;
+  border-radius: var(--lgc-radius-xl) !important;
+  background: var(--lgc-panel) !important;
+  border: 1px solid var(--lgc-border) !important;
+  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+#app-mount .sidebarList__5e434 {
+  margin: 8px !important;
+  margin-bottom: calc(var(--custom-app-panels-height, 58px) + 18px) !important;
+}
+
+#app-mount .peopleColumn__133bf,
+#app-mount .nowPlayingColumn__133bf,
+#app-mount .membersWrap_c8ffbb {
+  margin: 0 8px 8px 0 !important;
+}
+
+#app-mount .membersWrap_c8ffbb {
+  padding: 0 !important;
+  margin-top: 8px !important;
+}
+
+#app-mount :is(.tree_ef3116, .itemsContainer_ef3116, .scroller_ef3116, .stack_dbd263, .sidebarListRounded__5e434, .container__2637a, .scroller__629e4, .content_d125d2, .positionedContainer__629e4, .privateChannels_e6b769, .scroller__99e7c, .searchBar__5ec2f, .peopleList__5ec2f, .nowPlayingColumn__133bf, .container__7d20c, .scroller__7d20c, .members_c8ffbb, .members_c8ffbb > .content_d125d2) {
   background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 #app-mount .scroller_ef3116 {
@@ -272,6 +306,7 @@ body {
   padding-bottom: 10px !important;
 }
 
+/* Server folders */
 #app-mount :is(.listItem__650eb, .listItemWrapper__91816, .wrapper_cc5dd2, .wrapper__6e9f8, .childWrapper__6e9f8, .circleIconButton__5bc7e, .blobContainer_e5445c) {
   border-radius: 16px !important;
 }
@@ -282,7 +317,6 @@ body {
   box-shadow: none !important;
 }
 
-/* Server folders */
 #app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"]) {
   position: relative !important;
   width: 72px !important;
@@ -336,27 +370,7 @@ body {
   box-shadow: none !important;
 }
 
-/* Left channel/DM list */
-#app-mount .sidebarList__5e434 {
-  position: relative !important;
-  margin: 8px !important;
-  margin-bottom: calc(var(--custom-app-panels-height, 58px) + 18px) !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-  isolation: isolate !important;
-}
-
-#app-mount :is(.sidebarListRounded__5e434, .container__2637a, .scroller__629e4, .content_d125d2, .positionedContainer__629e4, .privateChannels_e6b769, .scroller__99e7c) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
+/* Channel list / DMs */
 #app-mount :is(.container_f37cb1, .header_f37cb1, .headerContent_f37cb1, .headerChildren_f37cb1) {
   background: transparent !important;
   border: 0 !important;
@@ -398,7 +412,8 @@ body {
 }
 
 #app-mount :is(.selected_c69b6d, .selectedChannel_c69b6d, .modeSelected__2ea32) .link__2ea32,
-#app-mount .containerDefault_c69b6d.selected_c69b6d .link__2ea32 {
+#app-mount .containerDefault_c69b6d.selected_c69b6d .link__2ea32,
+#app-mount :is(.interactiveSelected__972a0, .selected_f88cfd) {
   background: var(--lgc-selected-strong) !important;
   border: 0 !important;
   box-shadow: var(--lgc-inset) !important;
@@ -412,7 +427,6 @@ body {
   background: transparent !important;
 }
 
-/* DM rows */
 #app-mount :is(.friendsButtonContainer_e6b769, .wrapper__553bf, .channel__972a0, .dm__972a0, .container_e45859) {
   background: transparent !important;
   border-radius: 15px !important;
@@ -435,16 +449,11 @@ body {
   box-shadow: inset 0 1px 0 rgba(255,255,255,.040) !important;
 }
 
-#app-mount :is(.interactiveSelected__972a0, .selected_f88cfd) {
-  background: var(--lgc-selected-strong) !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
 #app-mount :is(.activityStatusText__972a0, .subtext__972a0, .overflowTooltip__972a0) {
   color: rgba(235,235,245,.56) !important;
 }
 
-/* User account panel */
+/* User panel */
 #app-mount .panels__5e434 {
   background: transparent !important;
   border: 0 !important;
@@ -544,33 +553,10 @@ body {
   color: rgba(255,255,255,.92) !important;
 }
 
-#app-mount .tabBody__133bf {
+#app-mount .tabBody__133bf,
+#app-mount :is(.searchBar__5ec2f, .peopleList__5ec2f, .peopleListItem_cc6179, .listItemContents_fc004c, .userInfo__0a06e, .text__0a06e) {
   background: transparent !important;
   border: 0 !important;
-}
-
-#app-mount .peopleColumn__133bf,
-#app-mount .nowPlayingColumn__133bf,
-#app-mount .membersWrap_c8ffbb {
-  position: relative !important;
-  margin: 0 8px 8px 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-  isolation: isolate !important;
-}
-
-#app-mount .membersWrap_c8ffbb {
-  padding: 0 !important;
-  margin-top: 8px !important;
-}
-
-#app-mount :is(.searchBar__5ec2f, .peopleList__5ec2f, .peopleListItem_cc6179, .listItemContents_fc004c, .userInfo__0a06e, .text__0a06e, .nowPlayingColumn__133bf, .container__7d20c, .scroller__7d20c) {
-  background: transparent !important;
 }
 
 #app-mount .peopleListItem_cc6179 {
@@ -661,16 +647,12 @@ body {
   background: transparent !important;
 }
 
-/* Member list */
+/* Members */
 #app-mount .content_f75fb0 > .container_c8ffbb,
 #app-mount .container_c8ffbb {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-}
-
-#app-mount :is(.members_c8ffbb, .members_c8ffbb > .content_d125d2) {
-  background: transparent !important;
 }
 
 #app-mount :is(.member_c8ffbb, .member__5d473, .memberInner__5d473, .container__91a9d, .layout__91a9d, .childContainer__91a9d, .clickable__91a9d, .content__91a9d, .nameAndDecorators__91a9d, .name__91a9d, .subText__91a9d) {
@@ -713,9 +695,14 @@ body {
   background: var(--lgc-panel-solid) !important;
   border: 1px solid var(--lgc-border) !important;
   border-radius: 16px !important;
+  color: rgba(255,255,255,.94) !important;
   box-shadow: var(--lgc-shadow-strong), var(--lgc-inset) !important;
   -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(145%) !important;
   backdrop-filter: blur(var(--lgc-popout-blur)) saturate(145%) !important;
+}
+
+#app-mount :is([role="menu"], .menu_c1e9c4, .submenu_c1e9c4) * {
+  color: inherit !important;
 }
 
 #app-mount :is(.item_c1e9c4, [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]) {
@@ -724,13 +711,17 @@ body {
 }
 
 #app-mount :is(.item_c1e9c4.focused_c1e9c4, .item_c1e9c4:hover, [role="menuitem"]:hover, [role="menuitemcheckbox"]:hover, [role="menuitemradio"]:hover) {
-  background: rgba(255,255,255,.085) !important;
+  background: rgba(255,255,255,.095) !important;
 }
 
-/* Submenu positioning: right side, nearly touching parent. */
+#app-mount :is([role="menu"], .menu_c1e9c4, .submenu_c1e9c4) :is([aria-disabled="true"], [class*="disabled"], [class*="Disabled"]) {
+  color: rgba(235,235,245,.46) !important;
+}
+
+/* Submenu positioning: right side, almost attached to parent. */
 #app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
   margin-left: 0 !important;
-  transform: translateX(-166px) !important;
+  transform: none !important;
   translate: 0 0 !important;
   overflow: visible !important;
   contain: none !important;
@@ -743,20 +734,19 @@ body {
   contain: none !important;
 }
 
-#app-mount [id^="popout_"]:has(.submenu_c1e9c4),
-#app-mount [id^="popout_"]:has([class^="submenu_"]),
-#app-mount [id^="popout_"]:has([class*=" submenu_"]),
+#app-mount :is(.layerContainer__59d0d, .layerContainer_da8173, [class^="layerContainer_"], [class*=" layerContainer_"]) > :is(div, [id^="popout_"]):has([role="menu"]) + :is(div, [id^="popout_"]):has([role="menu"]),
 #app-mount [id^="popout_"]:has(input[placeholder*="Search commands"]),
 #app-mount [id^="popout_"]:has([aria-label*="Search commands"]),
-#app-mount [id^="popout_"]:has([class^="searchBar_"] input),
-#app-mount [id^="popout_"]:has([class*=" searchBar_"] input) {
-  transform: translateX(-166px) !important;
+#app-mount [id^="popout_"]:has(.submenu_c1e9c4),
+#app-mount [id^="popout_"]:has([class^="submenu_"]),
+#app-mount [id^="popout_"]:has([class*=" submenu_"]) {
+  transform: translateX(var(--lgc-submenu-gap-fix)) !important;
   translate: 0 0 !important;
   overflow: visible !important;
   contain: none !important;
 }
 
-/* Popouts, modals, profiles, pickers */
+/* Popouts, profiles, modals, pickers */
 #app-mount :is(
   [role="dialog"],
   .modal__7f8f5,
@@ -784,6 +774,40 @@ body {
   box-shadow: var(--lgc-shadow-strong), var(--lgc-inset) !important;
   -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(145%) !important;
   backdrop-filter: blur(var(--lgc-popout-blur)) saturate(145%) !important;
+  color: rgba(255,255,255,.94) !important;
+  --text-normal: rgba(255,255,255,.94) !important;
+  --text-muted: rgba(235,235,245,.54) !important;
+  --header-primary: rgba(255,255,255,.96) !important;
+  --header-secondary: rgba(235,235,245,.74) !important;
+  --interactive-normal: rgba(235,235,245,.76) !important;
+  --interactive-hover: rgba(255,255,255,.96) !important;
+  --interactive-muted: rgba(235,235,245,.46) !important;
+}
+
+#app-mount :is(
+  .outer_c0bea0,
+  .inner_c0bea0,
+  .userPopoutOuter_c69a7b,
+  .userProfileOuter_c69a7b,
+  [class^="userPopout"],
+  [class*=" userPopout"],
+  [class^="userProfile"],
+  [class*=" userProfile"]
+) :is(div, span, p, h1, h2, h3, h4, strong, small, label, a, button) {
+  color: inherit !important;
+}
+
+#app-mount :is(
+  .outer_c0bea0,
+  .inner_c0bea0,
+  .userPopoutOuter_c69a7b,
+  .userProfileOuter_c69a7b,
+  [class^="userPopout"],
+  [class*=" userPopout"],
+  [class^="userProfile"],
+  [class*=" userProfile"]
+) :is([class*="muted"], [class*="Muted"], [class*="disabled"], [class*="Disabled"], [aria-disabled="true"]) {
+  color: rgba(235,235,245,.50) !important;
 }
 
 #app-mount :is(.overlayBackground_c69a7b, .bodyInnerWrapper_c69a7b, .body__24502, .footer__49fc1) {
@@ -883,15 +907,15 @@ body {
   transition: transform var(--lgc-transition), background-color var(--lgc-transition), box-shadow var(--lgc-transition), filter var(--lgc-transition) !important;
 }
 
-#app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, .button_f7ecac, .hoverBarButton_f84418, [class^="lookFilled_"], [class*=" lookFilled_"], [class^="actionButton_"], [class*=" actionButton_"]) {
-  background: rgba(255,255,255,.095) !important;
+#app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, .button_f7ecac, .hoverBarButton_f84418, .peopleListItem_cc6179 [role="button"], [class^="lookFilled_"], [class*=" lookFilled_"], [class^="actionButton_"], [class*=" actionButton_"]) {
+  background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.030)), rgba(255,255,255,.075) !important;
   color: rgba(255,255,255,.92) !important;
   border: 0 !important;
-  box-shadow: var(--lgc-inset) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.090), 0 8px 20px rgba(0,0,0,.18) !important;
 }
 
-#app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, .button_f7ecac, .hoverBarButton_f84418, [class^="lookFilled_"], [class*=" lookFilled_"], [class^="actionButton_"], [class*=" actionButton_"]):hover {
-  background: rgba(255,255,255,.14) !important;
+#app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, .button_f7ecac, .hoverBarButton_f84418, .peopleListItem_cc6179 [role="button"], [class^="lookFilled_"], [class*=" lookFilled_"], [class^="actionButton_"], [class*=" actionButton_"]):hover {
+  background: linear-gradient(180deg, rgba(255,255,255,.150), rgba(255,255,255,.045)), rgba(255,255,255,.115) !important;
   filter: none !important;
 }
 
@@ -906,7 +930,7 @@ body {
   transform: translateY(0) scale(.985);
 }
 
-/* Blue-ish badges and buttons neutralized */
+/* Badges / tags / roles */
 #app-mount :is(
   .botTag__82f07,
   .botTagRegular__82f07,
@@ -936,7 +960,7 @@ body {
 #app-mount :is(.botTag__82f07, .botTagRegular__82f07, .botTag__5d473, .badge__10651, .messageBadge__10651, .chipletContainerInner__10651, .messageChipletContainerInner__10651, .clanTagChiplet_c19a55, .numberBadge__463b7) {
   border-radius: 999px !important;
   background: rgba(255,255,255,.115) !important;
-  color: rgba(255,255,255,.90) !important;
+  color: rgba(255,255,255,.92) !important;
 }
 
 #app-mount :is(.vc-membercount-widget, .vc-membercount-container, .vc-membercount-tooltip) {
@@ -945,12 +969,6 @@ body {
 }
 
 /* Bottom fades */
-#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf) {
-  position: relative !important;
-  isolation: isolate !important;
-  overflow: hidden !important;
-}
-
 #app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
   content: "" !important;
   position: absolute !important;
