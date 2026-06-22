@@ -1,0 +1,389 @@
+/**
+ * LiquidGlassCord Hotfix Layer
+ * Version: 6.0.0
+ * Author: Awizz
+ *
+ * Fixes: context-menu submenus, Friends header, DM rows, member list black boxes, and channel list polish.
+ * Loaded last, after the class-dump live layer.
+ */
+
+:root,
+.theme-dark,
+.theme-light {
+  --lgc-fix-blur: 7px;
+  --lgc-fix-popout-blur: 12px;
+  --lgc-fix-radius-xl: 22px;
+  --lgc-fix-radius-lg: 17px;
+  --lgc-fix-radius-md: 13px;
+  --lgc-fix-border: rgba(255,255,255,.125);
+  --lgc-fix-border-strong: rgba(255,255,255,.205);
+  --lgc-fix-border-soft: rgba(255,255,255,.070);
+  --lgc-fix-shadow: 0 12px 32px rgba(0,0,0,.24);
+  --lgc-fix-inset: inset 0 1px 0 rgba(255,255,255,.145), inset 0 -1px 0 rgba(255,255,255,.032);
+  --lgc-fix-panel:
+    linear-gradient(180deg, rgba(255,255,255,.102), rgba(255,255,255,.036)),
+    rgba(10,15,27,.62);
+  --lgc-fix-panel-solid:
+    linear-gradient(180deg, rgba(255,255,255,.102), rgba(255,255,255,.034)),
+    rgba(10,15,27,.80);
+  --lgc-fix-card:
+    linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.025)),
+    rgba(25,33,50,.30);
+  --lgc-fix-card-hover:
+    linear-gradient(180deg, rgba(255,255,255,.130), rgba(255,255,255,.045)),
+    rgba(40,52,75,.40);
+  --lgc-fix-input:
+    linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.024)),
+    rgba(5,8,16,.48);
+  --lgc-fix-selected:
+    linear-gradient(180deg, rgba(255,255,255,.145), rgba(255,255,255,.048)),
+    linear-gradient(135deg, rgba(var(--lgc-accent-rgb),.31), rgba(var(--lgc-accent-2-rgb),.17));
+}
+
+/* --------------------------------------------------------------------------
+   Critical fix: right-click menu submenus were clipped by earlier overflow:hidden.
+   -------------------------------------------------------------------------- */
+#app-mount :is(
+  .layerContainer__59d0d,
+  .layerContainer_da8173,
+  [class^='layerContainer_'], [class*=' layerContainer_'],
+  [id^='popout_'],
+  [class^='popout_'], [class*=' popout_'],
+  [class^='submenu_'], [class*=' submenu_'],
+  [class^='submenuPaddingContainer_'], [class*=' submenuPaddingContainer_']
+) {
+  overflow: visible !important;
+  contain: none !important;
+  z-index: 9999 !important;
+}
+
+#app-mount :is(
+  [role='menu'],
+  .menu_c1e9c4,
+  .submenu_c1e9c4,
+  [class^='menu_'], [class*=' menu_'],
+  [class^='submenu_'], [class*=' submenu_']
+) {
+  overflow: visible !important;
+  contain: none !important;
+  background: var(--lgc-fix-panel-solid) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.34), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-popout-blur)) saturate(150%) !important;
+  backdrop-filter: blur(var(--lgc-fix-popout-blur)) saturate(150%) !important;
+}
+
+#app-mount :is(
+  .item_c1e9c4,
+  [class^='item_'][role='menuitem'],
+  [role='menuitem'],
+  [role='menuitemcheckbox'],
+  [role='menuitemradio']
+) {
+  border-radius: 11px !important;
+  margin: 2px 4px !important;
+}
+
+#app-mount :is(
+  .item_c1e9c4.focused_c1e9c4,
+  .item_c1e9c4:hover,
+  [role='menuitem']:hover,
+  [role='menuitemcheckbox']:hover,
+  [role='menuitemradio']:hover
+) {
+  background: rgba(var(--lgc-accent-rgb), .18) !important;
+}
+
+#app-mount :is(.caret_c1e9c4, .arrow_c1e9c4, [class^='caret_'], [class*=' caret_'], [class^='arrow_'], [class*=' arrow_']) {
+  opacity: .95 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Friends / DM page top bar: remove Discord's flat grey bar.
+   -------------------------------------------------------------------------- */
+#app-mount .container__133bf {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+#app-mount .container__133bf > .container__9293f,
+#app-mount main.container__133bf > section.container__9293f,
+#app-mount :is(.container__9293f.themed__9293f, .container__9293f) {
+  margin: 8px 8px 10px 0 !important;
+  min-height: 48px !important;
+  border-radius: var(--lgc-fix-radius-xl) !important;
+  background: var(--lgc-fix-panel) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  box-shadow: var(--lgc-fix-shadow), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  overflow: hidden !important;
+}
+
+#app-mount :is(.upperContainer__9293f, .children__9293f, .toolbar__9293f, .titleWrapper__9293f) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.tabBar__133bf, .topPill_aa8da2) {
+  height: 34px !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: transparent !important;
+}
+
+#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.item__133bf, .item_aa8da2) {
+  height: 30px !important;
+  padding: 0 13px !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: rgba(245,247,251,.72) !important;
+}
+
+#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.item__133bf, .item_aa8da2):hover {
+  background: rgba(255,255,255,.065) !important;
+  color: #fff !important;
+}
+
+#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.selected_aa8da2, .selected__133bf, [aria-selected='true']) {
+  background: var(--lgc-fix-selected) !important;
+  border: 1px solid rgba(var(--lgc-accent-rgb), .24) !important;
+  box-shadow: var(--lgc-fix-inset) !important;
+  color: #fff !important;
+}
+
+#app-mount .addFriend__133bf {
+  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.055)), rgba(var(--lgc-accent-rgb), .78) !important;
+  border: 1px solid rgba(255,255,255,.20) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 20px rgba(var(--lgc-accent-rgb), .18), var(--lgc-fix-inset) !important;
+  color: #fff !important;
+}
+
+/* Friends body + search input. */
+#app-mount .tabBody__133bf {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+#app-mount .peopleColumn__133bf {
+  background: var(--lgc-fix-panel) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  border-radius: var(--lgc-fix-radius-xl) !important;
+  box-shadow: var(--lgc-fix-shadow), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  overflow: hidden !important;
+}
+
+#app-mount :is(.searchBar__5ec2f, .peopleList__5ec2f, .peopleListItem_cc6179, .listItemContents_fc004c, .userInfo__0a06e, .text__0a06e) {
+  background: transparent !important;
+}
+
+#app-mount .peopleListItem_cc6179 {
+  border-radius: 16px !important;
+  border: 1px solid transparent !important;
+}
+
+#app-mount .peopleListItem_cc6179:hover {
+  background: var(--lgc-fix-card-hover) !important;
+  border-color: var(--lgc-fix-border-soft) !important;
+  box-shadow: var(--lgc-fix-inset) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Left DM rows: remove ugly black capsules around users.
+   -------------------------------------------------------------------------- */
+#app-mount :is(.privateChannels_e6b769, .scroller__99e7c, .content_d125d2, .friendsButtonContainer_e6b769, .wrapper__553bf) {
+  background: transparent !important;
+}
+
+#app-mount :is(.channel__972a0, .dm__972a0, .container_e45859) {
+  background: transparent !important;
+  border-radius: 15px !important;
+}
+
+#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0, .link__972a0, .layout__20a53, .avatarWithText__972a0, .content__20a53, .nameAndDecorators__20a53, .name__20a53, .subText__20a53) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0) {
+  border-radius: 15px !important;
+  border: 1px solid transparent !important;
+  transition: background-color .16s cubic-bezier(.2,.8,.2,1), border-color .16s cubic-bezier(.2,.8,.2,1), box-shadow .16s cubic-bezier(.2,.8,.2,1), transform .16s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0):hover {
+  background: rgba(255,255,255,.055) !important;
+  border-color: var(--lgc-fix-border-soft) !important;
+}
+
+#app-mount :is(.interactiveSelected__972a0, .selected_f88cfd) {
+  background: var(--lgc-fix-selected) !important;
+  border-color: rgba(var(--lgc-accent-rgb), .22) !important;
+  box-shadow: var(--lgc-fix-inset) !important;
+}
+
+#app-mount :is(.activityStatusText__972a0, .subtext__972a0, .overflowTooltip__972a0) {
+  color: rgba(201,209,222,.74) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Server member list: remove the black per-user background and black edges.
+   -------------------------------------------------------------------------- */
+#app-mount .content_f75fb0 > .container_c8ffbb,
+#app-mount .container_c8ffbb {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount .membersWrap_c8ffbb {
+  margin: 8px 8px 8px 0 !important;
+  padding: 0 !important;
+  border-radius: var(--lgc-fix-radius-xl) !important;
+  background: var(--lgc-fix-panel) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  box-shadow: var(--lgc-fix-shadow), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  overflow: hidden !important;
+}
+
+#app-mount :is(.members_c8ffbb, .members_c8ffbb > .content_d125d2) {
+  background: transparent !important;
+}
+
+#app-mount :is(.member_c8ffbb, .member__5d473, .memberInner__5d473, .container__91a9d, .layout__91a9d, .childContainer__91a9d, .clickable__91a9d, .content__91a9d, .nameAndDecorators__91a9d, .name__91a9d, .subText__91a9d) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.member_c8ffbb, .member__5d473, .container__91a9d) {
+  margin: 1px 6px !important;
+  border-radius: 15px !important;
+  border: 1px solid transparent !important;
+}
+
+#app-mount :is(.member_c8ffbb:hover, .member__5d473:hover, .container__91a9d:hover, .clickable__91a9d:hover) {
+  background: rgba(255,255,255,.055) !important;
+  border-color: var(--lgc-fix-border-soft) !important;
+}
+
+#app-mount :is(.membersGroup_c8ffbb, .membersGroupHeader_c8ffbb) {
+  color: rgba(245,247,251,.62) !important;
+  padding-left: 14px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Server channel list: less weird, more consistent with open-source panel layout.
+   -------------------------------------------------------------------------- */
+#app-mount .sidebar__5e434 {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+#app-mount .sidebarList__5e434 {
+  margin: 8px !important;
+  margin-bottom: calc(var(--custom-app-panels-height, 58px) + 18px) !important;
+  border-radius: var(--lgc-fix-radius-xl) !important;
+  background: var(--lgc-fix-panel) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  box-shadow: var(--lgc-fix-shadow), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  overflow: hidden !important;
+}
+
+#app-mount :is(.container__2637a, .scroller__629e4, .content_d125d2, .positionedContainer__629e4, .sidebarListRounded__5e434) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.containerDefault_c69b6d, .containerDefault__29444) {
+  margin: 1px 6px !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+}
+
+#app-mount :is(.wrapper__2ea32, .link__2ea32, .linkTop__2ea32, .basicChannelRowLink__2ea32, .iconVisibility_c69b6d, .wrapper__29444, .mainContent__29444) {
+  border-radius: 14px !important;
+  background: transparent !important;
+}
+
+#app-mount .link__2ea32 {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  border: 1px solid transparent !important;
+}
+
+#app-mount :is(.link__2ea32:hover, .wrapper__29444:hover, .mainContent__29444:hover) {
+  background: rgba(255,255,255,.055) !important;
+  border-color: var(--lgc-fix-border-soft) !important;
+}
+
+#app-mount :is(.selected_c69b6d, .selectedChannel_c69b6d, .modeSelected__2ea32) .link__2ea32,
+#app-mount .containerDefault_c69b6d.selected_c69b6d .link__2ea32 {
+  background: var(--lgc-fix-selected) !important;
+  border-color: rgba(var(--lgc-accent-rgb), .23) !important;
+  box-shadow: var(--lgc-fix-inset) !important;
+}
+
+#app-mount :is(.wrapperCommon__29444, .containerDefault__29444, .sectionDivider__629e4) {
+  color: rgba(245,247,251,.58) !important;
+}
+
+#app-mount :is(.children__2ea32, .iconItem_c69b6d, .channelInfo_c69b6d) {
+  background: transparent !important;
+}
+
+/* Server header/banner cleanup. */
+#app-mount :is(.container_f37cb1, .header_f37cb1, .headerContent_f37cb1, .headerChildren_f37cb1) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount .animatedContainer_f37cb1 {
+  border-radius: 0 0 16px 16px !important;
+  background: rgba(5,8,16,.18) !important;
+}
+
+#app-mount :is(.headerGlass_f37cb1, .headerEllipseBackdrop_f37cb1, .headerEllipseForeground_f37cb1) {
+  display: none !important;
+}
+
+/* User account panel: keep it attached but cleaner. */
+#app-mount .panels__5e434 {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  overflow: visible !important;
+}
+
+#app-mount .container__37e49 {
+  margin: 0 8px 8px 8px !important;
+  border-radius: 22px !important;
+  background: var(--lgc-fix-panel-solid) !important;
+  border: 1px solid var(--lgc-fix-border) !important;
+  box-shadow: var(--lgc-fix-shadow), var(--lgc-fix-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-fix-blur)) saturate(145%) !important;
+}
+
+@media (max-width: 1100px) {
+  :root,
+  .theme-dark,
+  .theme-light {
+    --lgc-fix-blur: 6px;
+    --lgc-fix-popout-blur: 10px;
+  }
+}
