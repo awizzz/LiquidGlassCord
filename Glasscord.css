@@ -1,0 +1,1136 @@
+/*
+  Glasscord.css
+  Liquid Glass theme core for Discord / BetterDiscord / Vencord.
+  Version: 1.0.0
+
+  Edit the variables in the first block to tune the glass intensity.
+  This file is intentionally vanilla CSS: no JS, no preprocessors, no fonts.
+*/
+
+/* -------------------------------------------------------------------------- */
+/* 1) Glasscord user controls                                                   */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+
+  /* Main intensity controls */
+  --glasscord-blur: 28px;
+  --glasscord-saturate: 1.85;
+  --glasscord-brightness: 1.06;
+  --glasscord-pane-opacity: 0.40;
+  --glasscord-float-opacity: 0.72;
+  --glasscord-hover-opacity: 0.12;
+  --glasscord-border-opacity: 0.20;
+  --glasscord-highlight-opacity: 0.30;
+  --glasscord-shadow-opacity: 0.44;
+
+  /* Accent palette */
+  --glasscord-accent-rgb: 94, 196, 255;
+  --glasscord-accent-2-rgb: 255, 79, 205;
+  --glasscord-accent-3-rgb: 142, 122, 255;
+  --glasscord-mint-rgb: 91, 255, 214;
+  --glasscord-gold-rgb: 255, 225, 128;
+
+  /* Surface colors */
+  --glasscord-bg-rgb: 7, 10, 20;
+  --glasscord-pane-rgb: 15, 20, 36;
+  --glasscord-pane-strong-rgb: 20, 26, 45;
+  --glasscord-text-rgb: 246, 249, 255;
+  --glasscord-muted-rgb: 190, 202, 224;
+
+  /* Radius scale */
+  --glasscord-radius-xs: 10px;
+  --glasscord-radius-sm: 14px;
+  --glasscord-radius-md: 18px;
+  --glasscord-radius-lg: 24px;
+  --glasscord-radius-xl: 30px;
+  --glasscord-radius-pill: 999px;
+
+  /* Derived surfaces */
+  --glasscord-surface: rgba(var(--glasscord-pane-rgb), var(--glasscord-pane-opacity));
+  --glasscord-surface-strong: rgba(var(--glasscord-pane-strong-rgb), 0.58);
+  --glasscord-surface-soft: rgba(255, 255, 255, 0.065);
+  --glasscord-floating: rgba(var(--glasscord-pane-strong-rgb), var(--glasscord-float-opacity));
+  --glasscord-stroke: rgba(255, 255, 255, var(--glasscord-border-opacity));
+  --glasscord-stroke-strong: rgba(255, 255, 255, 0.34);
+  --glasscord-hover: rgba(255, 255, 255, var(--glasscord-hover-opacity));
+  --glasscord-selected: rgba(var(--glasscord-accent-rgb), 0.18);
+  --glasscord-selected-strong: rgba(var(--glasscord-accent-rgb), 0.28);
+
+  --glasscord-glow: 0 22px 70px rgba(0, 0, 0, var(--glasscord-shadow-opacity));
+  --glasscord-inner-light: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+  --glasscord-ring: 0 0 0 1px var(--glasscord-stroke), var(--glasscord-inner-light), var(--glasscord-glow);
+
+  --glasscord-glass-bg:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.032) 38%, rgba(255, 255, 255, 0.064)),
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 255, 255, 0.18), transparent 42%),
+    radial-gradient(110% 85% at 100% 0%, rgba(var(--glasscord-accent-rgb), 0.16), transparent 46%),
+    radial-gradient(100% 90% at 20% 100%, rgba(var(--glasscord-accent-2-rgb), 0.09), transparent 48%),
+    rgba(var(--glasscord-pane-rgb), var(--glasscord-pane-opacity));
+
+  --glasscord-glass-bg-strong:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.052) 40%, rgba(255, 255, 255, 0.07)),
+    radial-gradient(110% 90% at 0% 0%, rgba(255, 255, 255, 0.22), transparent 44%),
+    radial-gradient(100% 82% at 100% 10%, rgba(var(--glasscord-accent-rgb), 0.22), transparent 48%),
+    radial-gradient(105% 92% at 18% 100%, rgba(var(--glasscord-accent-2-rgb), 0.14), transparent 52%),
+    rgba(var(--glasscord-pane-strong-rgb), 0.58);
+
+  --glasscord-glass-bg-floating:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.062) 42%, rgba(255, 255, 255, 0.085)),
+    radial-gradient(100% 90% at 0% 0%, rgba(255, 255, 255, 0.24), transparent 46%),
+    radial-gradient(95% 80% at 100% 4%, rgba(var(--glasscord-accent-rgb), 0.24), transparent 48%),
+    rgba(var(--glasscord-pane-strong-rgb), var(--glasscord-float-opacity));
+
+  --glasscord-button-bg:
+    linear-gradient(135deg, rgba(var(--glasscord-accent-rgb), 0.95), rgba(var(--glasscord-accent-3-rgb), 0.82) 48%, rgba(var(--glasscord-accent-2-rgb), 0.86));
+
+  --glasscord-danger-rgb: 255, 78, 108;
+  --glasscord-success-rgb: 68, 235, 166;
+  --glasscord-warning-rgb: 255, 196, 92;
+
+  --glasscord-speed-slow: 24s;
+  --glasscord-speed: 16s;
+  --glasscord-speed-fast: 7s;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2) Discord variables override                                                */
+/* -------------------------------------------------------------------------- */
+
+:root,
+.theme-dark,
+.theme-light {
+  --background-primary: rgba(var(--glasscord-pane-rgb), 0.22) !important;
+  --background-secondary: rgba(var(--glasscord-pane-rgb), 0.26) !important;
+  --background-secondary-alt: rgba(var(--glasscord-pane-rgb), 0.34) !important;
+  --background-tertiary: rgba(var(--glasscord-bg-rgb), 0.34) !important;
+  --background-accent: rgba(var(--glasscord-accent-rgb), 0.24) !important;
+  --background-floating: var(--glasscord-floating) !important;
+  --background-nested-floating: rgba(var(--glasscord-pane-strong-rgb), 0.76) !important;
+  --background-mobile-primary: rgba(var(--glasscord-pane-rgb), 0.32) !important;
+  --background-mobile-secondary: rgba(var(--glasscord-pane-rgb), 0.40) !important;
+
+  --bg-base-primary: transparent !important;
+  --bg-base-secondary: transparent !important;
+  --bg-base-tertiary: transparent !important;
+  --bg-surface-overlay: var(--glasscord-floating) !important;
+  --bg-surface-raised: rgba(var(--glasscord-pane-strong-rgb), 0.58) !important;
+  --bg-mod-subtle: rgba(255, 255, 255, 0.065) !important;
+  --bg-mod-faint: rgba(255, 255, 255, 0.042) !important;
+  --bg-mod-strong: rgba(255, 255, 255, 0.13) !important;
+
+  --modal-background: var(--glasscord-floating) !important;
+  --modal-footer-background: rgba(var(--glasscord-pane-rgb), 0.50) !important;
+  --channeltextarea-background: rgba(255, 255, 255, 0.075) !important;
+  --input-background: rgba(255, 255, 255, 0.075) !important;
+  --textbox-markdown-syntax: rgba(var(--glasscord-accent-rgb), 0.88) !important;
+
+  --background-modifier-hover: var(--glasscord-hover) !important;
+  --background-modifier-active: rgba(255, 255, 255, 0.16) !important;
+  --background-modifier-selected: var(--glasscord-selected) !important;
+  --background-modifier-accent: rgba(255, 255, 255, 0.115) !important;
+
+  --text-normal: rgba(var(--glasscord-text-rgb), 0.94) !important;
+  --text-muted: rgba(var(--glasscord-muted-rgb), 0.72) !important;
+  --text-link: rgb(var(--glasscord-accent-rgb)) !important;
+  --header-primary: rgba(var(--glasscord-text-rgb), 0.98) !important;
+  --header-secondary: rgba(var(--glasscord-muted-rgb), 0.78) !important;
+  --interactive-normal: rgba(var(--glasscord-text-rgb), 0.74) !important;
+  --interactive-hover: rgba(var(--glasscord-text-rgb), 0.94) !important;
+  --interactive-active: rgb(255, 255, 255) !important;
+  --interactive-muted: rgba(var(--glasscord-muted-rgb), 0.42) !important;
+  --channels-default: rgba(var(--glasscord-muted-rgb), 0.66) !important;
+
+  --brand-experiment: rgb(var(--glasscord-accent-rgb)) !important;
+  --brand-experiment-100: rgba(var(--glasscord-accent-rgb), 0.12) !important;
+  --brand-experiment-200: rgba(var(--glasscord-accent-rgb), 0.20) !important;
+  --brand-experiment-300: rgba(var(--glasscord-accent-rgb), 0.30) !important;
+  --brand-experiment-400: rgba(var(--glasscord-accent-rgb), 0.45) !important;
+  --brand-experiment-500: rgb(var(--glasscord-accent-rgb)) !important;
+  --brand-experiment-560: rgb(var(--glasscord-accent-rgb)) !important;
+  --brand-experiment-600: rgb(var(--glasscord-accent-3-rgb)) !important;
+
+  --green-360: rgb(var(--glasscord-success-rgb)) !important;
+  --red-400: rgb(var(--glasscord-danger-rgb)) !important;
+  --yellow-300: rgb(var(--glasscord-warning-rgb)) !important;
+
+  --scrollbar-auto-thumb: rgba(255, 255, 255, 0.22) !important;
+  --scrollbar-auto-track: transparent !important;
+  --scrollbar-thin-thumb: rgba(255, 255, 255, 0.20) !important;
+  --scrollbar-thin-track: transparent !important;
+
+  --button-secondary-background: rgba(255, 255, 255, 0.09) !important;
+  --button-secondary-background-hover: rgba(255, 255, 255, 0.15) !important;
+  --button-secondary-background-active: rgba(255, 255, 255, 0.20) !important;
+  --button-outline-brand-border: rgba(var(--glasscord-accent-rgb), 0.45) !important;
+  --button-outline-brand-background-hover: rgba(var(--glasscord-accent-rgb), 0.16) !important;
+
+  --status-danger: rgb(var(--glasscord-danger-rgb)) !important;
+  --status-positive: rgb(var(--glasscord-success-rgb)) !important;
+  --status-warning: rgb(var(--glasscord-warning-rgb)) !important;
+
+  --profile-gradient-primary-color: rgba(var(--glasscord-accent-rgb), 0.34) !important;
+  --profile-gradient-secondary-color: rgba(var(--glasscord-accent-2-rgb), 0.24) !important;
+  --profile-body-background-color: rgba(var(--glasscord-pane-rgb), 0.42) !important;
+  --profile-body-divider-color: rgba(255, 255, 255, 0.12) !important;
+
+  --border-faint: rgba(255, 255, 255, 0.08) !important;
+  --border-subtle: rgba(255, 255, 255, 0.14) !important;
+  --border-normal: rgba(255, 255, 255, 0.20) !important;
+  --border-strong: rgba(255, 255, 255, 0.30) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3) Global canvas and animated Liquid Glass light field                       */
+/* -------------------------------------------------------------------------- */
+
+html,
+body,
+#app-mount {
+  min-height: 100%;
+  background: rgb(var(--glasscord-bg-rgb)) !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+#app-mount {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(38vw 38vw at 12% 8%, rgba(var(--glasscord-accent-rgb), 0.28), transparent 62%),
+    radial-gradient(36vw 36vw at 86% 0%, rgba(var(--glasscord-accent-2-rgb), 0.20), transparent 64%),
+    radial-gradient(42vw 42vw at 72% 92%, rgba(var(--glasscord-accent-3-rgb), 0.23), transparent 66%),
+    radial-gradient(32vw 32vw at 0% 100%, rgba(var(--glasscord-mint-rgb), 0.14), transparent 70%),
+    linear-gradient(145deg, #050713 0%, #090d1d 38%, #111a2f 70%, #070813 100%) !important;
+}
+
+#app-mount::before,
+#app-mount::after {
+  content: "";
+  position: fixed;
+  inset: -22%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app-mount::before {
+  opacity: 0.68;
+  filter: blur(0.4px) saturate(1.22);
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(28rem 18rem at 18% 22%, rgba(255, 255, 255, 0.14), transparent 72%),
+    radial-gradient(28rem 22rem at 78% 20%, rgba(var(--glasscord-accent-rgb), 0.16), transparent 70%),
+    radial-gradient(22rem 18rem at 70% 78%, rgba(var(--glasscord-accent-2-rgb), 0.15), transparent 74%),
+    conic-gradient(from 220deg at 50% 50%, rgba(255, 255, 255, 0.05), rgba(var(--glasscord-accent-rgb), 0.10), transparent 38%, rgba(var(--glasscord-accent-2-rgb), 0.08), rgba(255, 255, 255, 0.05));
+  animation: glasscord-aurora var(--glasscord-speed-slow) ease-in-out infinite alternate;
+}
+
+#app-mount::after {
+  opacity: 0.38;
+  mix-blend-mode: overlay;
+  background:
+    linear-gradient(115deg, transparent 0 24%, rgba(255, 255, 255, 0.18) 34%, transparent 44% 100%),
+    repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 7px);
+  transform: translateX(-10%);
+  animation: glasscord-glare 18s cubic-bezier(0.18, 0.82, 0.32, 1) infinite;
+}
+
+#app-mount > * {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  color: #fff;
+  background: rgba(var(--glasscord-accent-2-rgb), 0.44);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4) Reset Discord hard backgrounds without flattening content                 */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="app_"],
+  [class*="appMount_"],
+  [class*="bg_"],
+  [class*="base_"],
+  [class*="layers_"],
+  [class*="layer_"],
+  [class*="container__"],
+  [class*="platform-win_"],
+  [class*="platform-osx_"],
+  [class*="platform-linux_"]
+) {
+  background: transparent !important;
+}
+
+:where(
+  [class*="scroller_"],
+  [class*="scrollerBase_"],
+  [class*="thin_"],
+  [class*="auto_"],
+  [class*="content_"],
+  [class*="children_"],
+  [class*="wrapper_"],
+  [class*="resizeHandle_"],
+  [class*="emptyPage_"],
+  [class*="emptyState_"]
+) {
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5) Glass shell panels: guild rail, sidebars, chat, members, settings          */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="guilds_"],
+  [class*="sidebar_"],
+  [class*="privateChannels_"],
+  [class*="panels_"],
+  [class*="chat_"],
+  [class*="chatContent_"],
+  [class*="container_"][class*="themed_"],
+  [class*="membersWrap_"],
+  [class*="members_"],
+  [class*="nowPlayingColumn_"],
+  [class*="applicationStore_"],
+  [class*="shop_"],
+  [class*="pageWrapper_"],
+  [class*="standardSidebarView_"],
+  [class*="sidebarRegion_"],
+  [class*="contentRegion_"],
+  [class*="callContainer_"],
+  [class*="threadSidebar_"],
+  [class*="container_"][aria-label="Friends"],
+  [class*="container_"][aria-label="Amis"],
+  [class*="container_"][aria-label="Servers"],
+  [class*="container_"][aria-label="Serveurs"]
+) {
+  position: relative;
+  background: var(--glasscord-glass-bg) !important;
+  background-size: 100% 100%, 165% 165%, 160% 160%, 140% 140%, 100% 100% !important;
+  border: 1px solid var(--glasscord-stroke) !important;
+  box-shadow: var(--glasscord-ring) !important;
+  -webkit-backdrop-filter: blur(var(--glasscord-blur)) saturate(var(--glasscord-saturate)) brightness(var(--glasscord-brightness)) !important;
+  backdrop-filter: blur(var(--glasscord-blur)) saturate(var(--glasscord-saturate)) brightness(var(--glasscord-brightness)) !important;
+  animation: glasscord-refraction var(--glasscord-speed) ease-in-out infinite alternate;
+}
+
+:where([class*="guilds_"], [class*="sidebar_"], [class*="privateChannels_"], [class*="membersWrap_"], [class*="nowPlayingColumn_"]) {
+  overflow: hidden !important;
+}
+
+:where([class*="guilds_"]) {
+  margin: 10px 0 10px 10px !important;
+  border-radius: var(--glasscord-radius-xl) !important;
+}
+
+:where([class*="sidebar_"], [class*="privateChannels_"]) {
+  margin: 10px 0 10px 8px !important;
+  border-radius: var(--glasscord-radius-xl) !important;
+}
+
+:where([class*="chat_"], [class*="applicationStore_"], [class*="shop_"], [class*="pageWrapper_"]) {
+  margin: 10px !important;
+  border-radius: var(--glasscord-radius-xl) !important;
+  overflow: hidden !important;
+}
+
+:where([class*="membersWrap_"], [class*="nowPlayingColumn_"], [class*="threadSidebar_"]) {
+  margin: 10px 10px 10px 0 !important;
+  border-radius: var(--glasscord-radius-xl) !important;
+}
+
+:where([class*="panels_"]) {
+  margin: 8px !important;
+  border-radius: var(--glasscord-radius-lg) !important;
+}
+
+:where([class*="standardSidebarView_"], [class*="sidebarRegion_"], [class*="contentRegion_"]) {
+  border-radius: var(--glasscord-radius-xl) !important;
+}
+
+:where([class*="guilds_"], [class*="sidebar_"], [class*="chat_"], [class*="membersWrap_"], [class*="panels_"], [class*="standardSidebarView_"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.20), transparent 21% 67%, rgba(255, 255, 255, 0.055)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent 22%, rgba(0, 0, 0, 0.10));
+  opacity: 0.60;
+  mask-image: linear-gradient(#000, rgba(0, 0, 0, 0.82));
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6) Headers, title bars, tabs                                                  */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="title_"],
+  [class*="header_"],
+  [class*="toolbar_"],
+  [class*="tabBar_"],
+  [class*="topPill_"],
+  [class*="searchBar_"],
+  [class*="container_"].themed,
+  [class*="container_"][class*="clickable_"],
+  [class*="upperContainer_"],
+  [class*="topic_"],
+  [class*="subtitleContainer_"]
+) {
+  background: rgba(255, 255, 255, 0.045) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+:where([class*="title_"], [class*="toolbar_"], [class*="header_"], [class*="tabBar_"]) {
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 0.72)) saturate(1.5) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 0.72)) saturate(1.5) !important;
+}
+
+:where([class*="tabBar_"] [class*="item_"], [role="tab"], [class*="topPill_"] [class*="item_"]) {
+  border-radius: var(--glasscord-radius-pill) !important;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease !important;
+}
+
+:where([class*="tabBar_"] [class*="item_"]:hover, [role="tab"]:hover, [class*="topPill_"] [class*="item_"]:hover) {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+
+:where([class*="tabBar_"] [class*="selected_"], [role="tab"][aria-selected="true"], [class*="topPill_"] [class*="selected_"]) {
+  background: var(--glasscord-selected-strong) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30), 0 8px 26px rgba(var(--glasscord-accent-rgb), 0.18) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 7) Channels, DMs, members and list rows                                       */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="channel_"],
+  [class*="containerDefault_"],
+  [class*="link_"],
+  [class*="interactive_"],
+  [class*="member_"],
+  [class*="peopleListItem_"],
+  [class*="voiceUser_"],
+  [class*="listRow_"],
+  [class*="draggable_"],
+  [class*="result_"],
+  [class*="option_"],
+  [role="listitem"]
+) {
+  border-radius: var(--glasscord-radius-md) !important;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    filter 180ms ease !important;
+}
+
+:where(
+  [class*="channel_"]:hover,
+  [class*="containerDefault_"]:hover,
+  [class*="interactive_"]:hover,
+  [class*="member_"]:hover,
+  [class*="peopleListItem_"]:hover,
+  [class*="voiceUser_"]:hover,
+  [class*="listRow_"]:hover,
+  [class*="result_"]:hover,
+  [class*="option_"]:hover
+) {
+  background: rgba(255, 255, 255, 0.095) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 22px rgba(0, 0, 0, 0.22) !important;
+  transform: translateY(-1px);
+}
+
+:where(
+  [class*="modeSelected_"] [class*="link_"],
+  [class*="selected_"],
+  [aria-selected="true"],
+  [class*="interactiveSelected_"],
+  [class*="selected_"] [class*="layout_"],
+  [class*="item_"].selected
+) {
+  background: var(--glasscord-selected) !important;
+  border-color: rgba(var(--glasscord-accent-rgb), 0.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 30px rgba(var(--glasscord-accent-rgb), 0.14) !important;
+}
+
+:where([class*="unread_"], [class*="unreadPill_"], [class*="numberBadge_"]) {
+  background: var(--glasscord-button-bg) !important;
+  color: #fff !important;
+  box-shadow: 0 0 22px rgba(var(--glasscord-accent-rgb), 0.42) !important;
+}
+
+:where([class*="pill_"], [class*="item_"], [class*="badge_"], [class*="newMessagesBar_"], [class*="jumpToPresentBar_"]) {
+  border-radius: var(--glasscord-radius-pill) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 8) Chat messages, mentions and composer                                       */
+/* -------------------------------------------------------------------------- */
+
+:where([class*="messagesWrapper_"], [class*="chatContent_"], [class*="form_"], [class*="channelTextArea_"], [class*="typing_"], [class*="replyBar_"], [class*="threadSuggestionBar_"]) {
+  background: transparent !important;
+}
+
+:where([id^="message-"], [class*="message_"], [class*="messageListItem_"]) {
+  border-radius: var(--glasscord-radius-md) !important;
+}
+
+:where([class*="message_"]):not([class*="groupStart_"]) {
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
+}
+
+:where([class*="message_"]:hover, [class*="messageListItem_"]:hover) {
+  background: rgba(255, 255, 255, 0.072) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+:where([class*="mentioned_"]) {
+  background: linear-gradient(90deg, rgba(var(--glasscord-gold-rgb), 0.20), rgba(255, 255, 255, 0.045) 52%, transparent) !important;
+  box-shadow: inset 3px 0 0 rgba(var(--glasscord-gold-rgb), 0.92), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+:where([class*="mentioned_"])::before {
+  background: rgb(var(--glasscord-gold-rgb)) !important;
+}
+
+:where([class*="replying_"]) {
+  background: linear-gradient(90deg, rgba(var(--glasscord-accent-rgb), 0.18), rgba(255, 255, 255, 0.04) 58%, transparent) !important;
+  box-shadow: inset 3px 0 0 rgba(var(--glasscord-accent-rgb), 0.92), inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+:where([class*="repliedMessage_"], [class*="replyBadge_"], [class*="executedCommand_"], [class*="threadMessageAccessory_"], [class*="container_"][class*="threadEmbed_"]) {
+  background: rgba(255, 255, 255, 0.055) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: var(--glasscord-radius-md) !important;
+}
+
+:where([class*="channelTextArea_"], [class*="scrollableContainer_"], [class*="inner_"][class*="channelTextArea_"], [class*="attachWrapper_"], [class*="textArea_"], [class*="slateTextArea_"], [class*="placeholder_"]) {
+  border-radius: var(--glasscord-radius-lg) !important;
+}
+
+:where([class*="channelTextArea_"] [class*="scrollableContainer_"], [class*="channelTextArea_"]) {
+  background: var(--glasscord-glass-bg-strong) !important;
+  border: 1px solid rgba(255, 255, 255, 0.17) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 16px 48px rgba(0, 0, 0, 0.30) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 0.90)) saturate(var(--glasscord-saturate)) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 0.90)) saturate(var(--glasscord-saturate)) !important;
+}
+
+:where([class*="channelTextArea_"]:focus-within, [class*="scrollableContainer_"]:focus-within) {
+  border-color: rgba(var(--glasscord-accent-rgb), 0.46) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 0 0 1px rgba(var(--glasscord-accent-rgb), 0.25), 0 18px 56px rgba(var(--glasscord-accent-rgb), 0.14) !important;
+}
+
+:where([class*="form_"])::before,
+:where([class*="form_"])::after {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 9) Cards, embeds, media, code blocks, forums                                  */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="embed_"],
+  [class*="attachment_"],
+  [class*="file_"],
+  [class*="wrapperAudio_"],
+  [class*="textContainer_"],
+  [class*="footer_"],
+  [class*="invite_"],
+  [class*="tile_"],
+  [class*="card_"],
+  [class*="forumPost_"],
+  [class*="container_"][class*="mainCard_"],
+  [class*="container_"][class*="post_"],
+  [class*="previewCard_"],
+  [class*="activity_"],
+  [class*="activityPanel_"],
+  [class*="streamPreview_"],
+  [class*="mediaBarWrapper_"],
+  pre,
+  code
+) {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: var(--glasscord-radius-lg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13) !important;
+}
+
+:where([class*="embed_"]) {
+  border-left-color: rgba(var(--glasscord-accent-rgb), 0.92) !important;
+}
+
+:where([class*="markup_"] a, [class*="anchor_"]) {
+  color: rgb(var(--glasscord-accent-rgb)) !important;
+  text-decoration-color: rgba(var(--glasscord-accent-rgb), 0.42) !important;
+  text-underline-offset: 0.18em;
+}
+
+:where([class*="markup_"] a:hover, [class*="anchor_"]:hover) {
+  color: rgb(var(--glasscord-mint-rgb)) !important;
+  text-decoration-color: currentColor !important;
+}
+
+:where([class*="spoilerText_"], [class*="spoilerContent_"]) {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-radius: 0.45em !important;
+}
+
+:where([class*="reaction_"], [class*="reactionMe_"], [class*="buttonInner_"], [class*="button_"][class*="emojiButton_"]) {
+  background: rgba(255, 255, 255, 0.075) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--glasscord-radius-pill) !important;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease !important;
+}
+
+:where([class*="reaction_"]:hover, [class*="reactionMe_"], [class*="buttonInner_"]:hover) {
+  background: rgba(var(--glasscord-accent-rgb), 0.18) !important;
+  border-color: rgba(var(--glasscord-accent-rgb), 0.38) !important;
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 10) Buttons, switches, sliders and clickable controls                         */
+/* -------------------------------------------------------------------------- */
+
+:where(button, [role="button"], [class*="button_"], [class*="lookFilled_"], [class*="lookOutlined_"], [class*="lookBlank_"], [class*="lookLink_"]) {
+  border-radius: var(--glasscord-radius-pill) !important;
+  transition:
+    transform 170ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 170ms ease,
+    background 170ms ease,
+    box-shadow 170ms ease,
+    border-color 170ms ease !important;
+}
+
+:where([class*="lookFilled_"], [class*="colorBrand_"], [class*="button_"][class*="colorBrand_"]) {
+  background: var(--glasscord-button-bg) !important;
+  background-size: 220% 100% !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 12px 32px rgba(var(--glasscord-accent-rgb), 0.24) !important;
+  animation: glasscord-button-shift var(--glasscord-speed-fast) ease-in-out infinite alternate;
+}
+
+:where([class*="lookOutlined_"], [class*="button_"][class*="lookOutlined_"]) {
+  background: rgba(255, 255, 255, 0.055) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+:where([class*="lookFilled_"], [class*="lookOutlined_"], [class*="button_"], button, [role="button"]):hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08) saturate(1.08);
+}
+
+:where([class*="lookFilled_"], [class*="lookOutlined_"], [class*="button_"], button, [role="button"]):active {
+  transform: translateY(1px) scale(0.985);
+  filter: brightness(0.96) saturate(1.1);
+}
+
+:where([class*="button_"][class*="colorRed_"], [class*="lookFilled_"][class*="colorRed_"]) {
+  background: linear-gradient(135deg, rgba(var(--glasscord-danger-rgb), 0.95), rgba(var(--glasscord-accent-2-rgb), 0.78)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 12px 32px rgba(var(--glasscord-danger-rgb), 0.22) !important;
+}
+
+:where([class*="slider_"], [class*="bar_"], [class*="grabber_"], [class*="control_"], [class*="radioBar_"], [class*="checkbox_"], [class*="switch_"], [class*="container_"][class*="checked_"]) {
+  border-radius: var(--glasscord-radius-pill) !important;
+}
+
+:where([class*="barFill_"], [class*="checked_"], [class*="slider_"] [class*="grabber_"]) {
+  background: var(--glasscord-button-bg) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 0 20px rgba(var(--glasscord-accent-rgb), 0.28) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 11) Inputs, search, select menus, forms                                       */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  input,
+  textarea,
+  [contenteditable="true"],
+  [class*="input_"],
+  [class*="textArea_"],
+  [class*="searchBar_"],
+  [class*="searchBox_"],
+  [class*="select_"],
+  [class*="selectControl_"],
+  [class*="copyInput_"],
+  [class*="optionPill_"],
+  [class*="tag_"],
+  [class*="pill_"]
+) {
+  background: rgba(255, 255, 255, 0.075) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: var(--glasscord-radius-md) !important;
+  color: rgba(var(--glasscord-text-rgb), 0.94) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 0.55)) saturate(1.35) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 0.55)) saturate(1.35) !important;
+}
+
+:where(input, textarea, [contenteditable="true"], [class*="input_"], [class*="textArea_"], [class*="searchBar_"], [class*="select_"]):focus,
+:where([class*="input_"], [class*="textArea_"], [class*="searchBar_"], [class*="select_"]):focus-within {
+  outline: none !important;
+  border-color: rgba(var(--glasscord-accent-rgb), 0.46) !important;
+  box-shadow: 0 0 0 1px rgba(var(--glasscord-accent-rgb), 0.23), 0 12px 30px rgba(var(--glasscord-accent-rgb), 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+:where(input::placeholder, textarea::placeholder, [class*="placeholder_"]) {
+  color: rgba(var(--glasscord-muted-rgb), 0.56) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 12) Popouts, menus, modals, profiles                                          */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [role="menu"],
+  [class*="menu_"],
+  [class*="submenu_"],
+  [class*="popout_"],
+  [class*="popoutContainer_"],
+  [class*="tooltip_"],
+  [class*="messagesPopoutWrap_"],
+  [class*="recentMentionsPopout_"],
+  [class*="browser_"],
+  [class*="drawerSizingWrapper_"],
+  [class*="emojiPicker_"],
+  [class*="contentWrapper_"],
+  [class*="quickswitcher_"],
+  [class*="root_"][role="dialog"],
+  [class*="modal_"],
+  [class*="focusLock_"] [class*="root_"],
+  [class*="userPopoutOuter_"],
+  [class*="userProfileOuter_"],
+  [class*="accountProfilePopoutWrapper_"]
+) {
+  background: var(--glasscord-glass-bg-floating) !important;
+  background-size: 100% 100%, 160% 160%, 150% 150%, 100% 100% !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  border-radius: var(--glasscord-radius-xl) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 28px 90px rgba(0, 0, 0, 0.55) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 1.15)) saturate(2.0) brightness(1.08) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 1.15)) saturate(2.0) brightness(1.08) !important;
+  overflow: hidden;
+  animation: glasscord-pop 180ms cubic-bezier(0.16, 1, 0.3, 1), glasscord-refraction var(--glasscord-speed) ease-in-out infinite alternate;
+}
+
+:where([class*="backdrop_"], [class*="modalBackdrop_"], [class*="backdropWithLayer_"]) {
+  background: rgba(0, 0, 0, 0.42) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.2) !important;
+  backdrop-filter: blur(12px) saturate(1.2) !important;
+}
+
+:where([role="menuitem"], [class*="item_"], [class*="option_"], [class*="row_"], [class*="cell_"], [class*="optionButton_"]) {
+  border-radius: var(--glasscord-radius-md) !important;
+  transition: background 150ms ease, transform 150ms ease, color 150ms ease, box-shadow 150ms ease !important;
+}
+
+:where([role="menuitem"]:hover, [class*="menu_"] [class*="item_"]:hover, [class*="option_"]:hover, [class*="row_"]:hover) {
+  background: rgba(255, 255, 255, 0.11) !important;
+  transform: translateX(1px);
+}
+
+:where([class*="tooltip_"]) {
+  border-radius: var(--glasscord-radius-md) !important;
+}
+
+:where([class*="tooltipPointer_"]) {
+  border-top-color: rgba(var(--glasscord-pane-strong-rgb), 0.74) !important;
+}
+
+:where([class*="banner_"], [class*="profileBanner_"], [class*="popoutBanner_"], [class*="avatarWrapper_"], [class*="avatar_"], [class*="avatarDecoration_"]) {
+  border-radius: var(--glasscord-radius-lg) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 13) Server icons, avatars, status, media controls                             */
+/* -------------------------------------------------------------------------- */
+
+:where([class*="avatar_"], [class*="icon_"], [class*="guildIcon_"], [class*="childWrapper_"], [class*="circleIconButton_"], [class*="wrapper_"][class*="avatar_"]) {
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 180ms ease, box-shadow 180ms ease !important;
+}
+
+:where([class*="listItem_"] [class*="wrapper_"], [class*="avatar_"]):hover {
+  transform: translateY(-1px) scale(1.035);
+  filter: saturate(1.08) brightness(1.08);
+}
+
+:where([class*="circleIconButton_"], [class*="childWrapper_"], [class*="folderIconWrapper_"], [class*="folder_"], [class*="expandedFolderBackground_"]) {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 0.55)) saturate(1.35) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 0.55)) saturate(1.35) !important;
+}
+
+:where([class*="circleIconButton_"]:hover, [class*="childWrapper_"]:hover) {
+  background: rgba(var(--glasscord-accent-rgb), 0.20) !important;
+  box-shadow: 0 0 28px rgba(var(--glasscord-accent-rgb), 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+:where([class*="status_"], [class*="statusBubble_"], [class*="statusDot_"], [class*="statusOnline_"]) {
+  box-shadow: 0 0 0 3px rgba(var(--glasscord-pane-rgb), 0.62), 0 0 18px currentColor !important;
+}
+
+:where([class*="video_"], [class*="videoWrapper_"], [class*="callContainer_"], [class*="root_"][class*="video_"]) {
+  border-radius: var(--glasscord-radius-xl) !important;
+  overflow: hidden !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 14) Settings and account pages                                                */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="contentColumn_"],
+  [class*="customColumn_"],
+  [class*="sidebarRegionScroller_"],
+  [class*="contentRegionScroller_"],
+  [class*="userSettingsVoice_"],
+  [class*="children_"] > [class*="section_"],
+  [class*="accountProfileCard_"],
+  [class*="background_"],
+  [class*="fieldList_"],
+  [class*="settingCard_"],
+  [class*="featureCard_"],
+  [class*="tierBody_"],
+  [class*="paymentPane_"],
+  [class*="paginator_"],
+  [class*="codeRedemptionRedirect_"],
+  [class*="authedApp_"],
+  [class*="connection_"],
+  [class*="serverBoostTabItem_"],
+  [class*="analyticsCard_"]
+) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: var(--glasscord-radius-lg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11) !important;
+}
+
+:where([class*="side_"] [class*="item_"], [class*="side_"] [class*="header_"]) {
+  border-radius: var(--glasscord-radius-md) !important;
+}
+
+:where([class*="side_"] [class*="item_"]:hover) {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+:where([class*="side_"] [class*="selected_"]) {
+  background: var(--glasscord-selected) !important;
+  color: #fff !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 15) Notices, bars, toasts, upload areas                                       */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="notice_"],
+  [class*="banner_"],
+  [class*="bar_"],
+  [class*="newMessagesBar_"],
+  [class*="jumpToPresentBar_"],
+  [class*="uploadDropModal_"],
+  [class*="uploadModal_"],
+  [class*="uploadArea_"],
+  [class*="toast_"],
+  [class*="snackbar_"],
+  [class*="progressBar_"],
+  [class*="progress_"]
+) {
+  background: var(--glasscord-glass-bg-strong) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: var(--glasscord-radius-lg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 16px 50px rgba(0, 0, 0, 0.34) !important;
+  -webkit-backdrop-filter: blur(calc(var(--glasscord-blur) * 0.92)) saturate(1.65) !important;
+  backdrop-filter: blur(calc(var(--glasscord-blur) * 0.92)) saturate(1.65) !important;
+}
+
+:where([class*="newMessagesBar_"], [class*="jumpToPresentBar_"]) {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: max-content !important;
+  min-width: 180px;
+  padding-inline: 12px !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 16) Scrollbars                                                               */
+/* -------------------------------------------------------------------------- */
+
+*::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 40px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.14)),
+    linear-gradient(180deg, rgba(var(--glasscord-accent-rgb), 0.34), rgba(var(--glasscord-accent-2-rgb), 0.22)) !important;
+  background-clip: padding-box !important;
+  border: 4px solid transparent !important;
+  border-radius: var(--glasscord-radius-pill) !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.20)),
+    linear-gradient(180deg, rgba(var(--glasscord-accent-rgb), 0.50), rgba(var(--glasscord-accent-2-rgb), 0.34)) !important;
+  background-clip: padding-box !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 17) Discord-specific polish and edge cases                                   */
+/* -------------------------------------------------------------------------- */
+
+:where([class*="divider_"], [class*="separator_"], [class*="sectionDivider_"], [class*="guildSeparator_"], [class*="divider_"][role="separator"]) {
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+}
+
+:where([class*="isUnread_"] [class*="content_"], [class*="unreadPill_"], [class*="unreadPillCap_"]) {
+  background: linear-gradient(90deg, rgba(var(--glasscord-accent-rgb), 0.92), rgba(var(--glasscord-accent-2-rgb), 0.78)) !important;
+  color: #fff !important;
+}
+
+:where([class*="role_"], [class*="rolePill_"], [class*="botTag_"], [class*="premiumIconWrapper_"], [class*="badgeList_"] [class*="badge_"]) {
+  border-radius: var(--glasscord-radius-pill) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+:where([class*="mention"], [class*="wrapper_"][class*="mention"], .mention) {
+  color: rgb(var(--glasscord-accent-rgb)) !important;
+  background: rgba(var(--glasscord-accent-rgb), 0.15) !important;
+  border-radius: 0.45em !important;
+}
+
+:where([class*="mention"]:hover, .mention:hover) {
+  color: #fff !important;
+  background: rgba(var(--glasscord-accent-rgb), 0.28) !important;
+}
+
+:where([class*="hljs"], [class*="codeBlockText_"], [class*="codeLine_"], [class*="syntaxAfter_"], [class*="syntaxBefore_"]) {
+  background: rgba(0, 0, 0, 0.20) !important;
+}
+
+:where([class*="spoilerContainer_"], [class*="imageWrapper_"], [class*="clickableWrapper_"], [class*="mediaAttachmentsContainer_"], [class*="oneByOneGrid_"], [class*="mosaicItem_"]) {
+  border-radius: var(--glasscord-radius-lg) !important;
+  overflow: hidden !important;
+}
+
+:where([class*="loading_"], [class*="spinner_"], [class*="wanderingCubesItem_"]) {
+  color: rgb(var(--glasscord-accent-rgb)) !important;
+}
+
+:where([class*="emptyIcon_"], [class*="emptyStateImage_"], [class*="image_"][class*="empty_"]) {
+  filter: saturate(1.15) drop-shadow(0 18px 42px rgba(var(--glasscord-accent-rgb), 0.18)) !important;
+  opacity: 0.88 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 18) The Liquid Glass shine layer for cards and controls                       */
+/* -------------------------------------------------------------------------- */
+
+:where(
+  [class*="card_"],
+  [class*="embed_"],
+  [class*="attachment_"],
+  [class*="invite_"],
+  [class*="activity_"],
+  [class*="userPopoutOuter_"],
+  [class*="root_"][role="dialog"],
+  [class*="menu_"],
+  [class*="channelTextArea_"]
+) {
+  position: relative;
+  overflow: hidden;
+}
+
+:where(
+  [class*="card_"],
+  [class*="embed_"],
+  [class*="attachment_"],
+  [class*="invite_"],
+  [class*="activity_"],
+  [class*="userPopoutOuter_"],
+  [class*="root_"][role="dialog"],
+  [class*="menu_"],
+  [class*="channelTextArea_"]
+)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 0 32%, rgba(255, 255, 255, 0.16) 45%, transparent 58% 100%);
+  transform: translateX(-130%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+:where(
+  [class*="card_"],
+  [class*="embed_"],
+  [class*="attachment_"],
+  [class*="invite_"],
+  [class*="activity_"],
+  [class*="userPopoutOuter_"],
+  [class*="root_"][role="dialog"],
+  [class*="menu_"],
+  [class*="channelTextArea_"]
+):hover::before {
+  opacity: 1;
+  animation: glasscord-card-shine 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 19) Accessibility and performance fallbacks                                  */
+/* -------------------------------------------------------------------------- */
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  :root {
+    --glasscord-pane-opacity: 0.86;
+    --glasscord-float-opacity: 0.94;
+  }
+
+  :where(
+    [class*="guilds_"],
+    [class*="sidebar_"],
+    [class*="privateChannels_"],
+    [class*="panels_"],
+    [class*="chat_"],
+    [class*="membersWrap_"],
+    [class*="modal_"],
+    [class*="popout_"],
+    [role="menu"]
+  ) {
+    background: rgba(var(--glasscord-pane-strong-rgb), 0.92) !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glasscord-pane-opacity: 0.88;
+    --glasscord-float-opacity: 0.96;
+    --glasscord-hover-opacity: 0.18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  #app-mount::before,
+  #app-mount::after {
+    animation: none !important;
+  }
+
+  :where([class*="lookFilled_"], [class*="colorBrand_"]) {
+    animation: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 20) Animations                                                               */
+/* -------------------------------------------------------------------------- */
+
+@keyframes glasscord-aurora {
+  0% {
+    transform: translate3d(-1.5%, -1%, 0) rotate(0deg) scale(1);
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+  45% {
+    transform: translate3d(2%, 1%, 0) rotate(3deg) scale(1.04);
+    filter: hue-rotate(10deg) saturate(1.22);
+  }
+  100% {
+    transform: translate3d(-0.5%, 2%, 0) rotate(-2deg) scale(1.02);
+    filter: hue-rotate(-8deg) saturate(1.16);
+  }
+}
+
+@keyframes glasscord-glare {
+  0% {
+    transform: translate3d(-38%, -6%, 0) rotate(-4deg);
+    opacity: 0.10;
+  }
+  42% {
+    opacity: 0.46;
+  }
+  100% {
+    transform: translate3d(38%, 6%, 0) rotate(4deg);
+    opacity: 0.18;
+  }
+}
+
+@keyframes glasscord-refraction {
+  0% {
+    background-position: 0% 0%, 0% 0%, 100% 0%, 20% 100%, 0% 0%;
+  }
+  50% {
+    background-position: 0% 0%, 42% 14%, 65% 28%, 35% 72%, 0% 0%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 22%, 22% 40%, 60% 82%, 0% 0%;
+  }
+}
+
+@keyframes glasscord-button-shift {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 12px 32px rgba(var(--glasscord-accent-rgb), 0.22);
+  }
+  100% {
+    background-position: 100% 50%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 14px 38px rgba(var(--glasscord-accent-2-rgb), 0.20);
+  }
+}
+
+@keyframes glasscord-card-shine {
+  0% {
+    transform: translateX(-130%) skewX(-8deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-8deg);
+  }
+}
+
+@keyframes glasscord-pop {
+  0% {
+    transform: translateY(8px) scale(0.985);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
