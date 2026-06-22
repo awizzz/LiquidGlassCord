@@ -1,1049 +1,165 @@
+@import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@e38592d560a24e35cdc17ceacd0d0c6434a4f16c/LiquidGlassCord.css");
+
 /**
  * LiquidGlassCord
- * Version: 8.0.0
+ * Version: 9.0.0
  * Author: Awizz
  *
- * Single-file Apple Liquid Glass inspired Discord theme.
- * Put LiquidGlassCord.theme.css in BetterDiscord; it imports only this file.
+ * Single-file patch layer over the consolidated v8 base.
+ * Fixes submenu offset, folder capsule size, and bottom Liquid Glass fades.
  */
 
 :root,
 .theme-dark,
 .theme-light {
-  color-scheme: dark !important;
-
-  --lgc-accent-rgb: 92, 168, 255;
-  --lgc-accent-2-rgb: 184, 128, 255;
-  --lgc-cyan-rgb: 116, 227, 255;
-  --lgc-green-rgb: 48, 209, 88;
-  --lgc-yellow-rgb: 255, 214, 10;
-  --lgc-red-rgb: 255, 69, 58;
-
-  --lgc-bg: #070a11;
-  --lgc-bg-2: #0b1120;
-  --lgc-bg-3: #11182a;
-  --lgc-blur: 7px;
-  --lgc-popout-blur: 12px;
-  --lgc-radius-xl: 22px;
-  --lgc-radius-lg: 17px;
-  --lgc-radius-md: 13px;
-  --lgc-radius-sm: 10px;
-
-  --lgc-text: #f5f7fb;
-  --lgc-text-soft: #c9d1de;
-  --lgc-text-muted: #8993a5;
-
-  /* v8: thinner outlines, less “CSS border” feeling. */
-  --lgc-border: rgba(255,255,255,.082);
-  --lgc-border-strong: rgba(255,255,255,.135);
-  --lgc-border-soft: rgba(255,255,255,.040);
-  --lgc-shadow: 0 12px 32px rgba(0,0,0,.22);
-  --lgc-shadow-strong: 0 18px 52px rgba(0,0,0,.34);
-  --lgc-inset: inset 0 1px 0 rgba(255,255,255,.115), inset 0 -1px 0 rgba(255,255,255,.020);
-  --lgc-transition: 160ms cubic-bezier(.2,.8,.2,1);
-
-  --lgc-panel:
-    linear-gradient(180deg, rgba(255,255,255,.088), rgba(255,255,255,.030)),
-    rgba(10,15,27,.60);
-  --lgc-panel-solid:
-    linear-gradient(180deg, rgba(255,255,255,.094), rgba(255,255,255,.032)),
-    rgba(10,15,27,.78);
-  --lgc-panel-top:
-    linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.025)),
-    rgba(8,12,21,.50);
-  --lgc-card:
-    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
-    rgba(25,33,50,.22);
-  --lgc-card-hover:
-    linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.034)),
-    rgba(40,52,75,.34);
-  --lgc-input:
-    linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.020)),
-    rgba(5,8,16,.45);
-  --lgc-selected:
-    linear-gradient(180deg, rgba(255,255,255,.125), rgba(255,255,255,.038)),
-    linear-gradient(135deg, rgba(var(--lgc-accent-rgb),.28), rgba(var(--lgc-accent-2-rgb),.14));
-  --lgc-fade-bottom: linear-gradient(to bottom, rgba(10,15,27,0), rgba(10,15,27,.52) 70%, rgba(10,15,27,.70));
-
-  --background-primary: rgba(12,17,28,.40) !important;
-  --background-secondary: rgba(12,17,28,.54) !important;
-  --background-secondary-alt: rgba(8,12,21,.64) !important;
-  --background-tertiary: rgba(5,8,15,.72) !important;
-  --background-accent: rgba(var(--lgc-accent-rgb),.18) !important;
-  --background-floating: rgba(10,15,25,.86) !important;
-  --background-nested-floating: rgba(18,24,38,.70) !important;
-  --background-mobile-primary: rgba(12,17,28,.48) !important;
-  --background-mobile-secondary: rgba(8,12,21,.64) !important;
-  --background-modifier-hover: rgba(255,255,255,.052) !important;
-  --background-modifier-active: rgba(255,255,255,.080) !important;
-  --background-modifier-selected: rgba(var(--lgc-accent-rgb),.16) !important;
-  --background-modifier-accent: rgba(255,255,255,.055) !important;
-  --background-message-hover: rgba(255,255,255,.035) !important;
-  --channeltextarea-background: rgba(7,10,18,.54) !important;
-  --input-background: rgba(7,10,18,.52) !important;
-  --modal-background: rgba(11,16,27,.86) !important;
-  --modal-footer-background: rgba(7,10,18,.70) !important;
-
-  --bg-base-primary: rgba(12,17,28,.40) !important;
-  --bg-base-secondary: rgba(12,17,28,.54) !important;
-  --bg-base-tertiary: rgba(5,8,15,.72) !important;
-  --bg-surface-overlay: rgba(10,15,25,.84) !important;
-  --bg-surface-raised: rgba(26,34,50,.44) !important;
-  --background-base-lowest: rgba(4,6,12,.84) !important;
-  --background-base-lower: rgba(7,10,18,.66) !important;
-  --background-base-low: rgba(12,17,28,.50) !important;
-  --background-base-high: rgba(18,24,38,.38) !important;
-  --background-surface-low: rgba(18,24,38,.30) !important;
-  --background-surface-high: rgba(25,32,47,.38) !important;
-  --background-surface-higher: rgba(32,40,58,.44) !important;
-  --background-surface-highest: rgba(42,52,72,.50) !important;
-  --chat-background-default: transparent !important;
-  --home-background: transparent !important;
-  --custom-channel-members-bg: transparent !important;
-  --custom-guild-sidebar-background: transparent !important;
-  --custom-app-top-bar-background: rgba(8,12,21,.48) !important;
-  --border-faint: rgba(255,255,255,.030) !important;
-  --border-subtle: rgba(255,255,255,.045) !important;
-  --border-normal: rgba(255,255,255,.070) !important;
-  --border-strong: rgba(255,255,255,.125) !important;
-
-  --text-normal: var(--lgc-text) !important;
-  --text-muted: var(--lgc-text-muted) !important;
-  --text-positive: rgb(var(--lgc-green-rgb)) !important;
-  --text-warning: rgb(var(--lgc-yellow-rgb)) !important;
-  --text-danger: rgb(var(--lgc-red-rgb)) !important;
-  --text-link: rgb(var(--lgc-accent-rgb)) !important;
-  --header-primary: var(--lgc-text) !important;
-  --header-secondary: var(--lgc-text-soft) !important;
-  --interactive-normal: #c9d2df !important;
-  --interactive-hover: #ffffff !important;
-  --interactive-active: #ffffff !important;
-  --interactive-muted: #687384 !important;
-  --channels-default: #a4adba !important;
-  --channel-icon: #a4adba !important;
-
-  --brand-experiment: rgb(var(--lgc-accent-rgb)) !important;
-  --brand-500: rgb(var(--lgc-accent-rgb)) !important;
-  --status-positive: rgb(var(--lgc-green-rgb)) !important;
-  --status-warning: rgb(var(--lgc-yellow-rgb)) !important;
-  --status-danger: rgb(var(--lgc-red-rgb)) !important;
-
-  --scrollbar-thin-thumb: rgba(255,255,255,.18) !important;
-  --scrollbar-thin-track: transparent !important;
-  --scrollbar-auto-thumb: rgba(255,255,255,.14) !important;
-  --scrollbar-auto-track: transparent !important;
-
-  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif !important;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif !important;
+  --lgc-v9-fade: linear-gradient(
+    to bottom,
+    rgba(7,10,18,0) 0%,
+    rgba(7,10,18,.20) 35%,
+    rgba(7,10,18,.62) 78%,
+    rgba(7,10,18,.86) 100%
+  );
+  --lgc-v9-fade-soft: linear-gradient(
+    to bottom,
+    rgba(10,15,27,0) 0%,
+    rgba(10,15,27,.18) 38%,
+    rgba(10,15,27,.58) 78%,
+    rgba(10,15,27,.80) 100%
+  );
+  --lgc-border: rgba(255,255,255,.068) !important;
+  --lgc-border-strong: rgba(255,255,255,.105) !important;
+  --lgc-border-soft: rgba(255,255,255,.030) !important;
 }
 
-html,
-body,
-#app-mount {
-  min-height: 100%;
-  background: var(--lgc-bg) !important;
+/* --------------------------------------------------------------------------
+   1) Context-menu submenus: Discord creates a separate popout for submenus.
+   The earlier margin rules hit the inner menu, but not the popout position.
+   This moves only submenu popouts left, so they sit beside the parent menu.
+   -------------------------------------------------------------------------- */
+#app-mount [id^="popout_"]:has(.submenu_c1e9c4),
+#app-mount [id^="popout_"]:has([class^="submenu_"]),
+#app-mount [id^="popout_"]:has([class*=" submenu_"]) {
+  translate: -176px 0 !important;
 }
 
-body {
-  font-family: var(--font-primary) !important;
-  overflow: hidden;
+#app-mount :is(.submenuPaddingContainer_c1e9c4, [class^="submenuPaddingContainer_"], [class*=" submenuPaddingContainer_"]) {
+  padding-left: 4px !important;
+  margin-left: 0 !important;
 }
 
-#app-mount {
-  position: relative;
-  isolation: isolate;
-  color: var(--lgc-text) !important;
+#app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
+  margin-left: 0 !important;
 }
 
-#app-mount::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 14% 10%, rgba(var(--lgc-accent-rgb),.30), transparent 31%),
-    radial-gradient(circle at 82% 4%, rgba(var(--lgc-accent-2-rgb),.21), transparent 31%),
-    radial-gradient(circle at 62% 86%, rgba(var(--lgc-cyan-rgb),.11), transparent 34%),
-    linear-gradient(135deg, var(--lgc-bg) 0%, var(--lgc-bg-2) 48%, var(--lgc-bg-3) 100%) !important;
+#app-mount :is(.menu_c1e9c4, .submenu_c1e9c4, [role="menu"]) {
+  border-color: rgba(255,255,255,.075) !important;
 }
 
-#app-mount::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.045) 22%, transparent 44%),
-    radial-gradient(circle at 50% -8%, rgba(255,255,255,.070), transparent 36%);
-  opacity: .48;
-  mix-blend-mode: screen;
-}
-
-::selection {
-  background: rgba(var(--lgc-accent-rgb),.35) !important;
-  color: #fff !important;
-}
-
-#app-mount * {
-  outline-color: rgba(var(--lgc-accent-rgb),.28) !important;
-}
-
-/* Discord shell reset */
-#app-mount :is(
-  .appAsidePanelWrapper_a3002d,
-  .notAppAsidePanel_a3002d,
-  .app_a3002d,
-  .app__160d8,
-  .bg__960e4,
-  .layers__960e4,
-  .layers__160d8,
-  .layer__960e4,
-  .baseLayer__960e4,
-  .container__5e434,
-  .base__5e434,
-  .content__5e434,
-  .page__5e434,
-  [class^='bg_'], [class*=' bg_'],
-  [class^='app_'], [class*=' app_'],
-  [class^='layers_'], [class*=' layers_'],
-  [class^='layer_'], [class*=' layer_'],
-  [class^='base_'], [class*=' base_'],
-  [class^='page_'], [class*=' page_'],
-  [class^='chatLayerWrapper_'], [class*=' chatLayerWrapper_']
-) {
-  background: transparent !important;
-}
-
-#app-mount :is([class^='scroller_'], [class*=' scroller_'], [class^='auto_'], [class*=' auto_'], [class^='thin_'], [class*=' thin_'], [class^='tree_'], [class*=' tree_']) {
-  background-color: transparent !important;
-}
-
-/* Context menu/submenus */
-#app-mount :is(
-  .layerContainer__59d0d,
-  .layerContainer_da8173,
-  [class^='layerContainer_'], [class*=' layerContainer_'],
-  [id^='popout_'],
-  [class^='popout_'], [class*=' popout_'],
-  [class^='submenu_'], [class*=' submenu_'],
-  [class^='submenuPaddingContainer_'], [class*=' submenuPaddingContainer_']
-) {
-  overflow: visible !important;
-  contain: none !important;
-  z-index: 9999 !important;
-}
-
-#app-mount :is([role='menu'], .menu_c1e9c4, .submenu_c1e9c4, [class^='menu_'], [class*=' menu_'], [class^='submenu_'], [class*=' submenu_']) {
-  overflow: visible !important;
-  contain: none !important;
-  background: var(--lgc-panel-solid) !important;
-  border: 1px solid var(--lgc-border) !important;
-  border-radius: 16px !important;
-  box-shadow: var(--lgc-shadow-strong), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-  backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-}
-
-/* Bring submenu closer to parent menu. */
-#app-mount :is(.submenuPaddingContainer_c1e9c4, [class^='submenuPaddingContainer_'], [class*=' submenuPaddingContainer_']) {
-  padding-left: 0 !important;
-  margin-left: -6px !important;
-}
-
-#app-mount :is(.submenu_c1e9c4, [class^='submenu_'], [class*=' submenu_']) {
-  margin-left: -2px !important;
-}
-
-#app-mount :is(.item_c1e9c4, [class^='item_'][role='menuitem'], [role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio']) {
-  border-radius: 11px !important;
-  margin: 2px 4px !important;
-}
-
-#app-mount :is(.item_c1e9c4.focused_c1e9c4, .item_c1e9c4:hover, [role='menuitem']:hover, [role='menuitemcheckbox']:hover, [role='menuitemradio']:hover) {
-  background: rgba(var(--lgc-accent-rgb),.16) !important;
-}
-
-#app-mount :is(.caret_c1e9c4, .arrow_c1e9c4, [class^='caret_'], [class*=' caret_'], [class^='arrow_'], [class*=' arrow_']) {
-  opacity: .90 !important;
-}
-
-/* Left shell */
-#app-mount .sidebar__5e434 {
-  margin: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  overflow: visible !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount :is(.wrapper_ef3116, .guilds__5e434) {
-  margin: 8px 0 8px 8px !important;
-  width: 74px !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-  mask: none !important;
-  -webkit-mask: none !important;
-}
-
-#app-mount :is(.tree_ef3116, .itemsContainer_ef3116, .scroller_ef3116, .stack_dbd263) {
-  background: transparent !important;
-}
-
-#app-mount .scroller_ef3116 {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-}
-
-#app-mount :is(.listItem__650eb, .listItemWrapper__91816, .wrapper_cc5dd2, .wrapper__6e9f8, .childWrapper__6e9f8, .circleIconButton__5bc7e, .blobContainer_e5445c, .folderButton__48112, .folderButtonInner__48112, .folderPreviewWrapper__48112) {
-  border-radius: 16px !important;
-}
-
-#app-mount :is(.childWrapper__6e9f8, .circleIconButton__5bc7e, .folderPreviewWrapper__48112) {
-  background: linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.030)), rgba(255,255,255,.035) !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Open folder background: smaller and centered so it does not overflow visually. */
-#app-mount :is(.folderGroupBackground__48112, .expandedFolderBackground_ef3116, [class^='folderGroupBackground_'], [class*=' folderGroupBackground_'], [class^='expandedFolderBackground_'], [class*=' expandedFolderBackground_']) {
-  left: 9px !important;
-  right: auto !important;
-  width: 54px !important;
-  border-radius: 18px !important;
-  background: linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.020)), rgba(255,255,255,.030) !important;
-  border: 0 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08) !important;
-}
-
-#app-mount :is(.folderGuildsList__48112, [class^='folderGuildsList_'], [class*=' folderGuildsList_']) {
-  width: 54px !important;
+/* --------------------------------------------------------------------------
+   2) Open folder in server list: reduce the oversized rounded rectangle.
+   -------------------------------------------------------------------------- */
+#app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"]) {
+  width: 48px !important;
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+#app-mount :is(.folderGroupBackground__48112, .expandedFolderBackground_ef3116, [class^="folderGroupBackground_"], [class*=" folderGroupBackground_"], [class^="expandedFolderBackground_"], [class*=" expandedFolderBackground_"]) {
+  left: 12px !important;
+  right: auto !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.052), rgba(255,255,255,.014)),
+    rgba(255,255,255,.024) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+
+#app-mount :is(.folderGuildsList__48112, [class^="folderGuildsList_"], [class*=" folderGuildsList_"]) {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   background: transparent !important;
   border-radius: 18px !important;
 }
 
-#app-mount :is(.pill_e5445c, .pill__58105) span,
-#app-mount :is(.item__58105, .item_58105) {
-  background: rgba(255,255,255,.72) !important;
-  border-radius: 999px !important;
+#app-mount :is(.folderButton__48112, .folderButtonInner__48112, [class^="folderButton_"], [class*=" folderButton_"], [class^="folderButtonInner_"], [class*=" folderButtonInner_"]) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 
-/* Channel list */
-#app-mount .sidebarList__5e434 {
+#app-mount :is(.folderButton__48112, .folderButtonInner__48112, .wrapper_cc5dd2, .wrapper__6e9f8) {
+  max-width: 48px !important;
+}
+
+/* --------------------------------------------------------------------------
+   3) Bottom cut: add an actual mask on the scrollable content + a visible overlay.
+   The previous ::after alone could sit behind the scroller content in some views.
+   -------------------------------------------------------------------------- */
+#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf) {
   position: relative !important;
-  margin: 8px !important;
-  margin-bottom: calc(var(--custom-app-panels-height, 58px) + 18px) !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
+  isolation: isolate !important;
 }
 
-#app-mount .sidebarList__5e434::after,
-#app-mount .peopleColumn__133bf::after,
-#app-mount .membersWrap_c8ffbb::after,
-#app-mount .nowPlayingColumn__133bf::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 42px;
-  z-index: 4;
-  pointer-events: none;
-  background: var(--lgc-fade-bottom);
+#app-mount :is(.scroller__99e7c, .scroller__629e4, .members_c8ffbb, .peopleList__5ec2f, .scroller__7d20c) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 76px),
+    rgba(0,0,0,.85) calc(100% - 50px),
+    rgba(0,0,0,.28) calc(100% - 18px),
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 76px),
+    rgba(0,0,0,.85) calc(100% - 50px),
+    rgba(0,0,0,.28) calc(100% - 18px),
+    transparent 100%
+  ) !important;
 }
 
-#app-mount :is(.sidebarListRounded__5e434, .container__2637a, .scroller__629e4, .content_d125d2, .positionedContainer__629e4, .privateChannels_e6b769, .scroller__99e7c) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 82px !important;
+  z-index: 50 !important;
+  pointer-events: none !important;
+  background: var(--lgc-v9-fade) !important;
+  opacity: .92 !important;
 }
 
-#app-mount :is(.container_f37cb1, .header_f37cb1, .headerContent_f37cb1, .headerChildren_f37cb1) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+#app-mount :is(.peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
+  background: var(--lgc-v9-fade-soft) !important;
 }
 
-#app-mount .animatedContainer_f37cb1 {
-  border-radius: 0 0 16px 16px !important;
-  background: rgba(5,8,16,.16) !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.headerGlass_f37cb1, .headerEllipseBackdrop_f37cb1, .headerEllipseForeground_f37cb1) {
-  display: none !important;
-}
-
-#app-mount :is(.containerDefault_c69b6d, .containerDefault__29444) {
-  margin: 1px 6px !important;
-  border-radius: 14px !important;
-  background: transparent !important;
-}
-
-#app-mount :is(.wrapper__2ea32, .link__2ea32, .linkTop__2ea32, .basicChannelRowLink__2ea32, .iconVisibility_c69b6d, .wrapper__29444, .mainContent__29444) {
-  border-radius: 14px !important;
-  background: transparent !important;
-}
-
-#app-mount .link__2ea32 {
-  padding-top: 6px !important;
-  padding-bottom: 6px !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  transition: background-color var(--lgc-transition), box-shadow var(--lgc-transition) !important;
-}
-
-#app-mount :is(.link__2ea32:hover, .wrapper__29444:hover, .mainContent__29444:hover) {
-  background: rgba(255,255,255,.052) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
-}
-
-#app-mount :is(.selected_c69b6d, .selectedChannel_c69b6d, .modeSelected__2ea32) .link__2ea32,
-#app-mount .containerDefault_c69b6d.selected_c69b6d .link__2ea32 {
-  background: var(--lgc-selected) !important;
-  border: 0 !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-#app-mount :is(.wrapperCommon__29444, .containerDefault__29444, .sectionDivider__629e4, .membersGroup_c8ffbb, .membersGroupHeader_c8ffbb) {
-  color: rgba(245,247,251,.58) !important;
-}
-
-#app-mount :is(.children__2ea32, .iconItem_c69b6d, .channelInfo_c69b6d, .name__2ea32, .overflow_b0dfc2) {
-  background: transparent !important;
-}
-
-/* Boost/progress/membercount pills */
-#app-mount :is(.container__0d0f9, .containerWithMargin__0d0f9, .contentContainer__0d0f9) {
-  background: transparent !important;
-  border: 0 !important;
-}
-
-#app-mount :is(.progressContainer__0d0f9, .bar__7aaec, .emptyBar__7aaec, .wrapper__260e1, .moreUsers__183c2) {
-  background: rgba(255,255,255,.070) !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.070) !important;
-}
-
-#app-mount .progress__0d0f9,
-#app-mount [class^='progressBar_'],
-#app-mount [class*=' progressBar_'] {
-  background: linear-gradient(90deg, rgba(var(--lgc-accent-rgb),.82), rgba(var(--lgc-accent-2-rgb),.72)) !important;
-  border-radius: 999px !important;
-}
-
-/* User account panel */
-#app-mount .panels__5e434 {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  overflow: visible !important;
+/* The user panel sits just below the DM/channel list: make its top blend softer. */
+#app-mount .panels__5e434::before,
+#app-mount .container__37e49::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: -34px !important;
+  height: 34px !important;
+  pointer-events: none !important;
+  background: linear-gradient(to bottom, rgba(7,10,18,0), rgba(7,10,18,.58)) !important;
 }
 
 #app-mount .container__37e49 {
-  margin: 0 8px 8px 8px !important;
-  border-radius: 22px !important;
-  background: var(--lgc-panel-solid) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-}
-
-#app-mount :is(.buttons__37e49, .accountPopoutButton__37e49, .accountPopoutButtonWrapper__37e49, .button__201d5, .button__67645) {
-  border-radius: 999px !important;
-}
-
-#app-mount :is(.accountPopoutButton__37e49:hover, .button__201d5:hover, .button__67645:hover) {
-  background: rgba(255,255,255,.075) !important;
-}
-
-/* Top bars: more Apple-like, less bordered. */
-#app-mount :is(.bar_c38106, .systemBar_c38106, .title_c38106, .trailing_c38106, .leading_c38106) {
-  background: linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.020)), rgba(8,12,21,.46) !important;
-  border: 0 !important;
-  box-shadow: inset 0 -1px 0 rgba(255,255,255,.045), 0 10px 30px rgba(0,0,0,.18) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
-  backdrop-filter: blur(10px) saturate(150%) !important;
-}
-
-#app-mount :is(.winButton_c38106, .winButtonMinMax_c38106, .winButtonClose_c38106) {
-  border-radius: 9px !important;
-}
-
-#app-mount :is(.winButton_c38106:hover, .winButtonMinMax_c38106:hover) {
-  background: rgba(255,255,255,.075) !important;
-}
-
-/* Friends / DMs page */
-#app-mount .container__133bf {
-  background: transparent !important;
-  border: 0 !important;
-}
-
-#app-mount .container__133bf > .container__9293f,
-#app-mount main.container__133bf > section.container__9293f,
-#app-mount :is(.container__9293f.themed__9293f, .container__9293f) {
-  margin: 8px 8px 10px 0 !important;
-  min-height: 48px !important;
-  border-radius: 20px !important;
-  background: var(--lgc-panel-top) !important;
-  border: 0 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.075), 0 8px 26px rgba(0,0,0,.16) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
-  backdrop-filter: blur(10px) saturate(150%) !important;
-  overflow: hidden !important;
-}
-
-#app-mount :is(.upperContainer__9293f, .children__9293f, .toolbar__9293f, .titleWrapper__9293f) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.tabBar__133bf, .topPill_aa8da2) {
-  height: 34px !important;
-  align-items: center !important;
-  gap: 4px !important;
-  background: transparent !important;
-}
-
-#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.item__133bf, .item_aa8da2) {
-  height: 30px !important;
-  padding: 0 13px !important;
-  border-radius: 999px !important;
-  background: transparent !important;
-  color: rgba(245,247,251,.72) !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.item__133bf, .item_aa8da2):hover {
-  background: rgba(255,255,255,.060) !important;
-  color: #fff !important;
-}
-
-#app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.selected_aa8da2, .selected__133bf, [aria-selected='true']) {
-  background: var(--lgc-selected) !important;
-  border: 0 !important;
-  box-shadow: var(--lgc-inset) !important;
-  color: #fff !important;
-}
-
-#app-mount .addFriend__133bf {
-  background: linear-gradient(180deg, rgba(255,255,255,.17), rgba(255,255,255,.050)), rgba(var(--lgc-accent-rgb),.76) !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  box-shadow: 0 8px 20px rgba(var(--lgc-accent-rgb),.16), var(--lgc-inset) !important;
-  color: #fff !important;
-}
-
-#app-mount .tabBody__133bf {
-  background: transparent !important;
-  border: 0 !important;
-}
-
-#app-mount .peopleColumn__133bf,
-#app-mount .nowPlayingColumn__133bf {
   position: relative !important;
-  margin: 0 8px 8px 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-}
-
-#app-mount :is(.searchBar__5ec2f, .peopleList__5ec2f, .peopleListItem_cc6179, .listItemContents_fc004c, .userInfo__0a06e, .text__0a06e) {
-  background: transparent !important;
-}
-
-#app-mount .peopleListItem_cc6179 {
-  border-radius: 16px !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount .peopleListItem_cc6179:hover {
-  background: var(--lgc-card-hover) !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-#app-mount :is(.nowPlayingColumn__133bf, .container__7d20c, .scroller__7d20c) {
-  background: transparent !important;
-}
-
-#app-mount :is(.itemCard__7e549, .itemCard__7d20c, .outer_c0bea0, .activeNow__7d20c, [class^='itemCard_'], [class*=' itemCard_']) {
-  background: var(--lgc-card) !important;
-  border: 0 !important;
-  border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-#app-mount :is(.itemCard__7e549, .itemCard__7d20c, [class^='itemCard_'], [class*=' itemCard_']):hover {
-  background: var(--lgc-card-hover) !important;
-}
-
-/* Left DM rows */
-#app-mount :is(.friendsButtonContainer_e6b769, .wrapper__553bf, .channel__972a0, .dm__972a0, .container_e45859) {
-  background: transparent !important;
-  border-radius: 15px !important;
-}
-
-#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0, .link__972a0, .layout__20a53, .avatarWithText__972a0, .content__20a53, .nameAndDecorators__20a53, .name__20a53, .subText__20a53) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0) {
-  border-radius: 15px !important;
-  border: 0 !important;
-  transition: background-color var(--lgc-transition), box-shadow var(--lgc-transition), transform var(--lgc-transition) !important;
-}
-
-#app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0):hover {
-  background: rgba(255,255,255,.050) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
-}
-
-#app-mount :is(.interactiveSelected__972a0, .selected_f88cfd) {
-  background: var(--lgc-selected) !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-#app-mount :is(.activityStatusText__972a0, .subtext__972a0, .overflowTooltip__972a0) {
-  color: rgba(201,209,222,.74) !important;
-}
-
-/* Chat */
-#app-mount :is(.content_f75fb0, .chat_f75fb0, .chatContent_f75fb0, .subtitleContainer_f75fb0, .messagesWrapper__36d07, .scroller__36d07, .scrollerContent__36d07, .scrollerInner__36d07, .scrollerSpacer__36d07) {
-  background: transparent !important;
-}
-
-#app-mount .chat_f75fb0 {
-  border: none !important;
-}
-
-#app-mount :is(.title_f75fb0, .titleWrapper__9293f) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount .chat_f75fb0 > .subtitleContainer_f75fb0 > .container__9293f {
-  margin: 8px 8px 10px 0 !important;
-  border-radius: 20px !important;
-  background: var(--lgc-panel-top) !important;
-  border: 0 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.075), 0 8px 26px rgba(0,0,0,.16) !important;
-}
-
-#app-mount .chatGradient__36d07,
-#app-mount .chatGradientBase__36d07,
-#app-mount :is(.children__9293f, .toolbar__9293f)::after {
-  display: none !important;
-}
-
-#app-mount :is(.messageListItem__5126c, .message__5126c, .cozyMessage__5126c, .wrapper_c19a55) {
-  border-radius: 16px !important;
-}
-
-#app-mount :is(.message__5126c:hover, .cozyMessage__5126c:hover, .messageListItem__5126c:hover) {
-  background: rgba(255,255,255,.035) !important;
-}
-
-#app-mount :is(.mentioned__5126c, .mentioned_c19a55) {
-  background: linear-gradient(90deg, rgba(var(--lgc-yellow-rgb),.15), rgba(var(--lgc-yellow-rgb),.030) 54%, transparent) !important;
-  border-radius: 16px !important;
-}
-
-#app-mount :is(.mentioned__5126c, .mentioned_c19a55)::before {
-  background: rgb(var(--lgc-yellow-rgb)) !important;
-  border-radius: 999px !important;
-}
-
-#app-mount :is(.divider__5126c, .divider__908e2, .separator_c19a55, .separator_f84418, .guildSeparator__252b6) {
-  border-color: var(--lgc-border-soft) !important;
-  background-color: var(--lgc-border-soft) !important;
-}
-
-#app-mount :is(.content__908e2, .divider__908e2 span) {
-  background: rgba(7,10,18,.56) !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  color: var(--lgc-text-muted) !important;
-}
-
-#app-mount :is(.container__040f0, .buttons__5126c, .buttonsInner__5126c, .wrapper_f7ecac) {
-  background: var(--lgc-panel-solid) !important;
-  border: 1px solid var(--lgc-border) !important;
-  border-radius: 999px !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-  backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-}
-
-#app-mount :is(.button_f7ecac, .hoverBarButton_f84418, .buttonContent_f84418) {
-  border-radius: 999px !important;
-}
-
-#app-mount :is(.button_f7ecac:hover, .hoverBarButton_f84418:hover) {
-  background: rgba(255,255,255,.090) !important;
-}
-
-/* Chat input */
-#app-mount :is(.form_f75fb0, .formWithLoadedChatInput_f75fb0, .channelBottomBarArea_f75fb0) {
-  background: transparent !important;
-}
-
-#app-mount :is(.form_f75fb0)::before,
-#app-mount :is(.channelTextArea_f75fb0)::before {
-  display: none !important;
-}
-
-#app-mount :is(.channelTextArea_f75fb0, .channelTextArea__74017, .themedBackground__74017, .scrollableContainer__74017) {
-  background: var(--lgc-input) !important;
-  border: 1px solid var(--lgc-border-strong) !important;
-  border-radius: 22px !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-}
-
-#app-mount :is(.inner__74017, .sansAttachButton__74017, .textArea__74017, .textAreaSlate__74017, .slateTextArea_ec4baf, .slateContainer_ec4baf, .public-DraftEditor-content, .DraftEditor-editorContainer) {
-  background: transparent !important;
-}
-
-#app-mount :is(.button__74017, .button__24af7, .buttonWrapper__24af7, .attachButton__0923f, .attachButton__74017, .emojiButton__74017, .stickerButton__74017, .vc-chatbar-button, .vc-trans-chat-button, .expression-picker-chat-input-button) {
-  border-radius: 999px !important;
-}
-
-#app-mount :is(.button__74017:hover, .button__24af7:hover, .buttonWrapper__24af7:hover, .attachButton__0923f:hover, .emojiButton__74017:hover, .stickerButton__74017:hover, .vc-chatbar-button:hover, .vc-trans-chat-button:hover) {
-  background: rgba(255,255,255,.075) !important;
-}
-
-/* Members */
-#app-mount .content_f75fb0 > .container_c8ffbb,
-#app-mount .container_c8ffbb {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount .membersWrap_c8ffbb {
-  position: relative !important;
-  margin: 8px 8px 8px 0 !important;
-  padding: 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-}
-
-#app-mount :is(.members_c8ffbb, .members_c8ffbb > .content_d125d2) {
-  background: transparent !important;
-}
-
-#app-mount :is(.member_c8ffbb, .member__5d473, .memberInner__5d473, .container__91a9d, .layout__91a9d, .childContainer__91a9d, .clickable__91a9d, .content__91a9d, .nameAndDecorators__91a9d, .name__91a9d, .subText__91a9d) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.member_c8ffbb, .member__5d473, .container__91a9d) {
-  margin: 1px 6px !important;
-  border-radius: 15px !important;
-}
-
-#app-mount :is(.member_c8ffbb:hover, .member__5d473:hover, .container__91a9d:hover, .clickable__91a9d:hover) {
-  background: rgba(255,255,255,.050) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
-}
-
-#app-mount :is(.membersGroup_c8ffbb, .membersGroupHeader_c8ffbb) {
-  color: rgba(245,247,251,.62) !important;
-  padding-left: 14px !important;
-  letter-spacing: .02em !important;
-}
-
-/* Embeds, attachments, media */
-#app-mount :is(.embed__623de, .embedFull__623de, .embedMedia__623de, .inlineMediaEmbed__623de, .attachment_fc8177, .attachmentContainer_fc8177, .imageContainer__0f481, .imageContent__0f481, .imageWrapper_af017a, .imageWrapperBackground_af017a, .videoContainer_df39b2, .textContainer__0d0f9, .wrapperAudio__0d0f9, .spoilerContainer__54ab5, .markup__75297 pre, code) {
-  background: var(--lgc-card) !important;
-  border-color: var(--lgc-border-soft) !important;
-  border-radius: var(--lgc-radius-md) !important;
-  box-shadow: var(--lgc-inset) !important;
-  overflow: hidden !important;
-}
-
-#app-mount :is(.imagePlaceholder_af017a, .loadingOverlay_af017a, .wrapper_cdf8a9, .wrapper_cdf8a9 > .wrapper_fc8177) {
-  background: rgba(255,255,255,.050) !important;
-}
-
-#app-mount :is(.reaction__23977, .reactionBtn__23977, [class^='reaction_'], [class*=' reaction_']) {
-  background: rgba(255,255,255,.048) !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
-}
-
-#app-mount :is(.reaction__23977:hover, .reactionMe__23977, [class^='reactionMe_'], [class*=' reactionMe_']) {
-  background: rgba(var(--lgc-accent-rgb),.16) !important;
-}
-
-/* Popouts, modals, profiles, pickers */
-#app-mount :is(
-  [role='dialog'],
-  .modal__7f8f5,
-  .root__24502,
-  .root__49fc1,
-  .popout__3f413,
-  .contentWrapper__08434,
-  .drawerSizingWrapper__08434,
-  .autocomplete__13533,
-  .outer_c0bea0,
-  .inner_c0bea0,
-  .userPopoutOuter_c69a7b,
-  .userProfileOuter_c69a7b,
-  [class^='modal_'], [class*=' modal_'],
-  [class^='picker_'], [class*=' picker_'],
-  [class^='drawerSizingWrapper_'], [class*=' drawerSizingWrapper_'],
-  [class^='autocomplete_'], [class*=' autocomplete_'],
-  [class^='contentWrapper_'], [class*=' contentWrapper_'],
-  [class^='userPopout'], [class*=' userPopout'],
-  [class^='userProfile'], [class*=' userProfile']
-) {
-  background: var(--lgc-panel-solid) !important;
-  border: 1px solid var(--lgc-border) !important;
-  border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-shadow-strong), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-  backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-}
-
-#app-mount :is(.overlayBackground_c69a7b, .bodyInnerWrapper_c69a7b, .body__24502, .footer__49fc1) {
-  background: rgba(8,12,21,.42) !important;
-  border: 0 !important;
-  border-radius: var(--lgc-radius-lg) !important;
-}
-
-#app-mount :is(.backdrop__78332, .backdrop__8a7fc, [class^='backdrop_'], [class*=' backdrop_']) {
-  background: rgba(0,0,0,.42) !important;
-  -webkit-backdrop-filter: blur(3px) !important;
-  backdrop-filter: blur(3px) !important;
-}
-
-#app-mount :is(.uploadDropModal_b78547, .uploadArea_b78547) {
-  background: var(--lgc-panel-solid) !important;
-  border: 1px solid var(--lgc-border) !important;
-  border-radius: 24px !important;
-  box-shadow: 0 22px 70px rgba(0,0,0,.42), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-  backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
-}
-
-/* Settings */
-#app-mount :is(.standardSidebarView__23e6b, .contentRegion__23e6b, .contentRegionScroller__23e6b, .sidebarRegion__23e6b, .sidebarRegionScroller__23e6b, [class^='standardSidebarView_'], [class*=' standardSidebarView_'], [class^='contentRegion_'], [class*=' contentRegion_'], [class^='sidebarRegion_'], [class*=' sidebarRegion_']) {
-  background: transparent !important;
-}
-
-#app-mount :is(.sidebarRegionScroller__23e6b, [class^='sidebarRegionScroller_'], [class*=' sidebarRegionScroller_']) {
-  margin: 8px 0 8px 8px !important;
-  border-radius: var(--lgc-radius-xl) 0 0 var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  border-right: 1px solid var(--lgc-border-soft) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-}
-
-#app-mount :is(.contentRegionScroller__23e6b, [class^='contentRegionScroller_'], [class*=' contentRegionScroller_']) {
-  margin: 8px 8px 8px 0 !important;
-  border-radius: 0 var(--lgc-radius-xl) var(--lgc-radius-xl) 0 !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-}
-
-#app-mount :is(.contentColumn__23e6b, .customColumn__23e6b, [class^='contentColumn_'], [class*=' contentColumn_'], [class^='customColumn_'], [class*=' customColumn_']) {
-  max-width: 980px !important;
-}
-
-#app-mount :is(.side_b3f026, .side__23e6b, [class^='side_'], [class*=' side_']) :is(.item_b3f026, .item__133bf, [class^='item_'], [class*=' item_']) {
-  border-radius: 13px !important;
-  margin: 2px 8px !important;
-}
-
-#app-mount :is(.side_b3f026, .side__23e6b, [class^='side_'], [class*=' side_']) :is(.selected_b3f026, .selected__133bf, [class^='selected_'], [class*=' selected_']) {
-  background: var(--lgc-selected) !important;
-  color: #fff !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-#app-mount :is(.card__73069, .card__5cea9, .settingCard__1a4ef, .accountProfileCard__1fed1, .connection__7bffb, .notice__6e2b9, .notice__29487, [class^='card_'], [class*=' card_'], [class^='settingCard_'], [class*=' settingCard_'], [class^='accountProfileCard_'], [class*=' accountProfileCard_'], [class^='connection_'], [class*=' connection_']) {
-  background: var(--lgc-card) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
-  border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-inset) !important;
-}
-
-/* Inputs and buttons */
-#app-mount input,
-#app-mount textarea,
-#app-mount :is(.input__0f084, .input__48d49, .input__4f074, .textArea__74017, .select__3f413, [class^='input_'], [class*=' input_'], [class^='textArea_'], [class*=' textArea_'], [class^='select_'], [class*=' select_']) {
-  color: var(--lgc-text) !important;
-  background: var(--lgc-input) !important;
-  border-color: var(--lgc-border-soft) !important;
-  border-radius: 13px !important;
-}
-
-#app-mount input:focus,
-#app-mount textarea:focus,
-#app-mount :is([class^='input_'], [class*=' input_']):focus,
-#app-mount :is([class^='searchBar_'], [class*=' searchBar_']):focus-within {
-  border-color: rgba(var(--lgc-accent-rgb),.34) !important;
-  box-shadow: 0 0 0 2px rgba(var(--lgc-accent-rgb),.09), var(--lgc-inset) !important;
-}
-
-#app-mount button,
-#app-mount :is(.button__201d5, .button_a22cb0, .actionButton_f8fa06, [class^='button_'], [class*=' button_'], [class^='actionButton_'], [class*=' actionButton_']) {
-  border-radius: 999px !important;
-  transition: transform var(--lgc-transition), background-color var(--lgc-transition), border-color var(--lgc-transition), box-shadow var(--lgc-transition), filter var(--lgc-transition) !important;
-}
-
-#app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, [class^='lookFilled_'], [class*=' lookFilled_'], [class^='actionButton_'], [class*=' actionButton_']) {
-  background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.044)), rgba(var(--lgc-accent-rgb),.72) !important;
-  border: 0 !important;
-  box-shadow: 0 10px 22px rgba(var(--lgc-accent-rgb),.15), var(--lgc-inset) !important;
-}
-
-#app-mount button:hover,
-#app-mount :is([class^='button_'], [class*=' button_']):hover,
-#app-mount :is([class^='actionButton_'], [class*=' actionButton_']):hover {
-  transform: translateY(-1px);
-  filter: brightness(1.06);
-}
-
-#app-mount button:active,
-#app-mount :is([class^='button_'], [class*=' button_']):active {
-  transform: translateY(0) scale(.985);
-}
-
-/* Badges, tags, roles: remove the ugly visible outlines. */
-#app-mount :is(
-  .botTag__82f07,
-  .botTagRegular__82f07,
-  .botTag__5d473,
-  .px__82f07,
-  .rem__82f07,
-  .badge__10651,
-  .messageBadge__10651,
-  .chipletContainerInner__10651,
-  .messageChipletContainerInner__10651,
-  .clanTagChiplet_c19a55,
-  .numberBadge__463b7,
-  .vc-membercount-widget,
-  .vc-membercount-container,
-  .vc-membercount-tooltip,
-  .vc-platform-indicator,
-  .vc-platform-indicator-message,
-  [class^='botTag_'], [class*=' botTag_'],
-  [class^='role_'], [class*=' role_'],
-  [class^='badge_'], [class*=' badge_']
-) {
-  border: 0 !important;
-  outline: 0 !important;
-  box-shadow: none !important;
-}
-
-#app-mount :is(.botTag__82f07, .botTagRegular__82f07, .botTag__5d473, .badge__10651, .messageBadge__10651, .chipletContainerInner__10651, .messageChipletContainerInner__10651, .clanTagChiplet_c19a55, .numberBadge__463b7) {
-  border-radius: 999px !important;
-  background: rgba(var(--lgc-accent-rgb),.22) !important;
-}
-
-#app-mount :is(.vc-membercount-widget, .vc-membercount-container, .vc-membercount-tooltip) {
-  border-radius: 999px !important;
-  background: rgba(255,255,255,.060) !important;
-}
-
-/* Scrollbars */
-#app-mount ::-webkit-scrollbar {
-  width: 10px !important;
-  height: 10px !important;
-}
-
-#app-mount ::-webkit-scrollbar-track {
-  background: transparent !important;
-}
-
-#app-mount ::-webkit-scrollbar-thumb {
-  min-height: 40px;
-  background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.10)) !important;
-  border: 3px solid transparent !important;
-  border-radius: 999px !important;
-  background-clip: padding-box !important;
-}
-
-#app-mount ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.16)) !important;
-  background-clip: padding-box !important;
-}
-
-/* Performance guard */
-#app-mount :is(.scroller__629e4, .scroller_ef3116, .scroller__36d07, .members_c8ffbb, .content_d125d2, .scroller__99e7c, .scroller__7d20c) {
-  will-change: auto !important;
-}
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :root,
-  .theme-dark,
-  .theme-light {
-    --lgc-panel: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)), rgba(10,15,27,.90);
-    --lgc-panel-solid: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)), rgba(10,15,27,.95);
-    --lgc-card: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025)), rgba(25,33,50,.70);
-  }
-}
-
-@media (max-width: 1100px) {
-  :root,
-  .theme-dark,
-  .theme-light {
-    --lgc-blur: 6px;
-    --lgc-popout-blur: 10px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #app-mount *,
-  #app-mount *::before,
-  #app-mount *::after {
-    transition-duration: .001ms !important;
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
+  overflow: visible !important;
 }
