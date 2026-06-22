@@ -1,113 +1,148 @@
-@import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@b47986bba16e76bd75a97590929d5caf5d7541ab/LiquidGlassCord.css");
+@import url("https://cdn.jsdelivr.net/gh/awizzz/LiquidGlassCord@2a5757265127abf23e9ba83129a4a2e839596ddc/LiquidGlassCord.css");
 
 /**
  * LiquidGlassCord
- * Version: 10.0.0
+ * Version: 11.0.0
  * Author: Awizz
  *
- * Single-file patch layer over v9.
- * Stronger visible Liquid Glass fades + harder fixes for submenu popouts and folder capsules.
+ * Patch over v10.
+ * Fixes: visible rounded fade shape, folder background alignment, submenu placement to the right of the parent menu.
  */
 
 :root,
 .theme-dark,
 .theme-light {
-  --lgc-v10-panel-rgb: 7, 10, 18;
-  --lgc-v10-panel2-rgb: 10, 15, 27;
-  --lgc-v10-fade-strong: linear-gradient(
+  --lgc-v11-fade-sidebar: linear-gradient(
     to bottom,
-    rgba(var(--lgc-v10-panel-rgb), 0) 0%,
-    rgba(var(--lgc-v10-panel-rgb), .10) 18%,
-    rgba(var(--lgc-v10-panel-rgb), .34) 42%,
-    rgba(var(--lgc-v10-panel-rgb), .72) 76%,
-    rgba(var(--lgc-v10-panel-rgb), .94) 100%
+    rgba(7, 10, 18, 0) 0%,
+    rgba(7, 10, 18, .08) 18%,
+    rgba(7, 10, 18, .26) 42%,
+    rgba(7, 10, 18, .58) 73%,
+    rgba(7, 10, 18, .86) 100%
   );
-  --lgc-v10-fade-glass: linear-gradient(
+  --lgc-v11-fade-panel: linear-gradient(
     to bottom,
-    rgba(var(--lgc-v10-panel2-rgb), 0) 0%,
-    rgba(var(--lgc-v10-panel2-rgb), .12) 20%,
-    rgba(var(--lgc-v10-panel2-rgb), .36) 46%,
-    rgba(var(--lgc-v10-panel2-rgb), .70) 78%,
-    rgba(var(--lgc-v10-panel2-rgb), .88) 100%
+    rgba(10, 15, 27, 0) 0%,
+    rgba(10, 15, 27, .10) 20%,
+    rgba(10, 15, 27, .30) 48%,
+    rgba(10, 15, 27, .62) 78%,
+    rgba(10, 15, 27, .84) 100%
   );
 }
 
 /* --------------------------------------------------------------------------
-   Context-menu submenus
-   Discord renders submenus as their own popout. The previous popout selector
-   was not enough on your build, so this also moves the actual submenu surface.
+   1) Bottom fade: remove the visible rounded blur blob.
+   Fade now belongs to the exact list container, with square edges and no
+   radial highlight. This keeps the Apple-like dissolve without a visible shape.
    -------------------------------------------------------------------------- */
-#app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
-  margin-left: -148px !important;
-  transform: translateX(-148px) !important;
-  translate: -148px 0 !important;
-  overflow: visible !important;
-  contain: none !important;
+#app-mount .sidebar__5e434::after {
+  display: none !important;
+  content: none !important;
 }
 
-#app-mount :is(.submenuPaddingContainer_c1e9c4, [class^="submenuPaddingContainer_"], [class*=" submenuPaddingContainer_"]) {
-  margin-left: -10px !important;
-  padding-left: 0 !important;
-  overflow: visible !important;
-  contain: none !important;
+#app-mount .container__37e49::before,
+#app-mount .panels__5e434::before {
+  display: none !important;
+  content: none !important;
 }
 
-#app-mount [id^="popout_"]:has([class*="submenu"]),
-#app-mount [id^="popout_"]:has([role="menu"] [aria-haspopup="menu"]) {
-  overflow: visible !important;
-  contain: none !important;
+#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
 }
 
-#app-mount :is([role="menu"], .menu_c1e9c4, .submenu_c1e9c4) {
-  border-color: rgba(255,255,255,.060) !important;
-  box-shadow: 0 18px 54px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.10) !important;
+#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 128px !important;
+  z-index: 60 !important;
+  pointer-events: none !important;
+  border-radius: 0 !important;
+  background: var(--lgc-v11-fade-sidebar) !important;
+  opacity: .96 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount :is(.peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
+  background: var(--lgc-v11-fade-panel) !important;
+}
+
+#app-mount :is(.scroller__99e7c, .scroller__629e4, .members_c8ffbb, .peopleList__5ec2f, .scroller__7d20c) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 138px),
+    rgba(0,0,0,.92) calc(100% - 108px),
+    rgba(0,0,0,.68) calc(100% - 72px),
+    rgba(0,0,0,.30) calc(100% - 28px),
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 138px),
+    rgba(0,0,0,.92) calc(100% - 108px),
+    rgba(0,0,0,.68) calc(100% - 72px),
+    rgba(0,0,0,.30) calc(100% - 28px),
+    transparent 100%
+  ) !important;
 }
 
 /* --------------------------------------------------------------------------
-   Server folders
-   Your dump shows folderGroupBackground__48112 is already 48px wide, but the
-   visible capsule still feels too wide because the 72px folder list/container
-   remains exposed. This keeps the outer hitbox but makes the glass pill 40px.
+   2) Server folder: hide Discord's misaligned background and draw our own
+   centered pill behind the folder contents.
    -------------------------------------------------------------------------- */
 #app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"]) {
+  position: relative !important;
+  width: 72px !important;
   background: transparent !important;
   border: 0 !important;
+  outline: 0 !important;
   box-shadow: none !important;
 }
 
-#app-mount :is(.folderGroup__48112.isExpanded__48112, [class*="folderGroup_"][class*="isExpanded_"]) {
-  background: transparent !important;
+#app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"])::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 4px !important;
+  bottom: 4px !important;
+  left: 50% !important;
+  width: 52px !important;
+  transform: translateX(-50%) !important;
+  border-radius: 19px !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)),
+    rgba(255,255,255,.024) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.052) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+#app-mount :is(.folderGroup__48112, [class^="folderGroup_"], [class*=" folderGroup_"]) > * {
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 #app-mount :is(.folderGroupBackground__48112, .expandedFolderBackground_ef3116, [class^="folderGroupBackground_"], [class*=" folderGroupBackground_"], [class^="expandedFolderBackground_"], [class*=" expandedFolderBackground_"]) {
-  left: 16px !important;
-  right: auto !important;
-  width: 40px !important;
-  min-width: 40px !important;
-  max-width: 40px !important;
-  border-radius: 17px !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.040), rgba(255,255,255,.010)),
-    rgba(255,255,255,.020) !important;
-  border: 0 !important;
-  outline: 0 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
-  opacity: .92 !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 #app-mount :is(.folderGuildsList__48112, [class^="folderGuildsList_"], [class*=" folderGuildsList_"]) {
   width: 72px !important;
   min-width: 72px !important;
   max-width: 72px !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-}
-
-#app-mount :is(.folderGuildsList__48112, [class^="folderGuildsList_"], [class*=" folderGuildsList_"]) > .listItem__650eb {
-  width: 72px !important;
 }
 
 #app-mount :is(.folderButton__48112, .folderButtonInner__48112, .folderPreviewWrapper__48112, [class^="folderButton_"], [class*=" folderButton_"], [class^="folderButtonInner_"], [class*=" folderButtonInner_"], [class^="folderPreviewWrapper_"], [class*=" folderPreviewWrapper_"]) {
@@ -118,86 +153,35 @@
 }
 
 /* --------------------------------------------------------------------------
-   Stronger Liquid Glass bottom fades
-   Previous mask helped a bit, but it was too short and too dark at the end.
-   This adds a stronger long fade on the scrollers and a bridge above panels.
+   3) Submenus: keep them on the right like native Discord, just closer.
+   v10 moved the submenu surface over the parent menu; this resets that and only
+   nudges the popout slightly left.
    -------------------------------------------------------------------------- */
-#app-mount .sidebar__5e434 {
-  position: relative !important;
+#app-mount :is(.submenu_c1e9c4, [class^="submenu_"], [class*=" submenu_"]) {
+  margin-left: 0 !important;
+  transform: none !important;
+  translate: 0 0 !important;
+  overflow: visible !important;
+  contain: none !important;
 }
 
-#app-mount .sidebar__5e434::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 90px !important;
-  right: 8px !important;
-  bottom: 0 !important;
-  height: 170px !important;
-  z-index: 14 !important;
-  pointer-events: none !important;
-  border-radius: 0 0 22px 22px !important;
-  background:
-    linear-gradient(to bottom, rgba(7,10,18,0) 0%, rgba(7,10,18,.16) 28%, rgba(7,10,18,.56) 63%, rgba(7,10,18,.88) 100%),
-    radial-gradient(circle at 50% 100%, rgba(var(--lgc-accent-rgb), .10), transparent 62%) !important;
+#app-mount :is(.submenuPaddingContainer_c1e9c4, [class^="submenuPaddingContainer_"], [class*=" submenuPaddingContainer_"]) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  overflow: visible !important;
+  contain: none !important;
 }
 
-#app-mount .panels__5e434,
-#app-mount .container__37e49 {
-  z-index: 30 !important;
+#app-mount [id^="popout_"]:has(.submenu_c1e9c4),
+#app-mount [id^="popout_"]:has([class^="submenu_"]),
+#app-mount [id^="popout_"]:has([class*=" submenu_"]) {
+  transform: translateX(-18px) !important;
+  translate: 0 0 !important;
+  overflow: visible !important;
+  contain: none !important;
 }
 
-#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf) {
-  position: relative !important;
-  isolation: isolate !important;
-}
-
-#app-mount :is(.sidebarList__5e434, .privateChannels_e6b769, .peopleColumn__133bf, .membersWrap_c8ffbb, .nowPlayingColumn__133bf)::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  height: 132px !important;
-  z-index: 60 !important;
-  pointer-events: none !important;
-  background:
-    var(--lgc-v10-fade-glass),
-    radial-gradient(circle at 50% 100%, rgba(var(--lgc-accent-rgb), .08), transparent 70%) !important;
-  opacity: .96 !important;
-  -webkit-backdrop-filter: blur(1.5px) saturate(120%) !important;
-  backdrop-filter: blur(1.5px) saturate(120%) !important;
-}
-
-#app-mount :is(.scroller__99e7c, .scroller__629e4, .members_c8ffbb, .peopleList__5ec2f, .scroller__7d20c) {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 calc(100% - 150px),
-    rgba(0,0,0,.92) calc(100% - 118px),
-    rgba(0,0,0,.68) calc(100% - 82px),
-    rgba(0,0,0,.28) calc(100% - 34px),
-    transparent 100%
-  ) !important;
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 calc(100% - 150px),
-    rgba(0,0,0,.92) calc(100% - 118px),
-    rgba(0,0,0,.68) calc(100% - 82px),
-    rgba(0,0,0,.28) calc(100% - 34px),
-    transparent 100%
-  ) !important;
-}
-
-/* Avoid the overlay making the user panel itself look cloudy. */
-#app-mount .container__37e49::before {
-  content: "" !important;
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: -54px !important;
-  height: 54px !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  background: linear-gradient(to bottom, rgba(7,10,18,0), rgba(7,10,18,.42) 58%, rgba(7,10,18,.72)) !important;
+#app-mount :is([role="menu"], .menu_c1e9c4, .submenu_c1e9c4) {
+  border-color: rgba(255,255,255,.060) !important;
+  box-shadow: 0 18px 54px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.10) !important;
 }
