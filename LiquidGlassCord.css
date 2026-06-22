@@ -1,168 +1,156 @@
 /**
  * LiquidGlassCord Core
- * Version: 2.1.0
+ * Version: 3.0.0
  * Author: Awizz
  *
- * Goal: Apple-like frosted glass without destroying performance.
- * BetterDiscord entry file: LiquidGlassCord.theme.css
+ * Apple Liquid Glass inspired Discord theme.
+ * Heavy blur is limited to the main shell and floating layers for better performance.
  */
-
-/* =========================================================
-   1. Design tokens + Discord variables
-   ========================================================= */
 
 :root,
 .theme-dark,
 .theme-light {
   color-scheme: dark !important;
 
-  --lgc-bg-0: #050914;
-  --lgc-bg-1: #08111f;
-  --lgc-bg-2: #0e1a2c;
-  --lgc-text-0: #f7f9ff;
-  --lgc-text-1: #d7deeb;
-  --lgc-text-2: #9aa6ba;
-  --lgc-muted: #737f93;
+  --lgc-accent-rgb: 98, 164, 255;
+  --lgc-accent-2-rgb: 188, 132, 255;
+  --lgc-cyan-rgb: 116, 227, 255;
+  --lgc-green-rgb: 48, 209, 88;
+  --lgc-yellow-rgb: 255, 214, 10;
+  --lgc-red-rgb: 255, 69, 58;
 
-  --lgc-accent-rgb: 118, 171, 255;
-  --lgc-accent-2-rgb: 185, 153, 255;
-  --lgc-accent: rgb(var(--lgc-accent-rgb));
-  --lgc-positive: #32d74b;
-  --lgc-warning: #ffd60a;
-  --lgc-danger: #ff453a;
+  --lgc-bg: #070a11;
+  --lgc-bg-2: #0b1120;
+  --lgc-bg-3: #101827;
+  --lgc-blur: 10px;
+  --lgc-blur-strong: 16px;
+  --lgc-radius-xl: 24px;
+  --lgc-radius-lg: 18px;
+  --lgc-radius-md: 14px;
+  --lgc-radius-sm: 10px;
 
-  --lgc-line: rgba(255, 255, 255, .105);
-  --lgc-line-2: rgba(255, 255, 255, .17);
-  --lgc-line-3: rgba(255, 255, 255, .245);
+  --lgc-text: #f5f7fb;
+  --lgc-text-soft: #c8d1df;
+  --lgc-text-muted: #8d97a7;
+  --lgc-border: rgba(255, 255, 255, 0.13);
+  --lgc-border-strong: rgba(255, 255, 255, 0.22);
+  --lgc-border-soft: rgba(255, 255, 255, 0.075);
 
-  --lgc-glass-0: rgba(9, 14, 24, .70);
-  --lgc-glass-1: rgba(17, 24, 38, .62);
-  --lgc-glass-2: rgba(26, 35, 52, .48);
-  --lgc-glass-3: rgba(255, 255, 255, .055);
-  --lgc-hover: rgba(255, 255, 255, .075);
-  --lgc-active: rgba(var(--lgc-accent-rgb), .22);
+  --lgc-glass:
+    linear-gradient(180deg, rgba(255,255,255,0.105), rgba(255,255,255,0.042)),
+    rgba(13, 18, 30, 0.66);
+  --lgc-glass-strong:
+    linear-gradient(180deg, rgba(255,255,255,0.125), rgba(255,255,255,0.052)),
+    rgba(10, 15, 25, 0.84);
+  --lgc-glass-soft:
+    linear-gradient(180deg, rgba(255,255,255,0.080), rgba(255,255,255,0.030)),
+    rgba(22, 29, 44, 0.38);
+  --lgc-glass-hover:
+    linear-gradient(180deg, rgba(255,255,255,0.145), rgba(255,255,255,0.055)),
+    rgba(42, 53, 74, 0.44);
+  --lgc-input:
+    linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.028)),
+    rgba(6, 10, 18, 0.56);
+  --lgc-selected:
+    linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.055)),
+    linear-gradient(135deg, rgba(var(--lgc-accent-rgb),0.34), rgba(var(--lgc-accent-2-rgb),0.18));
 
-  --lgc-material:
-    linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.038)),
-    var(--lgc-glass-1);
-  --lgc-material-strong:
-    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.05)),
-    rgba(9, 14, 24, .82);
-  --lgc-material-soft:
-    linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.028)),
-    var(--lgc-glass-2);
-  --lgc-material-input:
-    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)),
-    rgba(4, 8, 15, .50);
+  --lgc-shadow: 0 18px 52px rgba(0,0,0,0.34);
+  --lgc-shadow-soft: 0 10px 30px rgba(0,0,0,0.23);
+  --lgc-inset: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(255,255,255,0.035);
+  --lgc-transition: 170ms cubic-bezier(.2,.8,.2,1);
+  --lgc-spring: 250ms cubic-bezier(.18,.9,.22,1);
 
-  --lgc-radius-xl: 26px;
-  --lgc-radius-lg: 20px;
-  --lgc-radius-md: 15px;
-  --lgc-radius-sm: 11px;
+  /* Discord legacy variables */
+  --background-primary: rgba(12, 17, 28, 0.40) !important;
+  --background-secondary: rgba(12, 17, 28, 0.54) !important;
+  --background-secondary-alt: rgba(8, 12, 21, 0.64) !important;
+  --background-tertiary: rgba(5, 8, 15, 0.72) !important;
+  --background-accent: rgba(var(--lgc-accent-rgb), 0.22) !important;
+  --background-floating: rgba(10, 15, 25, 0.88) !important;
+  --background-nested-floating: rgba(18, 24, 38, 0.74) !important;
+  --background-mobile-primary: rgba(12,17,28,0.48) !important;
+  --background-mobile-secondary: rgba(8,12,21,0.64) !important;
+  --background-modifier-hover: rgba(255,255,255,0.060) !important;
+  --background-modifier-active: rgba(255,255,255,0.092) !important;
+  --background-modifier-selected: rgba(var(--lgc-accent-rgb),0.18) !important;
+  --background-modifier-accent: rgba(255,255,255,0.082) !important;
+  --background-message-hover: rgba(255,255,255,0.042) !important;
+  --channeltextarea-background: rgba(7, 10, 18, 0.58) !important;
+  --input-background: rgba(7, 10, 18, 0.56) !important;
+  --modal-background: rgba(11, 16, 27, 0.88) !important;
+  --modal-footer-background: rgba(7, 10, 18, 0.72) !important;
 
-  --lgc-shadow: 0 18px 48px rgba(0,0,0,.34);
-  --lgc-shadow-soft: 0 10px 26px rgba(0,0,0,.24);
-  --lgc-highlight: inset 0 1px 0 rgba(255,255,255,.17), inset 0 -1px 0 rgba(255,255,255,.035);
-  --lgc-blur: 12px;
-  --lgc-blur-popout: 16px;
-  --lgc-speed: 170ms cubic-bezier(.2,.8,.2,1);
-  --lgc-speed-slow: 240ms cubic-bezier(.2,.8,.2,1);
-
-  /* Old + current Discord color variables. The duplicate coverage is intentional. */
-  --background-primary: transparent !important;
-  --background-secondary: rgba(11, 17, 28, .54) !important;
-  --background-secondary-alt: rgba(8, 13, 23, .66) !important;
-  --background-tertiary: rgba(5, 9, 17, .78) !important;
-  --background-accent: rgba(var(--lgc-accent-rgb), .20) !important;
-  --background-floating: rgba(9, 14, 24, .88) !important;
-  --background-nested-floating: rgba(18, 24, 38, .82) !important;
-  --background-mobile-primary: rgba(10, 16, 26, .62) !important;
-  --background-mobile-secondary: rgba(8, 13, 23, .72) !important;
-  --background-modifier-hover: rgba(255,255,255,.065) !important;
-  --background-modifier-active: rgba(255,255,255,.095) !important;
-  --background-modifier-selected: rgba(var(--lgc-accent-rgb), .20) !important;
-  --background-modifier-accent: rgba(255,255,255,.10) !important;
-  --background-message-hover: rgba(255,255,255,.045) !important;
-  --channeltextarea-background: rgba(6, 10, 18, .56) !important;
-  --modal-background: rgba(10, 16, 26, .88) !important;
-  --modal-footer-background: rgba(5, 9, 17, .64) !important;
-  --input-background: rgba(6, 10, 18, .54) !important;
-
-  --bg-base-primary: transparent !important;
-  --bg-base-secondary: rgba(11, 17, 28, .54) !important;
-  --bg-base-tertiary: rgba(5, 9, 17, .78) !important;
-  --bg-surface-overlay: rgba(9, 14, 24, .88) !important;
-  --bg-surface-raised: rgba(24, 32, 48, .54) !important;
-  --bg-surface-sunken: rgba(4, 8, 15, .58) !important;
-
-  --background-base-lowest: rgba(4, 8, 15, .84) !important;
-  --background-base-lower: rgba(7, 12, 22, .72) !important;
-  --background-base-low: rgba(10, 16, 27, .62) !important;
-  --background-base-mid: rgba(16, 23, 37, .52) !important;
-  --background-base-high: rgba(22, 30, 46, .50) !important;
-  --background-surface-low: rgba(15, 22, 36, .44) !important;
-  --background-surface-mid: rgba(21, 29, 44, .46) !important;
-  --background-surface-high: rgba(27, 36, 54, .50) !important;
-  --background-surface-higher: rgba(34, 43, 63, .54) !important;
-  --background-surface-highest: rgba(43, 53, 74, .58) !important;
-
-  --border-faint: rgba(255,255,255,.055) !important;
-  --border-subtle: rgba(255,255,255,.095) !important;
-  --border-normal: rgba(255,255,255,.145) !important;
-  --border-strong: rgba(255,255,255,.22) !important;
-
-  --text-normal: var(--lgc-text-0) !important;
-  --text-muted: var(--lgc-text-2) !important;
-  --text-positive: var(--lgc-positive) !important;
-  --text-warning: var(--lgc-warning) !important;
-  --text-danger: var(--lgc-danger) !important;
-  --header-primary: var(--lgc-text-0) !important;
-  --header-secondary: var(--lgc-text-1) !important;
-  --interactive-normal: #cfd7e6 !important;
+  --text-normal: var(--lgc-text) !important;
+  --text-muted: var(--lgc-text-muted) !important;
+  --text-positive: rgb(var(--lgc-green-rgb)) !important;
+  --text-warning: rgb(var(--lgc-yellow-rgb)) !important;
+  --text-danger: rgb(var(--lgc-red-rgb)) !important;
+  --text-link: rgb(var(--lgc-accent-rgb)) !important;
+  --header-primary: var(--lgc-text) !important;
+  --header-secondary: var(--lgc-text-soft) !important;
+  --interactive-normal: #c9d2df !important;
   --interactive-hover: #ffffff !important;
   --interactive-active: #ffffff !important;
-  --interactive-muted: #778397 !important;
-  --text-link: var(--lgc-accent) !important;
+  --interactive-muted: #687384 !important;
 
-  --brand-experiment: var(--lgc-accent) !important;
-  --brand-500: var(--lgc-accent) !important;
-  --brand-560: rgb(89, 146, 238) !important;
-  --button-positive-background: rgba(50, 215, 75, .70) !important;
-  --button-danger-background: rgba(255, 69, 58, .72) !important;
-  --status-positive: var(--lgc-positive) !important;
-  --status-warning: var(--lgc-warning) !important;
-  --status-danger: var(--lgc-danger) !important;
+  --brand-experiment: rgb(var(--lgc-accent-rgb)) !important;
+  --brand-360: rgb(var(--lgc-accent-rgb)) !important;
+  --brand-500: rgb(var(--lgc-accent-rgb)) !important;
+  --brand-560: rgb(75, 137, 232) !important;
+  --status-positive: rgb(var(--lgc-green-rgb)) !important;
+  --status-warning: rgb(var(--lgc-yellow-rgb)) !important;
+  --status-danger: rgb(var(--lgc-red-rgb)) !important;
 
-  --scrollbar-thin-thumb: rgba(255,255,255,.22) !important;
+  --scrollbar-thin-thumb: rgba(255,255,255,0.22) !important;
   --scrollbar-thin-track: transparent !important;
-  --scrollbar-auto-thumb: rgba(255,255,255,.18) !important;
+  --scrollbar-auto-thumb: rgba(255,255,255,0.18) !important;
   --scrollbar-auto-track: transparent !important;
 
-  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", sans-serif !important;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", sans-serif !important;
-  --font-code: "SF Mono", ui-monospace, Menlo, Consolas, monospace !important;
-}
+  /* Discord visual refresh variables */
+  --bg-base-primary: rgba(12, 17, 28, 0.40) !important;
+  --bg-base-secondary: rgba(12, 17, 28, 0.54) !important;
+  --bg-base-tertiary: rgba(5, 8, 15, 0.72) !important;
+  --bg-surface-overlay: rgba(10, 15, 25, 0.86) !important;
+  --bg-surface-raised: rgba(26, 34, 50, 0.50) !important;
+  --background-base-lowest: rgba(4, 6, 12, 0.86) !important;
+  --background-base-lower: rgba(7, 10, 18, 0.70) !important;
+  --background-base-low: rgba(12, 17, 28, 0.54) !important;
+  --background-base-high: rgba(18, 24, 38, 0.44) !important;
+  --background-surface-low: rgba(18, 24, 38, 0.36) !important;
+  --background-surface-high: rgba(25, 32, 47, 0.44) !important;
+  --background-surface-higher: rgba(32, 40, 58, 0.50) !important;
+  --background-surface-highest: rgba(42, 52, 72, 0.56) !important;
+  --chat-background-default: transparent !important;
+  --home-background: transparent !important;
+  --custom-app-top-bar-background: rgba(8, 12, 21, 0.62) !important;
+  --custom-channel-members-bg: transparent !important;
+  --custom-guild-sidebar-background: transparent !important;
+  --border-faint: rgba(255,255,255,0.050) !important;
+  --border-subtle: rgba(255,255,255,0.090) !important;
+  --border-normal: rgba(255,255,255,0.135) !important;
+  --border-strong: rgba(255,255,255,0.22) !important;
 
-/* =========================================================
-   2. Global app background
-   ========================================================= */
+  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif !important;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif !important;
+}
 
 html,
 body,
 #app-mount {
-  min-height: 100% !important;
-  background: var(--lgc-bg-0) !important;
-  color: var(--lgc-text-0) !important;
+  min-height: 100%;
+  background: var(--lgc-bg) !important;
 }
 
 body {
   font-family: var(--font-primary) !important;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 #app-mount {
-  position: relative !important;
-  isolation: isolate !important;
+  position: relative;
+  isolation: isolate;
+  color: var(--lgc-text) !important;
 }
 
 #app-mount::before {
@@ -172,10 +160,10 @@ body {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 14% 5%, rgba(var(--lgc-accent-rgb), .32), transparent 34%),
-    radial-gradient(circle at 88% -3%, rgba(var(--lgc-accent-2-rgb), .22), transparent 31%),
-    radial-gradient(circle at 68% 92%, rgba(85, 215, 255, .12), transparent 36%),
-    linear-gradient(145deg, var(--lgc-bg-0), var(--lgc-bg-1) 47%, var(--lgc-bg-2));
+    radial-gradient(circle at 14% 10%, rgba(var(--lgc-accent-rgb),0.34), transparent 30%),
+    radial-gradient(circle at 82% 4%, rgba(var(--lgc-accent-2-rgb),0.23), transparent 31%),
+    radial-gradient(circle at 62% 86%, rgba(var(--lgc-cyan-rgb),0.12), transparent 34%),
+    linear-gradient(135deg, var(--lgc-bg) 0%, var(--lgc-bg-2) 48%, var(--lgc-bg-3) 100%);
 }
 
 #app-mount::after {
@@ -184,48 +172,53 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: .38;
   background:
-    linear-gradient(115deg, transparent 0%, rgba(255,255,255,.055) 18%, transparent 35%),
-    radial-gradient(circle at 50% -20%, rgba(255,255,255,.10), transparent 34%);
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.055) 22%, transparent 44%),
+    radial-gradient(circle at 50% -8%, rgba(255,255,255,0.085), transparent 36%);
+  opacity: 0.55;
   mix-blend-mode: screen;
 }
 
+::selection {
+  background: rgba(var(--lgc-accent-rgb),0.35) !important;
+  color: #fff !important;
+}
+
+/* Remove Discord's solid base layers */
 #app-mount :is(
-  [class^="app_"], [class*=" app_"],
   [class^="bg_"], [class*=" bg_"],
+  [class^="app_"], [class*=" app_"],
   [class^="layers_"], [class*=" layers_"],
   [class^="layer_"], [class*=" layer_"],
-  [class^="base_"], [class*=" base_"]
+  [class^="base_"], [class*=" base_"],
+  [class^="appAsidePanelWrapper_"], [class*=" appAsidePanelWrapper_"],
+  [class^="chatLayerWrapper_"], [class*=" chatLayerWrapper_"]
 ) {
   background: transparent !important;
 }
 
-::selection {
-  color: #fff !important;
-  background: rgba(var(--lgc-accent-rgb), .36) !important;
+#app-mount :is([class^="scroller_"], [class*=" scroller_"], [class^="tree_"], [class*=" tree_"]) {
+  background-color: transparent !important;
 }
 
-/* =========================================================
-   3. Main layout surfaces
-   Big blur is limited to large static surfaces for performance.
-   ========================================================= */
-
+/* Main shell glass. These are the only large blurred surfaces. */
 #app-mount :is(
   [class^="guilds_"], [class*=" guilds_"],
   [class^="sidebar_"], [class*=" sidebar_"],
+  [class^="sidebarList_"], [class*=" sidebarList_"],
   [class^="privateChannels_"], [class*=" privateChannels_"],
   [class^="membersWrap_"], [class*=" membersWrap_"],
   [class^="nowPlayingColumn_"], [class*=" nowPlayingColumn_"],
   [class^="panels_"], [class*=" panels_"],
   [class^="sidebarRegionScroller_"], [class*=" sidebarRegionScroller_"],
-  [class^="contentRegionScroller_"], [class*=" contentRegionScroller_"]
+  [class^="contentRegionScroller_"], [class*=" contentRegionScroller_"],
+  [class^="searchResultsWrap_"], [class*=" searchResultsWrap_"]
 ) {
-  background: var(--lgc-material) !important;
-  border: 1px solid var(--lgc-line) !important;
-  box-shadow: var(--lgc-shadow-soft), var(--lgc-highlight) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(135%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(135%) !important;
+  background: var(--lgc-glass) !important;
+  border: 1px solid var(--lgc-border) !important;
+  box-shadow: var(--lgc-shadow-soft), var(--lgc-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
+  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
 }
 
 #app-mount :is([class^="guilds_"], [class*=" guilds_"]) {
@@ -234,394 +227,322 @@ body {
   overflow: hidden !important;
 }
 
-#app-mount :is([class^="sidebar_"], [class*=" sidebar_"]) {
+#app-mount :is([class^="sidebar_"], [class*=" sidebar_"], [class^="sidebarList_"], [class*=" sidebarList_"]) {
   margin: 8px !important;
   border-radius: var(--lgc-radius-xl) !important;
   overflow: hidden !important;
 }
 
-#app-mount :is([class^="chat_"], [class*=" chat_"], [class^="container_"][class*="chat"], [class*=" container_"][class*="chat"]) {
-  background: rgba(3, 8, 16, .30) !important;
-}
-
-#app-mount :is(
-  [class^="chatContent_"], [class*=" chatContent_"],
-  [class^="messagesWrapper_"], [class*=" messagesWrapper_"],
-  [class^="peopleColumn_"], [class*=" peopleColumn_"],
-  [class^="applicationStore_"], [class*=" applicationStore_"],
-  [class^="shop_"], [class*=" shop_"],
-  [class^="pageWrapper_"], [class*=" pageWrapper_"]
-) {
-  background: rgba(3, 8, 16, .18) !important;
-}
-
-#app-mount :is([class^="container_"], [class*=" container_"]) {
-  border-color: var(--lgc-line) !important;
-}
-
-#app-mount :is([class^="scroller_"], [class*=" scroller_"], [class^="tree_"], [class*=" tree_"]) {
+#app-mount :is([class^="privateChannels_"], [class*=" privateChannels_"]) {
+  border: 0 !important;
+  box-shadow: none !important;
   background: transparent !important;
 }
 
-/* =========================================================
-   4. Title bars, toolbars, channel headers
-   ========================================================= */
+#app-mount :is([class^="membersWrap_"], [class*=" membersWrap_"], [class^="nowPlayingColumn_"], [class*=" nowPlayingColumn_"], [class^="searchResultsWrap_"], [class*=" searchResultsWrap_"]) {
+  margin: 8px 8px 8px 0 !important;
+  border-radius: var(--lgc-radius-xl) !important;
+  overflow: hidden !important;
+}
 
+#app-mount :is([class^="panels_"], [class*=" panels_"]) {
+  left: 8px !important;
+  right: 8px !important;
+  bottom: 8px !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+#app-mount :is([class^="chat_"], [class*=" chat_"], [class^="container_133bf"], [class*=" container_133bf"], [class^="applicationStore_"], [class*=" applicationStore_"]) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.030), rgba(255,255,255,0.008)), rgba(5, 8, 15, 0.18) !important;
+}
+
+#app-mount :is([class^="chatContent_"], [class*=" chatContent_"], [class^="peopleColumn_"], [class*=" peopleColumn_"], [class^="pageWrapper_"], [class*=" pageWrapper_"], [class^="shop_"], [class*=" shop_"]) {
+  background: transparent !important;
+}
+
+/* Headers and top bars */
 #app-mount :is(
   [class^="titleBar_"], [class*=" titleBar_"],
   [class^="typeWindows_"], [class*=" typeWindows_"],
-  [class^="container_"][class*="9293f"],
   [class^="title_"], [class*=" title_"],
-  [class^="toolbar_"], [class*=" toolbar_"],
-  [class^="searchBar_"], [class*=" searchBar_"]
+  [class^="container_9293f"], [class*=" container_9293f"],
+  [class^="container__9293f"], [class*=" container__9293f"],
+  [class^="headerBar_"], [class*=" headerBar_"]
 ) {
-  background: rgba(8, 13, 23, .56) !important;
-  border-color: var(--lgc-line) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.095), rgba(255,255,255,0.028)), rgba(9, 13, 22, 0.50) !important;
+  border-bottom: 1px solid var(--lgc-border-soft) !important;
+  box-shadow: var(--lgc-inset) !important;
 }
 
-#app-mount :is([class^="title_"], [class*=" title_"]) {
-  box-shadow: inset 0 -1px 0 var(--lgc-line) !important;
-}
-
-#app-mount :is([class^="children_"], [class*=" children_"])::after,
-#app-mount :is([class^="toolbar_"], [class*=" toolbar_"])::after,
-#app-mount :is([class^="form_"], [class*=" form_"])::before,
-#app-mount :is([class^="channelTextArea_"], [class*=" channelTextArea_"])::before {
+#app-mount :is([class^="children_"], [class*=" children_"], [class^="toolbar_"], [class*=" toolbar_"])::after {
   display: none !important;
 }
 
-#app-mount :is(
-  [class^="iconWrapper_"], [class*=" iconWrapper_"],
-  [class^="clickable_"], [class*=" clickable_"]
-) {
-  border-radius: 12px !important;
-  transition: background-color var(--lgc-speed), color var(--lgc-speed), transform var(--lgc-speed) !important;
+#app-mount :is([class^="topic_"], [class*=" topic_"], [class^="subtitle_"], [class*=" subtitle_"]) {
+  color: var(--lgc-text-muted) !important;
 }
 
-#app-mount :is([class^="iconWrapper_"], [class*=" iconWrapper_"]):hover {
-  background: var(--lgc-hover) !important;
-}
-
-/* =========================================================
-   5. Server rail
-   ========================================================= */
-
+/* Server rail */
 #app-mount :is([class^="listItem_"], [class*=" listItem_"]) {
-  transition: transform var(--lgc-speed-slow) !important;
+  transition: transform var(--lgc-spring), filter var(--lgc-transition) !important;
 }
 
 #app-mount :is([class^="listItem_"], [class*=" listItem_"]):hover {
-  transform: translateY(-1px) !important;
+  transform: translateY(-1px) scale(1.015);
 }
 
-#app-mount :is(
-  [class^="childWrapper_"], [class*=" childWrapper_"],
-  [class^="circleIconButton_"], [class*=" circleIconButton_"],
-  [class^="folder_"], [class*=" folder_"]
-) {
-  background: rgba(255,255,255,.065) !important;
-  border: 1px solid rgba(255,255,255,.11) !important;
-  box-shadow: var(--lgc-highlight) !important;
+#app-mount :is([class^="childWrapper_"], [class*=" childWrapper_"], [class^="circleIconButton_"], [class*=" circleIconButton_"]) {
+  background: var(--lgc-glass-soft) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  box-shadow: var(--lgc-inset) !important;
 }
 
-#app-mount :is([class^="expandedFolderBackground_"], [class*=" expandedFolderBackground_"]) {
-  background: rgba(255,255,255,.055) !important;
+#app-mount :is([class^="expandedFolderBackground_"], [class*=" expandedFolderBackground_"], [class^="folder_"], [class*=" folder_"]) {
+  background: rgba(255,255,255,0.055) !important;
   border-radius: 18px !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
 }
 
 #app-mount :is([class^="pill_"], [class*=" pill_"]) span,
-#app-mount :is([class^="item_"], [class*=" item_"])[style*="opacity"] {
-  background: rgba(var(--lgc-accent-rgb), .92) !important;
-}
-
-/* =========================================================
-   6. Server sidebar, channel list, DM list
-   ========================================================= */
-
-#app-mount :is([class^="sidebar_"], [class*=" sidebar_"]) :is(
-  [class^="container_"], [class*=" container_"],
-  [class^="header_"], [class*=" header_"],
-  [class^="animatedContainer_"], [class*=" animatedContainer_"],
-  [class^="bannerImage_"], [class*=" bannerImage_"],
-  [class^="privateChannels_"], [class*=" privateChannels_"],
-  [class^="scroller_"], [class*=" scroller_"]
-) {
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-#app-mount :is([class^="header_"], [class*=" header_"]) {
-  box-shadow: inset 0 -1px 0 var(--lgc-line) !important;
-}
-
-#app-mount :is([class^="searchBarComponent_"], [class*=" searchBarComponent_"], [class^="searchBar_"] input, [class*=" searchBar_"] input) {
-  height: 38px !important;
+#app-mount :is([class^="item_"], [class*=" item_"])[style*="height"] {
+  background: rgba(255,255,255,0.78) !important;
   border-radius: 999px !important;
-  color: var(--lgc-text-0) !important;
-  background: var(--lgc-material-input) !important;
-  border: 1px solid var(--lgc-line) !important;
-  box-shadow: var(--lgc-highlight) !important;
 }
 
-#app-mount :is(
-  [class^="channel_"], [class*=" channel_"],
-  [class^="containerDefault_"], [class*=" containerDefault_"],
-  [class^="wrapper_"], [class*=" wrapper_"],
-  [class^="link_"], [class*=" link_"],
-  [class^="interactive_"], [class*=" interactive_"]
-) {
-  border-radius: 14px !important;
+/* Server sidebar, channels, DMs */
+#app-mount :is([class^="containerDefault_"], [class*=" containerDefault_"], [class^="wrapper_"], [class*=" wrapper_"]) :is([class^="link_"], [class*=" link_"]) {
+  border-radius: 13px !important;
+  transition: background-color var(--lgc-transition), color var(--lgc-transition), transform var(--lgc-transition), box-shadow var(--lgc-transition) !important;
 }
 
-#app-mount :is([class^="link_"], [class*=" link_"], [class^="interactive_"], [class*=" interactive_"]) {
-  transition: background-color var(--lgc-speed), color var(--lgc-speed), box-shadow var(--lgc-speed), transform var(--lgc-speed) !important;
+#app-mount :is([class^="link_"], [class*=" link_"], [class^="interactive_"], [class*=" interactive_"], [class^="channel_"], [class*=" channel_"]) {
+  border-radius: 13px !important;
 }
 
 #app-mount :is([class^="link_"], [class*=" link_"]):hover,
-#app-mount :is([class^="interactive_"], [class*=" interactive_"]):hover {
-  background: rgba(255,255,255,.065) !important;
+#app-mount :is([class^="interactive_"], [class*=" interactive_"]):hover,
+#app-mount :is([class^="channel_"], [class*=" channel_"]):hover {
+  background: rgba(255,255,255,0.056) !important;
 }
 
-#app-mount :is([class^="modeSelected_"], [class*=" modeSelected_"]) :is([class^="link_"], [class*=" link_"]),
-#app-mount :is([class^="interactiveSelected_"], [class*=" interactiveSelected_"], [class^="selected_"], [class*=" selected_"]) {
+#app-mount :is([class^="modeSelected_"], [class*=" modeSelected_"], [class^="selected_"], [class*=" selected_"]) :is([class^="link_"], [class*=" link_"]),
+#app-mount :is([aria-selected="true"], [class^="selected_"], [class*=" selected_"]) {
+  background: var(--lgc-selected) !important;
   color: #fff !important;
-  background: rgba(var(--lgc-accent-rgb), .22) !important;
-  box-shadow: inset 0 0 0 1px rgba(var(--lgc-accent-rgb), .20), var(--lgc-highlight) !important;
-}
-
-#app-mount :is([class^="unread_"], [class*=" unread_"]) {
-  background: var(--lgc-accent) !important;
+  box-shadow: inset 0 0 0 1px rgba(var(--lgc-accent-rgb),0.22), var(--lgc-inset) !important;
 }
 
 #app-mount :is([class^="name_"], [class*=" name_"], [class^="overflow_"], [class*=" overflow_"]) {
   color: inherit !important;
 }
 
-/* User panel */
-#app-mount :is([class^="panels_"], [class*=" panels_"]) {
-  left: 8px !important;
-  right: 8px !important;
-  bottom: 8px !important;
-  border-radius: 24px !important;
-  overflow: hidden !important;
+#app-mount :is([class^="category_"], [class*=" category_"], [class^="sectionDivider_"], [class*=" sectionDivider_"]) {
+  color: rgba(245,247,251,0.58) !important;
 }
 
-#app-mount :is([class^="panel_"], [class*=" panel_"], [class^="container_"], [class*=" container_"]):has([class^="avatarWrapper_"], [class*=" avatarWrapper_"]) {
-  background: transparent !important;
-}
-
-/* =========================================================
-   7. Friends page / Active Now
-   ========================================================= */
-
-#app-mount :is(
-  [class^="container_"][class*="133bf"],
-  [class^="peopleColumn_"], [class*=" peopleColumn_"],
-  [class^="peopleList_"], [class*=" peopleList_"],
-  [class^="tabBody_"], [class*=" tabBody_"]
-) {
-  background: transparent !important;
-}
-
-#app-mount :is([class^="peopleList_"], [class*=" peopleList_"]) {
-  padding: 10px 14px 20px !important;
-}
-
-#app-mount :is([class^="peopleListItem_"], [class*=" peopleListItem_"]) {
-  margin: 3px 0 !important;
-  padding: 10px 12px !important;
-  border: 1px solid transparent !important;
-  border-radius: 18px !important;
-  transition: background-color var(--lgc-speed), border-color var(--lgc-speed), transform var(--lgc-speed), box-shadow var(--lgc-speed) !important;
-}
-
-#app-mount :is([class^="peopleListItem_"], [class*=" peopleListItem_"]):hover {
-  background: var(--lgc-material-soft) !important;
-  border-color: var(--lgc-line) !important;
-  box-shadow: var(--lgc-highlight) !important;
-  transform: translateY(-1px) !important;
-}
-
-#app-mount :is([class^="nowPlayingColumn_"], [class*=" nowPlayingColumn_"]) {
-  margin: 8px 8px 8px 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  overflow: hidden !important;
-}
-
-#app-mount :is([class^="itemCard_"], [class*=" itemCard_"], [class^="emptyCard_"], [class*=" emptyCard_"], [class^="activeNow_"], [class*=" activeNow_"]) {
-  background: var(--lgc-material-soft) !important;
-  border: 1px solid var(--lgc-line) !important;
-  border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-highlight) !important;
-  overflow: hidden !important;
-  transition: background-color var(--lgc-speed), border-color var(--lgc-speed), transform var(--lgc-speed) !important;
-}
-
-#app-mount :is([class^="itemCard_"], [class*=" itemCard_"]):hover {
-  background: rgba(255,255,255,.075) !important;
-  border-color: var(--lgc-line-2) !important;
-  transform: translateY(-1px) !important;
-}
-
-/* =========================================================
-   8. Chat messages, media, embeds
-   ========================================================= */
-
-#app-mount :is([class^="scrollerInner_"], [class*=" scrollerInner_"]) {
-  background: transparent !important;
-}
-
-#app-mount :is([class^="messageListItem_"], [class*=" messageListItem_"]) {
-  border-radius: 16px !important;
-}
-
-#app-mount :is([class^="message_"], [class*=" message_"], [class^="cozyMessage_"], [class*=" cozyMessage_"]) {
-  border-radius: 16px !important;
-  transition: background-color var(--lgc-speed), box-shadow var(--lgc-speed) !important;
-}
-
-#app-mount :is([class^="message_"], [class*=" message_"]):hover,
-#app-mount :is([class^="cozyMessage_"], [class*=" cozyMessage_"]):hover {
-  background: rgba(255,255,255,.045) !important;
-}
-
-#app-mount :is([class^="mentioned_"], [class*=" mentioned_"]) {
-  background: linear-gradient(90deg, rgba(255,214,10,.16), transparent 74%) !important;
-  border-radius: 16px !important;
-}
-
-#app-mount :is([class^="mentioned_"], [class*=" mentioned_"])::before {
-  background: var(--lgc-warning) !important;
+#app-mount :is([class^="unread_"], [class*=" unread_"]) {
+  background: rgb(var(--lgc-accent-rgb)) !important;
   border-radius: 999px !important;
 }
 
-#app-mount :is([class^="repliedMessage_"], [class*=" repliedMessage_"])::before {
-  border-color: rgba(255,255,255,.18) !important;
+#app-mount :is([class^="searchBar_"], [class*=" searchBar_"]) {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-#app-mount :is(
-  [class^="embed_"], [class*=" embed_"],
-  [class^="attachment_"], [class*=" attachment_"],
-  [class^="file_"], [class*=" file_"],
-  [class^="textContainer_"], [class*=" textContainer_"],
-  [class^="footer_"], [class*=" footer_"],
-  pre, code
-) {
-  background: rgba(255,255,255,.045) !important;
-  border-color: var(--lgc-line) !important;
-  border-radius: 16px !important;
+#app-mount :is([class^="searchBarComponent_"], [class*=" searchBarComponent_"], [class^="searchBar_"] input, [class*=" searchBar_"] input, [class^="input_"], [class*=" input_"]) {
+  background: var(--lgc-input) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  border-radius: 999px !important;
+  color: var(--lgc-text) !important;
+  box-shadow: var(--lgc-inset) !important;
+}
+
+/* Chat */
+#app-mount :is([class^="messagesWrapper_"], [class*=" messagesWrapper_"], [class^="scrollerInner_"], [class*=" scrollerInner_"]) {
+  background: transparent !important;
+}
+
+#app-mount :is([class^="message_"], [class*=" message_"], [class^="cozyMessage_"], [class*=" cozyMessage_"], [class^="messageListItem_"], [class*=" messageListItem_"]) {
+  border-radius: 15px !important;
+  transition: background-color var(--lgc-transition), box-shadow var(--lgc-transition) !important;
+}
+
+#app-mount :is([class^="message_"], [class*=" message_"]):hover,
+#app-mount :is([class^="cozyMessage_"], [class*=" cozyMessage_"]):hover,
+#app-mount :is([class^="messageListItem_"], [class*=" messageListItem_"]):hover {
+  background: rgba(255,255,255,0.040) !important;
+}
+
+#app-mount :is([class^="mentioned_"], [class*=" mentioned_"]) {
+  background: linear-gradient(90deg, rgba(var(--lgc-yellow-rgb),0.17), rgba(var(--lgc-yellow-rgb),0.035) 54%, transparent) !important;
+  border-radius: 15px !important;
+}
+
+#app-mount :is([class^="mentioned_"], [class*=" mentioned_"])::before {
+  background: rgb(var(--lgc-yellow-rgb)) !important;
+  border-radius: 999px !important;
+}
+
+#app-mount :is([class^="repliedMessage_"], [class*=" repliedMessage_"], [class^="replyBar_"], [class*=" replyBar_"], [class^="threadSuggestionBar_"], [class*=" threadSuggestionBar_"]) {
+  background: rgba(255,255,255,0.044) !important;
+  border-color: var(--lgc-border-soft) !important;
+}
+
+#app-mount :is([class^="newMessagesBar_"], [class*=" newMessagesBar_"], [class^="jumpToPresentBar_"], [class*=" jumpToPresentBar_"]) {
+  background: rgba(var(--lgc-accent-rgb),0.86) !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 10px 24px rgba(var(--lgc-accent-rgb),0.22), var(--lgc-inset) !important;
+}
+
+#app-mount :is([class^="divider_"], [class*=" divider_"], [class^="separator_"], [class*=" separator_"]) {
+  border-color: var(--lgc-border-soft) !important;
+  background-color: var(--lgc-border-soft) !important;
+}
+
+#app-mount :is([class^="divider_"], [class*=" divider_"]) span {
+  background: rgba(7,10,18,0.62) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  border-radius: 999px !important;
+  color: var(--lgc-text-muted) !important;
+}
+
+/* Chat input */
+#app-mount :is([class^="form_"], [class*=" form_"])::before,
+#app-mount :is([class^="channelTextArea_"], [class*=" channelTextArea_"])::before {
+  display: none !important;
+}
+
+#app-mount :is([class^="form_"], [class*=" form_"]) {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+#app-mount :is([class^="channelTextArea_"], [class*=" channelTextArea_"], [class^="scrollableContainer_"], [class*=" scrollableContainer_"]) {
+  background: var(--lgc-input) !important;
+  border: 1px solid var(--lgc-border-strong) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--lgc-shadow-soft), var(--lgc-inset) !important;
+}
+
+#app-mount :is([class^="placeholder_"], [class*=" placeholder_"]) {
+  color: rgba(200,209,223,0.56) !important;
+}
+
+#app-mount :is([class^="typing_"], [class*=" typing_"]) {
+  background: transparent !important;
+  color: var(--lgc-text-muted) !important;
+}
+
+/* Embeds, attachments and markdown */
+#app-mount :is([class^="embed_"], [class*=" embed_"], [class^="attachment_"], [class*=" attachment_"], [class^="wrapperAudio_"], [class*=" wrapperAudio_"], [class^="textContainer_"], [class*=" textContainer_"], [class^="markup_"] pre, [class*=" markup_"] pre, code) {
+  background: var(--lgc-glass-soft) !important;
+  border-color: var(--lgc-border-soft) !important;
+  border-radius: var(--lgc-radius-md) !important;
+}
+
+#app-mount :is([class^="embed_"], [class*=" embed_"], [class^="attachment_"], [class*=" attachment_"]) {
+  box-shadow: var(--lgc-inset) !important;
 }
 
 #app-mount :is([class^="reaction_"], [class*=" reaction_"]) {
-  background: rgba(255,255,255,.055) !important;
-  border: 1px solid var(--lgc-line) !important;
+  background: rgba(255,255,255,0.055) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
   border-radius: 999px !important;
 }
 
 #app-mount :is([class^="reaction_"], [class*=" reaction_"]):hover,
 #app-mount :is([class^="reactionMe_"], [class*=" reactionMe_"]) {
-  background: rgba(var(--lgc-accent-rgb), .18) !important;
-  border-color: rgba(var(--lgc-accent-rgb), .34) !important;
+  background: rgba(var(--lgc-accent-rgb),0.18) !important;
+  border-color: rgba(var(--lgc-accent-rgb),0.35) !important;
 }
 
-#app-mount :is([class^="newMessagesBar_"], [class*=" newMessagesBar_"], [class^="jumpToPresentBar_"], [class*=" jumpToPresentBar_"]) {
-  background: rgba(var(--lgc-accent-rgb), .82) !important;
-  border-radius: 999px !important;
-  box-shadow: var(--lgc-shadow-soft) !important;
-}
-
-#app-mount :is([class^="divider_"], [class*=" divider_"]) {
-  border-color: var(--lgc-line) !important;
-}
-
-#app-mount :is([class^="divider_"], [class*=" divider_"]) :is([class^="content_"], [class*=" content_"]) {
-  color: var(--lgc-text-2) !important;
-  background: rgba(5, 9, 17, .72) !important;
-  border: 1px solid var(--lgc-line) !important;
-  border-radius: 999px !important;
-}
-
-/* =========================================================
-   9. Message composer / typing area
-   ========================================================= */
-
-#app-mount :is([class^="form_"], [class*=" form_"]) {
-  padding-left: 14px !important;
-  padding-right: 14px !important;
-}
-
-#app-mount :is([class^="channelTextArea_"], [class*=" channelTextArea_"], [class^="scrollableContainer_"], [class*=" scrollableContainer_"]) {
-  background: var(--lgc-material-input) !important;
-  border: 1px solid var(--lgc-line-2) !important;
-  border-radius: 24px !important;
-  box-shadow: var(--lgc-shadow-soft), var(--lgc-highlight) !important;
-}
-
-#app-mount :is([class^="textArea_"], [class*=" textArea_"], [class^="slateTextArea_"], [class*=" slateTextArea_"]) {
-  color: var(--lgc-text-0) !important;
+/* Members */
+#app-mount :is([class^="members_"], [class*=" members_"]) {
   background: transparent !important;
 }
 
-#app-mount :is([class^="placeholder_"], [class*=" placeholder_"]) {
-  color: rgba(215,222,235,.52) !important;
-}
-
-#app-mount :is([class^="attachedBars_"], [class*=" attachedBars_"], [class^="replyBar_"], [class*=" replyBar_"], [class^="threadSuggestionBar_"], [class*=" threadSuggestionBar_"]) {
-  background: rgba(255,255,255,.045) !important;
-  border: 1px solid var(--lgc-line) !important;
-  border-radius: 18px !important;
-}
-
-#app-mount :is([class^="typing_"], [class*=" typing_"]) {
+#app-mount :is([class^="member_"], [class*=" member_"]) {
   background: transparent !important;
-  color: var(--lgc-text-2) !important;
+  border-radius: 14px !important;
+  transition: background-color var(--lgc-transition), transform var(--lgc-transition) !important;
 }
 
-/* =========================================================
-   10. Member list / role sections
-   ========================================================= */
+#app-mount :is([class^="member_"], [class*=" member_"]):hover {
+  background: rgba(255,255,255,0.054) !important;
+}
 
-#app-mount :is([class^="membersWrap_"], [class*=" membersWrap_"]) {
-  margin: 8px 8px 8px 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
+#app-mount :is([class^="layout_"], [class*=" layout_"], [class^="childContainer_"], [class*=" childContainer_"]) {
+  border-radius: 14px !important;
+}
+
+#app-mount :is([class^="membersGroup_"], [class*=" membersGroup_"]) {
+  color: rgba(245,247,251,0.62) !important;
+  letter-spacing: .02em !important;
+}
+
+#app-mount :is([class^="botTag_"], [class*=" botTag_"], [class^="role_"], [class*=" role_"]) {
+  border-radius: 999px !important;
+  background: rgba(var(--lgc-accent-rgb),0.22) !important;
+  border: 1px solid rgba(var(--lgc-accent-rgb),0.28) !important;
+}
+
+/* Friends / Home */
+#app-mount :is([class^="peopleList_"], [class*=" peopleList_"]) {
+  background: transparent !important;
+  padding: 10px 14px 22px !important;
+}
+
+#app-mount :is([class^="peopleListItem_"], [class*=" peopleListItem_"]) {
+  margin: 4px 0 !important;
+  padding: 10px 12px !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--lgc-radius-lg) !important;
+  transition: background-color var(--lgc-transition), border-color var(--lgc-transition), transform var(--lgc-transition), box-shadow var(--lgc-transition) !important;
+}
+
+#app-mount :is([class^="peopleListItem_"], [class*=" peopleListItem_"]):hover {
+  background: var(--lgc-glass-hover) !important;
+  border-color: var(--lgc-border) !important;
+  box-shadow: var(--lgc-shadow-soft), var(--lgc-inset) !important;
+  transform: translateY(-1px);
+}
+
+#app-mount :is([class^="itemCard_"], [class*=" itemCard_"], [class^="activeNow_"], [class*=" activeNow_"]) {
+  background: var(--lgc-glass-soft) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  border-radius: var(--lgc-radius-lg) !important;
+  box-shadow: var(--lgc-inset) !important;
   overflow: hidden !important;
+  transition: background var(--lgc-transition), border-color var(--lgc-transition), transform var(--lgc-transition), box-shadow var(--lgc-transition) !important;
 }
 
-#app-mount :is([class^="members_"], [class*=" members_"], [class^="membersGroup_"], [class*=" membersGroup_"]) {
+#app-mount :is([class^="itemCard_"], [class*=" itemCard_"]):hover {
+  background: var(--lgc-glass-hover) !important;
+  border-color: var(--lgc-border) !important;
+  transform: translateY(-1px);
+}
+
+#app-mount :is([class^="emptyCard_"], [class*=" emptyCard_"]) {
+  background: var(--lgc-glass-soft) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  border-radius: var(--lgc-radius-lg) !important;
+}
+
+/* Settings and server settings */
+#app-mount :is([class^="standardSidebarView_"], [class*=" standardSidebarView_"]) {
   background: transparent !important;
 }
 
-#app-mount :is([class^="membersWrap_"], [class*=" membersWrap_"]) :is(
-  [class^="member_"], [class*=" member_"],
-  [class^="layout_"], [class*=" layout_"],
-  [class^="childContainer_"], [class*=" childContainer_"]
-) {
-  border-radius: 16px !important;
-  background-image: none !important;
-  transition: background-color var(--lgc-speed), transform var(--lgc-speed) !important;
-}
-
-#app-mount :is([class^="membersWrap_"], [class*=" membersWrap_"]) :is([class^="member_"], [class*=" member_"]):hover {
-  background: rgba(255,255,255,.06) !important;
-}
-
-#app-mount :is([class^="membersWrap_"], [class*=" membersWrap_"]) :is([class^="selected_"], [class*=" selected_"]) {
-  background: rgba(var(--lgc-accent-rgb), .18) !important;
-}
-
-/* =========================================================
-   11. Settings pages
-   ========================================================= */
-
-#app-mount :is([class^="standardSidebarView_"], [class*=" standardSidebarView_"], [class^="sidebarRegion_"], [class*=" sidebarRegion_"], [class^="contentRegion_"], [class*=" contentRegion_"]) {
+#app-mount :is([class^="sidebarRegion_"], [class*=" sidebarRegion_"], [class^="contentRegion_"], [class*=" contentRegion_"]) {
   background: transparent !important;
 }
 
 #app-mount :is([class^="sidebarRegionScroller_"], [class*=" sidebarRegionScroller_"]) {
   margin: 8px 0 8px 8px !important;
   border-radius: var(--lgc-radius-xl) 0 0 var(--lgc-radius-xl) !important;
-  border-right: 1px solid var(--lgc-line) !important;
+  border-right: 1px solid var(--lgc-border-soft) !important;
 }
 
 #app-mount :is([class^="contentRegionScroller_"], [class*=" contentRegionScroller_"]) {
@@ -630,82 +551,59 @@ body {
 }
 
 #app-mount :is([class^="contentColumn_"], [class*=" contentColumn_"], [class^="customColumn_"], [class*=" customColumn_"]) {
-  max-width: 1020px !important;
+  max-width: 980px !important;
+}
+
+#app-mount :is([class^="card_"], [class*=" card_"], [class^="settingCard_"], [class*=" settingCard_"], [class^="accountProfileCard_"], [class*=" accountProfileCard_"], [class^="connection_"], [class*=" connection_"], [class^="notice_"], [class*=" notice_"]) {
+  background: var(--lgc-glass-soft) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+  border-radius: var(--lgc-radius-lg) !important;
+  box-shadow: var(--lgc-inset) !important;
 }
 
 #app-mount :is([class^="side_"], [class*=" side_"]) :is([class^="item_"], [class*=" item_"]) {
-  border-radius: 14px !important;
+  border-radius: 13px !important;
   margin: 2px 8px !important;
+  transition: background-color var(--lgc-transition), transform var(--lgc-transition), color var(--lgc-transition) !important;
 }
 
 #app-mount :is([class^="side_"], [class*=" side_"]) :is([class^="item_"], [class*=" item_"]):hover {
-  background: rgba(255,255,255,.065) !important;
+  background: rgba(255,255,255,0.058) !important;
 }
 
 #app-mount :is([class^="side_"], [class*=" side_"]) :is([class^="selected_"], [class*=" selected_"]) {
-  background: rgba(var(--lgc-accent-rgb), .22) !important;
+  background: var(--lgc-selected) !important;
   color: #fff !important;
+  box-shadow: var(--lgc-inset) !important;
 }
 
-#app-mount :is(
-  [class^="accountProfileCard_"], [class*=" accountProfileCard_"],
-  [class^="profileCard_"], [class*=" profileCard_"],
-  [class^="fieldList_"], [class*=" fieldList_"],
-  [class^="connection_"], [class*=" connection_"],
-  [class^="session_"], [class*=" session_"],
-  [class^="card_"], [class*=" card_"],
-  [class^="settingCard_"], [class*=" settingCard_"],
-  [class^="background_"], [class*=" background_"],
-  [class^="paymentPane_"], [class*=" paymentPane_"],
-  [class^="expandedInfo_"], [class*=" expandedInfo_"]
-) {
-  background: var(--lgc-material-soft) !important;
-  border: 1px solid var(--lgc-line) !important;
-  border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-highlight) !important;
-}
-
-#app-mount :is([class^="closeButton_"], [class*=" closeButton_"]) {
-  border-color: var(--lgc-line-2) !important;
-  background: rgba(255,255,255,.055) !important;
-  border-radius: 999px !important;
-}
-
-#app-mount :is([class^="keybind_"], [class*=" keybind_"]) {
-  color: var(--lgc-text-2) !important;
-}
-
-/* =========================================================
-   12. Popouts, menus, modals, user profiles
-   ========================================================= */
-
+/* Popouts, modals, menus, profiles */
 #app-mount :is(
   [role="dialog"],
   [role="menu"],
   [class^="modal_"], [class*=" modal_"],
-  [class^="root_"], [class*=" root_"],
   [class^="menu_"], [class*=" menu_"],
   [class^="submenu_"], [class*=" submenu_"],
   [class^="popout_"], [class*=" popout_"],
   [class^="picker_"], [class*=" picker_"],
+  [class^="drawerSizingWrapper_"], [class*=" drawerSizingWrapper_"],
   [class^="autocomplete_"], [class*=" autocomplete_"],
-  [class^="messagesPopoutWrap_"], [class*=" messagesPopoutWrap_"],
-  [class^="recentMentionsPopout_"], [class*=" recentMentionsPopout_"],
-  [class^="userPopoutOuter_"], [class*=" userPopoutOuter_"],
-  [class^="userProfileOuter_"], [class*=" userProfileOuter_"]
+  [class^="contentWrapper_"], [class*=" contentWrapper_"],
+  [class^="userPopout"], [class*=" userPopout"],
+  [class^="userProfile"], [class*=" userProfile"]
 ) {
-  background: var(--lgc-material-strong) !important;
-  border: 1px solid var(--lgc-line-2) !important;
+  background: var(--lgc-glass-strong) !important;
+  border: 1px solid var(--lgc-border) !important;
   border-radius: var(--lgc-radius-lg) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-highlight) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur-popout)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur-popout)) saturate(145%) !important;
+  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
+  -webkit-backdrop-filter: blur(var(--lgc-blur-strong)) saturate(150%) !important;
+  backdrop-filter: blur(var(--lgc-blur-strong)) saturate(150%) !important;
   overflow: hidden !important;
 }
 
-#app-mount :is([class^="userPopoutInner_"], [class*=" userPopoutInner_"], [class^="userProfileInner_"], [class*=" userProfileInner_"], [class^="overlayBackground_"], [class*=" overlayBackground_"]) {
-  background: rgba(255,255,255,.045) !important;
-  border: 1px solid var(--lgc-line) !important;
+#app-mount :is([class^="overlayBackground_"], [class*=" overlayBackground_"], [class^="bodyInnerWrapper_"], [class*=" bodyInnerWrapper_"]) {
+  background: rgba(8,12,21,0.46) !important;
+  border: 1px solid var(--lgc-border-soft) !important;
   border-radius: var(--lgc-radius-lg) !important;
 }
 
@@ -714,109 +612,158 @@ body {
   margin: 2px 4px !important;
 }
 
-#app-mount :is([class^="menu_"], [class*=" menu_"]) :is([class^="focused_"], [class*=" focused_"], [class^="item_"], [class*=" item_"]):hover {
-  background: rgba(var(--lgc-accent-rgb), .20) !important;
+#app-mount :is([class^="focused_"], [class*=" focused_"], [class^="item_"], [class*=" item_"]):hover {
+  background: rgba(var(--lgc-accent-rgb),0.18) !important;
 }
 
 #app-mount :is([class^="tooltip_"], [class*=" tooltip_"]) {
-  background: rgba(9,14,24,.94) !important;
-  border: 1px solid var(--lgc-line-2) !important;
+  background: rgba(10,15,25,0.92) !important;
+  border: 1px solid var(--lgc-border) !important;
   border-radius: 12px !important;
   box-shadow: var(--lgc-shadow-soft) !important;
 }
 
-/* =========================================================
-   13. Inputs, buttons, tabs, switches
-   ========================================================= */
-
-#app-mount :is(input, textarea, select),
-#app-mount :is([class^="input_"], [class*=" input_"], [class^="textArea_"], [class*=" textArea_"], [class^="select_"], [class*=" select_"], [class^="lookFilled_"], [class*=" lookFilled_"]) {
-  color: var(--lgc-text-0) !important;
-  background: var(--lgc-material-input) !important;
-  border-color: var(--lgc-line) !important;
+#app-mount :is([class^="backdrop_"], [class*=" backdrop_"]) {
+  background: rgba(0,0,0,0.42) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+  backdrop-filter: blur(3px) !important;
 }
 
-#app-mount :is(input, textarea, select, [class^="input_"], [class*=" input_"]) {
-  border-radius: 14px !important;
+/* Emoji / sticker / GIF picker */
+#app-mount :is([class^="emojiPicker_"], [class*=" emojiPicker_"], [class^="categoryList_"], [class*=" categoryList_"], [class^="inspector_"], [class*=" inspector_"]) {
+  background: rgba(7,10,18,0.56) !important;
+  border-color: var(--lgc-border-soft) !important;
 }
 
-#app-mount :is(input, textarea, [class^="input_"], [class*=" input_"]):focus,
+#app-mount :is([class^="emojiItem_"], [class*=" emojiItem_"], [class^="stickerInspected_"], [class*=" stickerInspected_"]) {
+  border-radius: 12px !important;
+}
+
+#app-mount :is([class^="emojiItem_"], [class*=" emojiItem_"]):hover,
+#app-mount :is([class^="emojiItemSelected_"], [class*=" emojiItemSelected_"]) {
+  background: rgba(var(--lgc-accent-rgb),0.16) !important;
+}
+
+/* Inputs, selects, checkboxes */
+#app-mount input,
+#app-mount textarea,
+#app-mount :is([class^="input_"], [class*=" input_"], [class^="textArea_"], [class*=" textArea_"], [class^="select_"], [class*=" select_"]) {
+  color: var(--lgc-text) !important;
+  background: var(--lgc-input) !important;
+  border-color: var(--lgc-border-soft) !important;
+  border-radius: 13px !important;
+}
+
+#app-mount input:focus,
+#app-mount textarea:focus,
+#app-mount :is([class^="input_"], [class*=" input_"]):focus,
 #app-mount :is([class^="searchBar_"], [class*=" searchBar_"]):focus-within {
-  border-color: rgba(var(--lgc-accent-rgb), .44) !important;
-  box-shadow: 0 0 0 3px rgba(var(--lgc-accent-rgb), .13), var(--lgc-highlight) !important;
+  border-color: rgba(var(--lgc-accent-rgb),0.48) !important;
+  box-shadow: 0 0 0 3px rgba(var(--lgc-accent-rgb),0.13), var(--lgc-inset) !important;
 }
 
-#app-mount :is(button, [class^="button_"], [class*=" button_"], [class^="actionButton_"], [class*=" actionButton_"]) {
+#app-mount :is([class^="checkbox_"], [class*=" checkbox_"], [class^="radioBar_"], [class*=" radioBar_"]) {
+  border-color: var(--lgc-border) !important;
+  border-radius: 12px !important;
+}
+
+#app-mount :is([class^="checked_"], [class*=" checked_"], [class^="control_"], [class*=" control_"]) {
+  border-color: rgba(var(--lgc-accent-rgb),0.45) !important;
+}
+
+/* Buttons and tabs */
+#app-mount button,
+#app-mount :is([class^="button_"], [class*=" button_"], [class^="actionButton_"], [class*=" actionButton_"]) {
   border-radius: 999px !important;
-  transition: transform var(--lgc-speed-slow), filter var(--lgc-speed), background-color var(--lgc-speed), border-color var(--lgc-speed) !important;
+  transition: transform var(--lgc-spring), background-color var(--lgc-transition), border-color var(--lgc-transition), box-shadow var(--lgc-transition), filter var(--lgc-transition) !important;
 }
 
-#app-mount :is([class^="button_"], [class*=" button_"], [class^="actionButton_"], [class*=" actionButton_"]):hover {
-  transform: translateY(-1px) !important;
-  filter: brightness(1.08) !important;
+#app-mount :is([class^="lookFilled_"], [class*=" lookFilled_"], [class^="actionButton_"], [class*=" actionButton_"]) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.052)), rgba(var(--lgc-accent-rgb),0.74) !important;
+  border: 1px solid rgba(255,255,255,0.21) !important;
+  box-shadow: 0 10px 22px rgba(var(--lgc-accent-rgb),0.18), var(--lgc-inset) !important;
 }
 
-#app-mount :is([class^="button_"], [class*=" button_"], [class^="actionButton_"], [class*=" actionButton_"]):active {
-  transform: translateY(0) scale(.985) !important;
+#app-mount button:hover,
+#app-mount :is([class^="button_"], [class*=" button_"]):hover,
+#app-mount :is([class^="actionButton_"], [class*=" actionButton_"]):hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
 }
 
-#app-mount :is([class^="lookFilled_"], [class*=" lookFilled_"]) {
-  border: 1px solid rgba(255,255,255,.15) !important;
-  box-shadow: var(--lgc-highlight) !important;
-}
-
-#app-mount :is([class^="lookFilled_"], [class*=" lookFilled_"])[style*="background-color"],
-#app-mount :is([class^="colorBrand_"], [class*=" colorBrand_"]) {
-  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.055)), rgba(var(--lgc-accent-rgb), .72) !important;
+#app-mount button:active,
+#app-mount :is([class^="button_"], [class*=" button_"]):active {
+  transform: translateY(0) scale(0.985);
 }
 
 #app-mount :is([class^="lookOutlined_"], [class*=" lookOutlined_"]) {
-  background: rgba(255,255,255,.035) !important;
-  border-color: var(--lgc-line-2) !important;
+  background: rgba(255,255,255,0.035) !important;
+  border-color: var(--lgc-border) !important;
 }
 
 #app-mount :is([class^="tabBar_"], [class*=" tabBar_"], [class^="topPill_"], [class*=" topPill_"]) :is([class^="item_"], [class*=" item_"]) {
   border-radius: 999px !important;
+  transition: background-color var(--lgc-transition), color var(--lgc-transition), transform var(--lgc-transition) !important;
 }
 
 #app-mount :is([class^="tabBar_"], [class*=" tabBar_"], [class^="topPill_"], [class*=" topPill_"]) :is([class^="item_"], [class*=" item_"]):hover {
-  background: rgba(255,255,255,.07) !important;
+  background: rgba(255,255,255,0.065) !important;
 }
 
 #app-mount :is([class^="tabBar_"], [class*=" tabBar_"], [class^="topPill_"], [class*=" topPill_"]) :is([class^="selected_"], [class*=" selected_"], [aria-selected="true"]) {
+  background: var(--lgc-selected) !important;
   color: #fff !important;
-  background: rgba(var(--lgc-accent-rgb), .24) !important;
-  box-shadow: var(--lgc-highlight) !important;
+  box-shadow: var(--lgc-inset) !important;
 }
 
-#app-mount :is([class^="container_"], [class*=" container_"])[style*="background-color: rgb(35"],
-#app-mount :is([class^="checked_"], [class*=" checked_"]) {
-  background: rgba(var(--lgc-accent-rgb), .78) !important;
+/* Threads, inbox, search, forum, channel browser */
+#app-mount :is([class^="mainCard_"], [class*=" mainCard_"], [class^="threadSidebar_"], [class*=" threadSidebar_"], [class^="browser_"], [class*=" browser_"], [class^="channelRow_"], [class*=" channelRow_"], [class^="searchResult_"], [class*=" searchResult_"], [class^="messageContainer_"], [class*=" messageContainer_"]) {
+  background: var(--lgc-glass-soft) !important;
+  border-color: var(--lgc-border-soft) !important;
+  border-radius: var(--lgc-radius-lg) !important;
 }
 
-#app-mount :is([class^="slider_"], [class*=" slider_"], [class^="bar_"], [class*=" bar_"]) {
-  background-color: rgba(255,255,255,.14) !important;
+#app-mount :is([class^="searchHeader_"], [class*=" searchHeader_"], [class^="channelNameContainer_"], [class*=" channelNameContainer_"]) {
+  background: rgba(7,10,18,0.56) !important;
+  border-color: var(--lgc-border-soft) !important;
 }
 
-/* =========================================================
-   14. Badges, mentions, roles, scrollbars
-   ========================================================= */
+/* Voice / call UI */
+#app-mount :is([class^="callContainer_"], [class*=" callContainer_"], [class^="videoGrid_"], [class*=" videoGrid_"], [class^="tile_"], [class*=" tile_"], [class^="voiceCallWrapper_"], [class*=" voiceCallWrapper_"]) {
+  background: rgba(5,8,15,0.32) !important;
+}
 
-#app-mount :is([class^="numberBadge_"], [class*=" numberBadge_"], [class^="mention_"], [class*=" mention_"], [class^="badge_"], [class*=" badge_"], [class^="botTag_"], [class*=" botTag_"], [class^="role_"], [class*=" role_"]) {
+#app-mount :is([class^="tile_"], [class*=" tile_"], [class^="participant_"], [class*=" participant_"]) {
+  border-radius: var(--lgc-radius-lg) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--lgc-border-soft) !important;
+}
+
+/* Badges, roles, progress, sliders */
+#app-mount :is([class^="numberBadge_"], [class*=" numberBadge_"], [class^="mention_"], [class*=" mention_"], [class^="badge_"], [class*=" badge_"]) {
   border-radius: 999px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,.20) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.26) !important;
 }
 
-#app-mount :is([class^="role_"], [class*=" role_"]) {
-  background: rgba(255,255,255,.055) !important;
-  border-color: var(--lgc-line) !important;
+#app-mount :is([class^="progress_"], [class*=" progress_"], [class^="progressBar_"], [class*=" progressBar_"], [class^="bar_"], [class*=" bar_"], [class^="slider_"], [class*=" slider_"]) {
+  border-radius: 999px !important;
 }
 
-#app-mount :is([class^="separator_"], [class*=" separator_"], [class^="divider_"], [class*=" divider_"]) {
-  border-color: var(--lgc-line) !important;
-  background-color: var(--lgc-line) !important;
+#app-mount :is([class^="progress_"], [class*=" progress_"], [class^="bar_"], [class*=" bar_"], [class^="slider_"], [class*=" slider_"]) {
+  background-color: rgba(255,255,255,0.12) !important;
 }
 
+#app-mount :is([class^="progressBar_"], [class*=" progressBar_"]) {
+  background: linear-gradient(90deg, rgba(var(--lgc-accent-rgb),0.88), rgba(var(--lgc-accent-2-rgb),0.88)) !important;
+}
+
+#app-mount :is([class^="grabber_"], [class*=" grabber_"]) {
+  background: #fff !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.24) !important;
+}
+
+/* Scrollbars */
 #app-mount ::-webkit-scrollbar {
   width: 10px !important;
   height: 10px !important;
@@ -827,77 +774,44 @@ body {
 }
 
 #app-mount ::-webkit-scrollbar-thumb {
-  min-height: 40px !important;
-  background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.12)) !important;
+  min-height: 40px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12)) !important;
   border: 3px solid transparent !important;
   border-radius: 999px !important;
   background-clip: padding-box !important;
 }
 
 #app-mount ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(255,255,255,.36), rgba(255,255,255,.18)) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.18)) !important;
   background-clip: padding-box !important;
 }
 
-/* =========================================================
-   15. Safe catch-all cleanup for Discord surfaces
-   This is intentionally late so it catches newer Discord panels.
-   ========================================================= */
-
-#app-mount :is(
-  [class^="container_"], [class*=" container_"],
-  [class^="content_"], [class*=" content_"],
-  [class^="wrapper_"], [class*=" wrapper_"],
-  [class^="inner_"], [class*=" inner_"],
-  [class^="body_"], [class*=" body_"],
-  [class^="main_"], [class*=" main_"]
-) {
-  border-color: var(--lgc-line) !important;
-}
-
-#app-mount :is(
-  [class^="notice_"], [class*=" notice_"],
-  [class^="bar_"], [class*=" bar_"],
-  [class^="banner_"], [class*=" banner_"],
-  [class^="prompt_"], [class*=" prompt_"]
-) {
-  background: var(--lgc-material-soft) !important;
-  border-color: var(--lgc-line) !important;
-}
-
-/* Do not let Discord's old solid greys leak through on common blocks. */
-#app-mount :is(
-  [class^="quickswitcher_"], [class*=" quickswitcher_"],
-  [class^="uploadModal_"], [class*=" uploadModal_"],
-  [class^="keyboardShortcutsModal_"], [class*=" keyboardShortcutsModal_"],
-  [class^="installSize_"], [class*=" installSize_"],
-  [class^="inviteSplash_"], [class*=" inviteSplash_"],
-  [class^="guildSidebar_"], [class*=" guildSidebar_"]
-) {
-  background: var(--lgc-material-strong) !important;
-  border: 1px solid var(--lgc-line-2) !important;
-  border-radius: var(--lgc-radius-lg) !important;
-}
-
-/* =========================================================
-   16. Performance / accessibility
-   ========================================================= */
-
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :root {
-    --lgc-glass-0: rgba(9, 14, 24, .94);
-    --lgc-glass-1: rgba(17, 24, 38, .88);
-    --lgc-glass-2: rgba(26, 35, 52, .72);
+  :root,
+  .theme-dark,
+  .theme-light {
+    --lgc-glass: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)), rgba(13,18,30,0.90);
+    --lgc-glass-strong: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04)), rgba(10,15,25,0.95);
+    --lgc-glass-soft: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025)), rgba(22,29,44,0.70);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .001ms !important;
+  #app-mount *,
+  #app-mount *::before,
+  #app-mount *::after {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: .001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  :root,
+  .theme-dark,
+  .theme-light {
+    --lgc-blur: 8px;
+    --lgc-blur-strong: 12px;
   }
 }
