@@ -1,6 +1,6 @@
 /**
  * LiquidGlassCord
- * Version: 7.0.0
+ * Version: 8.0.0
  * Author: Awizz
  *
  * Single-file Apple Liquid Glass inspired Discord theme.
@@ -32,74 +32,80 @@
   --lgc-text: #f5f7fb;
   --lgc-text-soft: #c9d1de;
   --lgc-text-muted: #8993a5;
-  --lgc-border: rgba(255,255,255,.125);
-  --lgc-border-strong: rgba(255,255,255,.205);
-  --lgc-border-soft: rgba(255,255,255,.070);
-  --lgc-shadow: 0 12px 32px rgba(0,0,0,.24);
+
+  /* v8: thinner outlines, less “CSS border” feeling. */
+  --lgc-border: rgba(255,255,255,.082);
+  --lgc-border-strong: rgba(255,255,255,.135);
+  --lgc-border-soft: rgba(255,255,255,.040);
+  --lgc-shadow: 0 12px 32px rgba(0,0,0,.22);
   --lgc-shadow-strong: 0 18px 52px rgba(0,0,0,.34);
-  --lgc-inset: inset 0 1px 0 rgba(255,255,255,.145), inset 0 -1px 0 rgba(255,255,255,.032);
+  --lgc-inset: inset 0 1px 0 rgba(255,255,255,.115), inset 0 -1px 0 rgba(255,255,255,.020);
   --lgc-transition: 160ms cubic-bezier(.2,.8,.2,1);
 
   --lgc-panel:
-    linear-gradient(180deg, rgba(255,255,255,.102), rgba(255,255,255,.036)),
-    rgba(10,15,27,.62);
+    linear-gradient(180deg, rgba(255,255,255,.088), rgba(255,255,255,.030)),
+    rgba(10,15,27,.60);
   --lgc-panel-solid:
-    linear-gradient(180deg, rgba(255,255,255,.102), rgba(255,255,255,.034)),
-    rgba(10,15,27,.80);
+    linear-gradient(180deg, rgba(255,255,255,.094), rgba(255,255,255,.032)),
+    rgba(10,15,27,.78);
+  --lgc-panel-top:
+    linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.025)),
+    rgba(8,12,21,.50);
   --lgc-card:
-    linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.025)),
-    rgba(25,33,50,.30);
+    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
+    rgba(25,33,50,.22);
   --lgc-card-hover:
-    linear-gradient(180deg, rgba(255,255,255,.130), rgba(255,255,255,.045)),
-    rgba(40,52,75,.40);
+    linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.034)),
+    rgba(40,52,75,.34);
   --lgc-input:
-    linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.024)),
-    rgba(5,8,16,.48);
+    linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.020)),
+    rgba(5,8,16,.45);
   --lgc-selected:
-    linear-gradient(180deg, rgba(255,255,255,.145), rgba(255,255,255,.048)),
-    linear-gradient(135deg, rgba(var(--lgc-accent-rgb),.31), rgba(var(--lgc-accent-2-rgb),.17));
+    linear-gradient(180deg, rgba(255,255,255,.125), rgba(255,255,255,.038)),
+    linear-gradient(135deg, rgba(var(--lgc-accent-rgb),.28), rgba(var(--lgc-accent-2-rgb),.14));
+  --lgc-fade-bottom: linear-gradient(to bottom, rgba(10,15,27,0), rgba(10,15,27,.52) 70%, rgba(10,15,27,.70));
 
   --background-primary: rgba(12,17,28,.40) !important;
   --background-secondary: rgba(12,17,28,.54) !important;
   --background-secondary-alt: rgba(8,12,21,.64) !important;
   --background-tertiary: rgba(5,8,15,.72) !important;
-  --background-accent: rgba(var(--lgc-accent-rgb),.22) !important;
-  --background-floating: rgba(10,15,25,.88) !important;
-  --background-nested-floating: rgba(18,24,38,.74) !important;
+  --background-accent: rgba(var(--lgc-accent-rgb),.18) !important;
+  --background-floating: rgba(10,15,25,.86) !important;
+  --background-nested-floating: rgba(18,24,38,.70) !important;
   --background-mobile-primary: rgba(12,17,28,.48) !important;
   --background-mobile-secondary: rgba(8,12,21,.64) !important;
-  --background-modifier-hover: rgba(255,255,255,.060) !important;
-  --background-modifier-active: rgba(255,255,255,.092) !important;
-  --background-modifier-selected: rgba(var(--lgc-accent-rgb),.18) !important;
-  --background-modifier-accent: rgba(255,255,255,.082) !important;
-  --background-message-hover: rgba(255,255,255,.040) !important;
-  --channeltextarea-background: rgba(7,10,18,.58) !important;
-  --input-background: rgba(7,10,18,.56) !important;
-  --modal-background: rgba(11,16,27,.88) !important;
-  --modal-footer-background: rgba(7,10,18,.72) !important;
+  --background-modifier-hover: rgba(255,255,255,.052) !important;
+  --background-modifier-active: rgba(255,255,255,.080) !important;
+  --background-modifier-selected: rgba(var(--lgc-accent-rgb),.16) !important;
+  --background-modifier-accent: rgba(255,255,255,.055) !important;
+  --background-message-hover: rgba(255,255,255,.035) !important;
+  --channeltextarea-background: rgba(7,10,18,.54) !important;
+  --input-background: rgba(7,10,18,.52) !important;
+  --modal-background: rgba(11,16,27,.86) !important;
+  --modal-footer-background: rgba(7,10,18,.70) !important;
 
   --bg-base-primary: rgba(12,17,28,.40) !important;
   --bg-base-secondary: rgba(12,17,28,.54) !important;
   --bg-base-tertiary: rgba(5,8,15,.72) !important;
-  --bg-surface-overlay: rgba(10,15,25,.86) !important;
-  --bg-surface-raised: rgba(26,34,50,.50) !important;
-  --background-base-lowest: rgba(4,6,12,.86) !important;
-  --background-base-lower: rgba(7,10,18,.70) !important;
-  --background-base-low: rgba(12,17,28,.54) !important;
-  --background-base-high: rgba(18,24,38,.44) !important;
-  --background-surface-low: rgba(18,24,38,.36) !important;
-  --background-surface-high: rgba(25,32,47,.44) !important;
-  --background-surface-higher: rgba(32,40,58,.50) !important;
-  --background-surface-highest: rgba(42,52,72,.56) !important;
+  --bg-surface-overlay: rgba(10,15,25,.84) !important;
+  --bg-surface-raised: rgba(26,34,50,.44) !important;
+  --background-base-lowest: rgba(4,6,12,.84) !important;
+  --background-base-lower: rgba(7,10,18,.66) !important;
+  --background-base-low: rgba(12,17,28,.50) !important;
+  --background-base-high: rgba(18,24,38,.38) !important;
+  --background-surface-low: rgba(18,24,38,.30) !important;
+  --background-surface-high: rgba(25,32,47,.38) !important;
+  --background-surface-higher: rgba(32,40,58,.44) !important;
+  --background-surface-highest: rgba(42,52,72,.50) !important;
   --chat-background-default: transparent !important;
   --home-background: transparent !important;
   --custom-channel-members-bg: transparent !important;
   --custom-guild-sidebar-background: transparent !important;
-  --custom-app-top-bar-background: rgba(8,12,21,.54) !important;
-  --border-faint: rgba(255,255,255,.050) !important;
-  --border-subtle: rgba(255,255,255,.080) !important;
-  --border-normal: rgba(255,255,255,.125) !important;
-  --border-strong: rgba(255,255,255,.205) !important;
+  --custom-app-top-bar-background: rgba(8,12,21,.48) !important;
+  --border-faint: rgba(255,255,255,.030) !important;
+  --border-subtle: rgba(255,255,255,.045) !important;
+  --border-normal: rgba(255,255,255,.070) !important;
+  --border-strong: rgba(255,255,255,.125) !important;
 
   --text-normal: var(--lgc-text) !important;
   --text-muted: var(--lgc-text-muted) !important;
@@ -122,9 +128,9 @@
   --status-warning: rgb(var(--lgc-yellow-rgb)) !important;
   --status-danger: rgb(var(--lgc-red-rgb)) !important;
 
-  --scrollbar-thin-thumb: rgba(255,255,255,.22) !important;
+  --scrollbar-thin-thumb: rgba(255,255,255,.18) !important;
   --scrollbar-thin-track: transparent !important;
-  --scrollbar-auto-thumb: rgba(255,255,255,.18) !important;
+  --scrollbar-auto-thumb: rgba(255,255,255,.14) !important;
   --scrollbar-auto-track: transparent !important;
 
   --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif !important;
@@ -156,9 +162,9 @@ body {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 14% 10%, rgba(var(--lgc-accent-rgb),.33), transparent 31%),
-    radial-gradient(circle at 82% 4%, rgba(var(--lgc-accent-2-rgb),.23), transparent 31%),
-    radial-gradient(circle at 62% 86%, rgba(var(--lgc-cyan-rgb),.12), transparent 34%),
+    radial-gradient(circle at 14% 10%, rgba(var(--lgc-accent-rgb),.30), transparent 31%),
+    radial-gradient(circle at 82% 4%, rgba(var(--lgc-accent-2-rgb),.21), transparent 31%),
+    radial-gradient(circle at 62% 86%, rgba(var(--lgc-cyan-rgb),.11), transparent 34%),
     linear-gradient(135deg, var(--lgc-bg) 0%, var(--lgc-bg-2) 48%, var(--lgc-bg-3) 100%) !important;
 }
 
@@ -169,15 +175,19 @@ body {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.052) 22%, transparent 44%),
-    radial-gradient(circle at 50% -8%, rgba(255,255,255,.080), transparent 36%);
-  opacity: .52;
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.045) 22%, transparent 44%),
+    radial-gradient(circle at 50% -8%, rgba(255,255,255,.070), transparent 36%);
+  opacity: .48;
   mix-blend-mode: screen;
 }
 
 ::selection {
   background: rgba(var(--lgc-accent-rgb),.35) !important;
   color: #fff !important;
+}
+
+#app-mount * {
+  outline-color: rgba(var(--lgc-accent-rgb),.28) !important;
 }
 
 /* Discord shell reset */
@@ -210,7 +220,7 @@ body {
   background-color: transparent !important;
 }
 
-/* Do not clip context-menu submenus */
+/* Context menu/submenus */
 #app-mount :is(
   .layerContainer__59d0d,
   .layerContainer_da8173,
@@ -236,16 +246,30 @@ body {
   backdrop-filter: blur(var(--lgc-popout-blur)) saturate(150%) !important;
 }
 
+/* Bring submenu closer to parent menu. */
+#app-mount :is(.submenuPaddingContainer_c1e9c4, [class^='submenuPaddingContainer_'], [class*=' submenuPaddingContainer_']) {
+  padding-left: 0 !important;
+  margin-left: -6px !important;
+}
+
+#app-mount :is(.submenu_c1e9c4, [class^='submenu_'], [class*=' submenu_']) {
+  margin-left: -2px !important;
+}
+
 #app-mount :is(.item_c1e9c4, [class^='item_'][role='menuitem'], [role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio']) {
   border-radius: 11px !important;
   margin: 2px 4px !important;
 }
 
 #app-mount :is(.item_c1e9c4.focused_c1e9c4, .item_c1e9c4:hover, [role='menuitem']:hover, [role='menuitemcheckbox']:hover, [role='menuitemradio']:hover) {
-  background: rgba(var(--lgc-accent-rgb),.18) !important;
+  background: rgba(var(--lgc-accent-rgb),.16) !important;
 }
 
-/* Main left layout */
+#app-mount :is(.caret_c1e9c4, .arrow_c1e9c4, [class^='caret_'], [class*=' caret_'], [class^='arrow_'], [class*=' arrow_']) {
+  opacity: .90 !important;
+}
+
+/* Left shell */
 #app-mount .sidebar__5e434 {
   margin: 0 !important;
   background: transparent !important;
@@ -284,24 +308,39 @@ body {
 }
 
 #app-mount :is(.childWrapper__6e9f8, .circleIconButton__5bc7e, .folderPreviewWrapper__48112) {
-  background: linear-gradient(180deg, rgba(255,255,255,.120), rgba(255,255,255,.040)), rgba(255,255,255,.045) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
-  box-shadow: var(--lgc-inset) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.030)), rgba(255,255,255,.035) !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
-#app-mount :is(.folderGroupBackground__48112, .folderGuildsList__48112, .expandedFolderBackground_ef3116) {
-  background: rgba(255,255,255,.045) !important;
+/* Open folder background: smaller and centered so it does not overflow visually. */
+#app-mount :is(.folderGroupBackground__48112, .expandedFolderBackground_ef3116, [class^='folderGroupBackground_'], [class*=' folderGroupBackground_'], [class^='expandedFolderBackground_'], [class*=' expandedFolderBackground_']) {
+  left: 9px !important;
+  right: auto !important;
+  width: 54px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.020)), rgba(255,255,255,.030) !important;
+  border: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+#app-mount :is(.folderGuildsList__48112, [class^='folderGuildsList_'], [class*=' folderGuildsList_']) {
+  width: 54px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  background: transparent !important;
   border-radius: 18px !important;
 }
 
 #app-mount :is(.pill_e5445c, .pill__58105) span,
 #app-mount :is(.item__58105, .item_58105) {
-  background: rgba(255,255,255,.78) !important;
+  background: rgba(255,255,255,.72) !important;
   border-radius: 999px !important;
 }
 
 /* Channel list */
 #app-mount .sidebarList__5e434 {
+  position: relative !important;
   margin: 8px !important;
   margin-bottom: calc(var(--custom-app-panels-height, 58px) + 18px) !important;
   border-radius: var(--lgc-radius-xl) !important;
@@ -311,6 +350,21 @@ body {
   -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
   backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
   overflow: hidden !important;
+}
+
+#app-mount .sidebarList__5e434::after,
+#app-mount .peopleColumn__133bf::after,
+#app-mount .membersWrap_c8ffbb::after,
+#app-mount .nowPlayingColumn__133bf::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42px;
+  z-index: 4;
+  pointer-events: none;
+  background: var(--lgc-fade-bottom);
 }
 
 #app-mount :is(.sidebarListRounded__5e434, .container__2637a, .scroller__629e4, .content_d125d2, .positionedContainer__629e4, .privateChannels_e6b769, .scroller__99e7c) {
@@ -327,7 +381,7 @@ body {
 
 #app-mount .animatedContainer_f37cb1 {
   border-radius: 0 0 16px 16px !important;
-  background: rgba(5,8,16,.18) !important;
+  background: rgba(5,8,16,.16) !important;
   box-shadow: none !important;
 }
 
@@ -349,19 +403,20 @@ body {
 #app-mount .link__2ea32 {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
-  border: 1px solid transparent !important;
-  transition: background-color var(--lgc-transition), border-color var(--lgc-transition), box-shadow var(--lgc-transition) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transition: background-color var(--lgc-transition), box-shadow var(--lgc-transition) !important;
 }
 
 #app-mount :is(.link__2ea32:hover, .wrapper__29444:hover, .mainContent__29444:hover) {
-  background: rgba(255,255,255,.055) !important;
-  border-color: var(--lgc-border-soft) !important;
+  background: rgba(255,255,255,.052) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
 }
 
 #app-mount :is(.selected_c69b6d, .selectedChannel_c69b6d, .modeSelected__2ea32) .link__2ea32,
 #app-mount .containerDefault_c69b6d.selected_c69b6d .link__2ea32 {
   background: var(--lgc-selected) !important;
-  border-color: rgba(var(--lgc-accent-rgb),.23) !important;
+  border: 0 !important;
   box-shadow: var(--lgc-inset) !important;
 }
 
@@ -373,23 +428,23 @@ body {
   background: transparent !important;
 }
 
-/* Boost/progress/pills */
+/* Boost/progress/membercount pills */
 #app-mount :is(.container__0d0f9, .containerWithMargin__0d0f9, .contentContainer__0d0f9) {
   background: transparent !important;
   border: 0 !important;
 }
 
 #app-mount :is(.progressContainer__0d0f9, .bar__7aaec, .emptyBar__7aaec, .wrapper__260e1, .moreUsers__183c2) {
-  background: rgba(255,255,255,.090) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
+  background: rgba(255,255,255,.070) !important;
+  border: 0 !important;
   border-radius: 999px !important;
-  box-shadow: var(--lgc-inset) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.070) !important;
 }
 
 #app-mount .progress__0d0f9,
 #app-mount [class^='progressBar_'],
 #app-mount [class*=' progressBar_'] {
-  background: linear-gradient(90deg, rgba(var(--lgc-accent-rgb),.88), rgba(var(--lgc-accent-2-rgb),.88)) !important;
+  background: linear-gradient(90deg, rgba(var(--lgc-accent-rgb),.82), rgba(var(--lgc-accent-2-rgb),.72)) !important;
   border-radius: 999px !important;
 }
 
@@ -418,7 +473,24 @@ body {
 }
 
 #app-mount :is(.accountPopoutButton__37e49:hover, .button__201d5:hover, .button__67645:hover) {
-  background: rgba(255,255,255,.080) !important;
+  background: rgba(255,255,255,.075) !important;
+}
+
+/* Top bars: more Apple-like, less bordered. */
+#app-mount :is(.bar_c38106, .systemBar_c38106, .title_c38106, .trailing_c38106, .leading_c38106) {
+  background: linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.020)), rgba(8,12,21,.46) !important;
+  border: 0 !important;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.045), 0 10px 30px rgba(0,0,0,.18) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
+}
+
+#app-mount :is(.winButton_c38106, .winButtonMinMax_c38106, .winButtonClose_c38106) {
+  border-radius: 9px !important;
+}
+
+#app-mount :is(.winButton_c38106:hover, .winButtonMinMax_c38106:hover) {
+  background: rgba(255,255,255,.075) !important;
 }
 
 /* Friends / DMs page */
@@ -432,12 +504,12 @@ body {
 #app-mount :is(.container__9293f.themed__9293f, .container__9293f) {
   margin: 8px 8px 10px 0 !important;
   min-height: 48px !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
+  border-radius: 20px !important;
+  background: var(--lgc-panel-top) !important;
+  border: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.075), 0 8px 26px rgba(0,0,0,.16) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
   overflow: hidden !important;
 }
 
@@ -460,25 +532,27 @@ body {
   border-radius: 999px !important;
   background: transparent !important;
   color: rgba(245,247,251,.72) !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 #app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.item__133bf, .item_aa8da2):hover {
-  background: rgba(255,255,255,.065) !important;
+  background: rgba(255,255,255,.060) !important;
   color: #fff !important;
 }
 
 #app-mount :is(.tabBar__133bf, .topPill_aa8da2) :is(.selected_aa8da2, .selected__133bf, [aria-selected='true']) {
   background: var(--lgc-selected) !important;
-  border: 1px solid rgba(var(--lgc-accent-rgb),.24) !important;
+  border: 0 !important;
   box-shadow: var(--lgc-inset) !important;
   color: #fff !important;
 }
 
 #app-mount .addFriend__133bf {
-  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.055)), rgba(var(--lgc-accent-rgb),.78) !important;
-  border: 1px solid rgba(255,255,255,.20) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.17), rgba(255,255,255,.050)), rgba(var(--lgc-accent-rgb),.76) !important;
+  border: 0 !important;
   border-radius: 999px !important;
-  box-shadow: 0 8px 20px rgba(var(--lgc-accent-rgb),.18), var(--lgc-inset) !important;
+  box-shadow: 0 8px 20px rgba(var(--lgc-accent-rgb),.16), var(--lgc-inset) !important;
   color: #fff !important;
 }
 
@@ -487,7 +561,9 @@ body {
   border: 0 !important;
 }
 
-#app-mount .peopleColumn__133bf {
+#app-mount .peopleColumn__133bf,
+#app-mount .nowPlayingColumn__133bf {
+  position: relative !important;
   margin: 0 8px 8px 0 !important;
   border-radius: var(--lgc-radius-xl) !important;
   background: var(--lgc-panel) !important;
@@ -504,12 +580,12 @@ body {
 
 #app-mount .peopleListItem_cc6179 {
   border-radius: 16px !important;
-  border: 1px solid transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 #app-mount .peopleListItem_cc6179:hover {
   background: var(--lgc-card-hover) !important;
-  border-color: var(--lgc-border-soft) !important;
   box-shadow: var(--lgc-inset) !important;
 }
 
@@ -517,27 +593,15 @@ body {
   background: transparent !important;
 }
 
-#app-mount .nowPlayingColumn__133bf {
-  margin: 0 8px 8px 0 !important;
-  border-radius: var(--lgc-radius-xl) !important;
-  background: var(--lgc-panel) !important;
-  border: 1px solid var(--lgc-border) !important;
-  box-shadow: var(--lgc-shadow), var(--lgc-inset) !important;
-  -webkit-backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  backdrop-filter: blur(var(--lgc-blur)) saturate(145%) !important;
-  overflow: hidden !important;
-}
-
 #app-mount :is(.itemCard__7e549, .itemCard__7d20c, .outer_c0bea0, .activeNow__7d20c, [class^='itemCard_'], [class*=' itemCard_']) {
   background: var(--lgc-card) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
+  border: 0 !important;
   border-radius: var(--lgc-radius-lg) !important;
   box-shadow: var(--lgc-inset) !important;
 }
 
 #app-mount :is(.itemCard__7e549, .itemCard__7d20c, [class^='itemCard_'], [class*=' itemCard_']):hover {
   background: var(--lgc-card-hover) !important;
-  border-color: var(--lgc-border) !important;
 }
 
 /* Left DM rows */
@@ -548,23 +612,23 @@ body {
 
 #app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0, .link__972a0, .layout__20a53, .avatarWithText__972a0, .content__20a53, .nameAndDecorators__20a53, .name__20a53, .subText__20a53) {
   background: transparent !important;
+  border: 0 !important;
   box-shadow: none !important;
 }
 
 #app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0) {
   border-radius: 15px !important;
-  border: 1px solid transparent !important;
-  transition: background-color var(--lgc-transition), border-color var(--lgc-transition), box-shadow var(--lgc-transition), transform var(--lgc-transition) !important;
+  border: 0 !important;
+  transition: background-color var(--lgc-transition), box-shadow var(--lgc-transition), transform var(--lgc-transition) !important;
 }
 
 #app-mount :is(.interactive_f88cfd, .interactive__972a0, .linkButton__972a0):hover {
-  background: rgba(255,255,255,.055) !important;
-  border-color: var(--lgc-border-soft) !important;
+  background: rgba(255,255,255,.050) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
 }
 
 #app-mount :is(.interactiveSelected__972a0, .selected_f88cfd) {
   background: var(--lgc-selected) !important;
-  border-color: rgba(var(--lgc-accent-rgb),.22) !important;
   box-shadow: var(--lgc-inset) !important;
 }
 
@@ -581,10 +645,18 @@ body {
   border: none !important;
 }
 
-#app-mount :is(.title_f75fb0, .container__9293f, .themed__9293f, .upperContainer__9293f, .toolbar__9293f, .children__9293f, .titleWrapper__9293f, .bar_c38106, .systemBar_c38106, .title_c38106, .trailing_c38106, .leading_c38106) {
-  background: linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.028)), rgba(8,12,21,.50) !important;
-  border-bottom: 1px solid var(--lgc-border-soft) !important;
-  box-shadow: var(--lgc-inset) !important;
+#app-mount :is(.title_f75fb0, .titleWrapper__9293f) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount .chat_f75fb0 > .subtitleContainer_f75fb0 > .container__9293f {
+  margin: 8px 8px 10px 0 !important;
+  border-radius: 20px !important;
+  background: var(--lgc-panel-top) !important;
+  border: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.075), 0 8px 26px rgba(0,0,0,.16) !important;
 }
 
 #app-mount .chatGradient__36d07,
@@ -598,11 +670,11 @@ body {
 }
 
 #app-mount :is(.message__5126c:hover, .cozyMessage__5126c:hover, .messageListItem__5126c:hover) {
-  background: rgba(255,255,255,.040) !important;
+  background: rgba(255,255,255,.035) !important;
 }
 
 #app-mount :is(.mentioned__5126c, .mentioned_c19a55) {
-  background: linear-gradient(90deg, rgba(var(--lgc-yellow-rgb),.17), rgba(var(--lgc-yellow-rgb),.035) 54%, transparent) !important;
+  background: linear-gradient(90deg, rgba(var(--lgc-yellow-rgb),.15), rgba(var(--lgc-yellow-rgb),.030) 54%, transparent) !important;
   border-radius: 16px !important;
 }
 
@@ -617,8 +689,8 @@ body {
 }
 
 #app-mount :is(.content__908e2, .divider__908e2 span) {
-  background: rgba(7,10,18,.62) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
+  background: rgba(7,10,18,.56) !important;
+  border: 0 !important;
   border-radius: 999px !important;
   color: var(--lgc-text-muted) !important;
 }
@@ -637,7 +709,7 @@ body {
 }
 
 #app-mount :is(.button_f7ecac:hover, .hoverBarButton_f84418:hover) {
-  background: rgba(255,255,255,.105) !important;
+  background: rgba(255,255,255,.090) !important;
 }
 
 /* Chat input */
@@ -666,7 +738,7 @@ body {
 }
 
 #app-mount :is(.button__74017:hover, .button__24af7:hover, .buttonWrapper__24af7:hover, .attachButton__0923f:hover, .emojiButton__74017:hover, .stickerButton__74017:hover, .vc-chatbar-button:hover, .vc-trans-chat-button:hover) {
-  background: rgba(255,255,255,.080) !important;
+  background: rgba(255,255,255,.075) !important;
 }
 
 /* Members */
@@ -678,6 +750,7 @@ body {
 }
 
 #app-mount .membersWrap_c8ffbb {
+  position: relative !important;
   margin: 8px 8px 8px 0 !important;
   padding: 0 !important;
   border-radius: var(--lgc-radius-xl) !important;
@@ -695,18 +768,18 @@ body {
 
 #app-mount :is(.member_c8ffbb, .member__5d473, .memberInner__5d473, .container__91a9d, .layout__91a9d, .childContainer__91a9d, .clickable__91a9d, .content__91a9d, .nameAndDecorators__91a9d, .name__91a9d, .subText__91a9d) {
   background: transparent !important;
+  border: 0 !important;
   box-shadow: none !important;
 }
 
 #app-mount :is(.member_c8ffbb, .member__5d473, .container__91a9d) {
   margin: 1px 6px !important;
   border-radius: 15px !important;
-  border: 1px solid transparent !important;
 }
 
 #app-mount :is(.member_c8ffbb:hover, .member__5d473:hover, .container__91a9d:hover, .clickable__91a9d:hover) {
-  background: rgba(255,255,255,.055) !important;
-  border-color: var(--lgc-border-soft) !important;
+  background: rgba(255,255,255,.050) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.050) !important;
 }
 
 #app-mount :is(.membersGroup_c8ffbb, .membersGroupHeader_c8ffbb) {
@@ -729,14 +802,14 @@ body {
 }
 
 #app-mount :is(.reaction__23977, .reactionBtn__23977, [class^='reaction_'], [class*=' reaction_']) {
-  background: rgba(255,255,255,.055) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
+  background: rgba(255,255,255,.048) !important;
+  border: 0 !important;
   border-radius: 999px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
 }
 
 #app-mount :is(.reaction__23977:hover, .reactionMe__23977, [class^='reactionMe_'], [class*=' reactionMe_']) {
-  background: rgba(var(--lgc-accent-rgb),.18) !important;
-  border-color: rgba(var(--lgc-accent-rgb),.35) !important;
+  background: rgba(var(--lgc-accent-rgb),.16) !important;
 }
 
 /* Popouts, modals, profiles, pickers */
@@ -754,7 +827,6 @@ body {
   .userPopoutOuter_c69a7b,
   .userProfileOuter_c69a7b,
   [class^='modal_'], [class*=' modal_'],
-  [class^='popout_'], [class*=' popout_'],
   [class^='picker_'], [class*=' picker_'],
   [class^='drawerSizingWrapper_'], [class*=' drawerSizingWrapper_'],
   [class^='autocomplete_'], [class*=' autocomplete_'],
@@ -771,8 +843,8 @@ body {
 }
 
 #app-mount :is(.overlayBackground_c69a7b, .bodyInnerWrapper_c69a7b, .body__24502, .footer__49fc1) {
-  background: rgba(8,12,21,.46) !important;
-  border: 1px solid var(--lgc-border-soft) !important;
+  background: rgba(8,12,21,.42) !important;
+  border: 0 !important;
   border-radius: var(--lgc-radius-lg) !important;
 }
 
@@ -853,8 +925,8 @@ body {
 #app-mount textarea:focus,
 #app-mount :is([class^='input_'], [class*=' input_']):focus,
 #app-mount :is([class^='searchBar_'], [class*=' searchBar_']):focus-within {
-  border-color: rgba(var(--lgc-accent-rgb),.48) !important;
-  box-shadow: 0 0 0 3px rgba(var(--lgc-accent-rgb),.13), var(--lgc-inset) !important;
+  border-color: rgba(var(--lgc-accent-rgb),.34) !important;
+  box-shadow: 0 0 0 2px rgba(var(--lgc-accent-rgb),.09), var(--lgc-inset) !important;
 }
 
 #app-mount button,
@@ -864,16 +936,16 @@ body {
 }
 
 #app-mount :is(.lookFilled__201d5, .lookFilled_a22cb0, .actionButton_f8fa06, [class^='lookFilled_'], [class*=' lookFilled_'], [class^='actionButton_'], [class*=' actionButton_']) {
-  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.052)), rgba(var(--lgc-accent-rgb),.74) !important;
-  border: 1px solid rgba(255,255,255,.21) !important;
-  box-shadow: 0 10px 22px rgba(var(--lgc-accent-rgb),.18), var(--lgc-inset) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.044)), rgba(var(--lgc-accent-rgb),.72) !important;
+  border: 0 !important;
+  box-shadow: 0 10px 22px rgba(var(--lgc-accent-rgb),.15), var(--lgc-inset) !important;
 }
 
 #app-mount button:hover,
 #app-mount :is([class^='button_'], [class*=' button_']):hover,
 #app-mount :is([class^='actionButton_'], [class*=' actionButton_']):hover {
   transform: translateY(-1px);
-  filter: brightness(1.08);
+  filter: brightness(1.06);
 }
 
 #app-mount button:active,
@@ -881,12 +953,41 @@ body {
   transform: translateY(0) scale(.985);
 }
 
-/* Badges and Vencord extras */
-#app-mount :is(.botTag__82f07, .botTagRegular__82f07, .botTag__5d473, .px__82f07, .rem__82f07, .badge__10651, .messageBadge__10651, .chipletContainerInner__10651, .messageChipletContainerInner__10651, .clanTagChiplet_c19a55, .numberBadge__463b7, .vc-membercount-widget, .vc-membercount-container, .vc-membercount-tooltip, .vc-platform-indicator, .vc-platform-indicator-message) {
-  background: rgba(var(--lgc-accent-rgb),.24) !important;
-  border: 1px solid rgba(var(--lgc-accent-rgb),.32) !important;
+/* Badges, tags, roles: remove the ugly visible outlines. */
+#app-mount :is(
+  .botTag__82f07,
+  .botTagRegular__82f07,
+  .botTag__5d473,
+  .px__82f07,
+  .rem__82f07,
+  .badge__10651,
+  .messageBadge__10651,
+  .chipletContainerInner__10651,
+  .messageChipletContainerInner__10651,
+  .clanTagChiplet_c19a55,
+  .numberBadge__463b7,
+  .vc-membercount-widget,
+  .vc-membercount-container,
+  .vc-membercount-tooltip,
+  .vc-platform-indicator,
+  .vc-platform-indicator-message,
+  [class^='botTag_'], [class*=' botTag_'],
+  [class^='role_'], [class*=' role_'],
+  [class^='badge_'], [class*=' badge_']
+) {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+#app-mount :is(.botTag__82f07, .botTagRegular__82f07, .botTag__5d473, .badge__10651, .messageBadge__10651, .chipletContainerInner__10651, .messageChipletContainerInner__10651, .clanTagChiplet_c19a55, .numberBadge__463b7) {
   border-radius: 999px !important;
-  box-shadow: var(--lgc-inset) !important;
+  background: rgba(var(--lgc-accent-rgb),.22) !important;
+}
+
+#app-mount :is(.vc-membercount-widget, .vc-membercount-container, .vc-membercount-tooltip) {
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.060) !important;
 }
 
 /* Scrollbars */
@@ -901,14 +1002,14 @@ body {
 
 #app-mount ::-webkit-scrollbar-thumb {
   min-height: 40px;
-  background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.12)) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.10)) !important;
   border: 3px solid transparent !important;
   border-radius: 999px !important;
   background-clip: padding-box !important;
 }
 
 #app-mount ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,.18)) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.16)) !important;
   background-clip: padding-box !important;
 }
 
